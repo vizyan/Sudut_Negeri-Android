@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.qiscus.internship.sudutnegeri.ui.ListGalleryActivity;
+
 public class Splashscreen extends AppCompatActivity {
     private static int splashInterval = 2000;
 
@@ -24,7 +26,7 @@ public class Splashscreen extends AppCompatActivity {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                Intent i = new Intent(Splashscreen.this, LandingActivity.class);
+                Intent i = new Intent(Splashscreen.this, ListGalleryActivity.class);
                 startActivity(i);
                 this.finish();
             }

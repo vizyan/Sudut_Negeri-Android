@@ -7,6 +7,8 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 
+import com.qiscus.internship.sudutnegeri.ui.ListGalleryActivity;
+
 public class LandingActivity extends AppCompatActivity {
 
     @Override
