@@ -26,7 +26,7 @@ public class Splashscreen extends AppCompatActivity {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                Intent i = new Intent(Splashscreen.this, ListGalleryActivity.class);
+                Intent i = new Intent(Splashscreen.this, LandingActivity.class);
                 startActivity(i);
                 this.finish();
             }

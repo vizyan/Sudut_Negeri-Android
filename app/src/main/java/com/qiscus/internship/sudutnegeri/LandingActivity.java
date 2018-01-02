@@ -11,19 +11,29 @@ import com.qiscus.internship.sudutnegeri.ui.ListGalleryActivity;
 
 public class LandingActivity extends AppCompatActivity {
 
+    Button btnLogin, btnRegister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
-        Button btnlogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnRegister);
 
-        btnlogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent login = new Intent(LandingActivity.this, LoginActivity.class);
                 startActivity(login);
-                finish();
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent list = new Intent(LandingActivity.this, ListGalleryActivity.class);
+                startActivity(list);
             }
         });
     }
