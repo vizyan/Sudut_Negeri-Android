@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/splashscreen"
     tools:context="com.qiscus.internship.sudutnegeri.Splashscreen">
 
 </android.support.constraint.ConstraintLayout>
