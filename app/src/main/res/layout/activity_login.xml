@@ -79,23 +79,23 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:textSize="18sp"
-            android:text="Siapkah kamu mengabdi untuk negeri?"
-            android:textColor="#FEFEFE" />
+            android:text="Lanjutkan pengabdianmu disini"
+            android:textColor="#FEFEFE"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/button3"
-            android:textColor="#FEFEFE"
             android:layout_width="100dp"
-            android:textSize="18sp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="Siap"
-            android:textAllCaps="false"
-            android:background="@drawable/button_login"
-            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_login"
+            android:text="Lanjut"
+            android:textAllCaps="false"
+            android:textColor="#FEFEFE"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </RelativeLayout>

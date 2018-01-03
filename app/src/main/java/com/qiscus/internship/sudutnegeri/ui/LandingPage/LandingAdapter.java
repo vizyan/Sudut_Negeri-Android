@@ -52,7 +52,7 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ProjekVi
     @Override
     public int getItemCount() {
         if (projekList == null) return 0;
-        return projekList.size();
+        return 5;
     }
 
     public class ProjekViewHolder extends RecyclerView.ViewHolder {
