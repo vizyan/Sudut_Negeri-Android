@@ -15,7 +15,7 @@ import retrofit2.http.POST;
 public interface Api {
 
     @GET("cars")
-    Call<JsonObject> getCarAll();
+    Call<JsonObject> getProjekAll();
 
     @FormUrlEncoded
     @POST("cars")

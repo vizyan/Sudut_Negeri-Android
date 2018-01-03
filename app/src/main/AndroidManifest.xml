@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LandingActivity" />
+        <activity android:name=".ui.LandingPage.LandingActivity" />
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/Splashscreen" />
