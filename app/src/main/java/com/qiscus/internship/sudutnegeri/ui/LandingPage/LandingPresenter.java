@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui;
+package com.qiscus.internship.sudutnegeri.ui.LandingPage;
 
 import android.util.Log;
 
@@ -17,18 +17,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by vizyan on 02/01/18.
+ * Created by vizyan on 03/01/18.
  */
 
-public class ListGalleryPresenter {
+public class LandingPresenter {
 
-    private ListGalleryView listGalleryView;
+    private LandingView landingView;
 
-    public ListGalleryPresenter(ListGalleryView listGalleryView){
-        this.listGalleryView = listGalleryView;
+    public LandingPresenter(LandingView landingView){
+        this.landingView = landingView;
     }
 
-    public void showListGallery(){
+    public void showList(){
         RetrofitClient.getInstance()
                 .getApi()
                 .getProjekAll()
@@ -40,20 +40,18 @@ public class ListGalleryPresenter {
                             JsonArray data = body.get("data").getAsJsonArray();
                             Type type = new TypeToken<List<Car>>(){}.getType();
 
-                            List<Car> carList = new Gson().fromJson(data, type);
+                            List<Car> projectList = new Gson().fromJson(data, type);
 
-                            listGalleryView.showData(carList);
+                            landingView.showData(projectList);
 
-                            Log.d("ListGallery", "onRespone" + carList.toString());
-                        } else {
-                            listGalleryView.onFailure("NO DATA");
+                            Log.d("ListGallery", "onRespone" + projectList.toString());
                         }
+
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        t.printStackTrace();
-                        listGalleryView.onFailure(t.getMessage());
+
                     }
                 });
     }

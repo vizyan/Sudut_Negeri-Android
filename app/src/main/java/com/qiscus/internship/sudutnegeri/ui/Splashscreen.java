@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri;
+package com.qiscus.internship.sudutnegeri.ui;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.qiscus.internship.sudutnegeri.ui.ListGalleryActivity;
+import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.ui.LandingPage.LandingActivity;
 
 public class Splashscreen extends AppCompatActivity {
     private static int splashInterval = 2000;

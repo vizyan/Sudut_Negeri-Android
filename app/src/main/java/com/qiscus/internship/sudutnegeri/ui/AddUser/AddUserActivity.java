@@ -1,13 +1,14 @@
-package com.qiscus.internship.sudutnegeri;
+package com.qiscus.internship.sudutnegeri.ui.AddUser;
 
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
-public class LoginActivity extends AppCompatActivity {
+import com.qiscus.internship.sudutnegeri.R;
+
+public class AddUserActivity extends AppCompatActivity {
 
     RelativeLayout relativeLayout;
     AnimationDrawable animationDrawable;
@@ -16,15 +17,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_add_user);
 
-        relativeLayout = findViewById(R.id.relative);
+        relativeLayout = findViewById(R.id.relativeRegister);
         animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
-
         animationDrawable.setEnterFadeDuration(3000);
         animationDrawable.setExitFadeDuration(3000);
+
     }
 
     @Override
