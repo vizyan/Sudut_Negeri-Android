@@ -1,9 +1,11 @@
-package com.qiscus.internship.sudutnegeri;
+package com.qiscus.internship.sudutnegeri.ui;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
+
+import com.qiscus.internship.sudutnegeri.R;
 
 public class AboutActivity extends AppCompatActivity {
 

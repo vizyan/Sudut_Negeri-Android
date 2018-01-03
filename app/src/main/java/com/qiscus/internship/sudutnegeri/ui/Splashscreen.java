@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.qiscus.internship.sudutnegeri.AboutActivity;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.ui.LandingPage.LandingActivity;
+import com.qiscus.internship.sudutnegeri.ui.LandingPage.LandingPresenter;
 
 public class Splashscreen extends AppCompatActivity {
     private static int splashInterval = 2000;
@@ -28,7 +28,7 @@ public class Splashscreen extends AppCompatActivity {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                Intent i = new Intent(Splashscreen.this, AboutActivity.class);
+                Intent i = new Intent(Splashscreen.this, LandingActivity.class);
                 startActivity(i);
                 this.finish();
             }
