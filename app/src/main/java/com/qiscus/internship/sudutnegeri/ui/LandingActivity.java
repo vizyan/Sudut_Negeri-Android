@@ -1,13 +1,13 @@
-package com.qiscus.internship.sudutnegeri;
+package com.qiscus.internship.sudutnegeri.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 
-import com.qiscus.internship.sudutnegeri.ui.ListGalleryActivity;
+import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.ui.AddUser.AddUserActivity;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class LandingActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent list = new Intent(LandingActivity.this, ListGalleryActivity.class);
+                Intent list = new Intent(LandingActivity.this, AddUserActivity.class);
                 startActivity(list);
             }
         });

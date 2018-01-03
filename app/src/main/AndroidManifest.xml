@@ -11,11 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity" />
-
+        <activity android:name=".ui.MainActivity" />
         <activity
-            android:name=".Splashscreen"
+            android:name=".ui.Splashscreen"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Splashscreen">
@@ -25,19 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".LandingActivity" />
-
+        <activity android:name=".ui.LandingActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:theme="@style/Splashscreen"/>
-
-        <activity android:name=".RegisterActivity" />
-
+            android:name=".ui.LoginActivity"
+            android:theme="@style/Splashscreen" />
         <activity android:name=".ui.Add.AddActivity" />
-
-        <activity android:name=".ui.ListGalleryActivity"/>
-
+        <activity android:name=".ui.ListGalleryActivity" />
+        <activity
+            android:name=".ui.AddUser.AddUserActivity"
+            android:theme="@style/Splashscreen"></activity>
     </application>
 
 </manifest>

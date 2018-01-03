@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/animation_bg"
-    tools:context="com.qiscus.internship.sudutnegeri.LoginActivity">
+    tools:context="com.qiscus.internship.sudutnegeri.ui.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,12 +43,12 @@
                     android:layout_marginTop="10dp">
 
                     <android.support.design.widget.TextInputEditText
-                        android:paddingTop="10dp"
                         android:id="@+id/textEmail"
-                        android:background="@null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="E-Mail" />
+                        android:background="@null"
+                        android:hint="E - mail"
+                        android:paddingTop="10dp" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
