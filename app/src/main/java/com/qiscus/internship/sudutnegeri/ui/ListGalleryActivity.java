@@ -50,7 +50,11 @@ public class ListGalleryActivity extends AppCompatActivity implements ListGaller
         });
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
+    }
 
     private void initView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
