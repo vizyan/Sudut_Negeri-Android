@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/lsn500p"
+        android:icon="@drawable/lsn_biru500p"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/lsn500p"
+        android:roundIcon="@drawable/lsn_biru500p"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
