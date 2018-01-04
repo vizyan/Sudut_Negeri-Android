@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">Sudut Negeri</string>
     <string name="name1">Dwi Yulianto</string>
+    <string name="ket_about">Sudut adalah objek yang memerlukan fasilitas edukasi, sedangkan Negeri adalah objek yang akan memberikan fasilitas edukasi. Start-up Sudut Negeri berfokus pada bidang social-education demi pemerataan kualitas pendidikan Indonesia yang suistanable</string>
     <string name="pos1">Founder</string>
     <string name="name2">Aufal Marom</string>
-    <string name="pos2">Co-Founder</string>
+    <string name="pos2">Founder</string>
     <string name="name3">Raisya Nasution</string>
-    <string name="pos3">Co-Founder</string>
+    <string name="pos3">Founder</string>
     <string name="name4">Mukhlis A. A.</string>
-    <string name="pos4">Co-Founder</string>
+    <string name="pos4">Founder</string>
     <string name="name5">Verana K. S.</string>
-    <string name="pos5">Co-Founder</string>
+    <string name="pos5">Founder</string>
     <string name="name6">Pramudya Erviansyah</string>
     <string name="pos6">Chief Technology Officer</string>
     <string name="name7">Bima Fajar S.</string>
