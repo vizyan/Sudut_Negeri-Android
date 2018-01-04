@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--the shadow comes from here-->
+    <item
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:top="10dp">
+        <!--whatever you want in the background, here i preferred solid white -->
+        <shape android:shape="oval">
+            <solid android:color="#33FEFEFE" />
+
+        </shape>
+    </item>
+
+    <item
+        android:bottom="30dp"
+        android:drawable="@drawable/lsn500p"
+        android:left="0dp"
+        android:right="30dp"
+        android:top="0dp">
+    </item>
+
+</layer-list>
