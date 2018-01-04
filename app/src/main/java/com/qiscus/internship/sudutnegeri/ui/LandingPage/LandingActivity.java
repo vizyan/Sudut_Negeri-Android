@@ -11,8 +11,6 @@ import android.widget.Button;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.Car;
 import com.qiscus.internship.sudutnegeri.ui.AddUser.AddUserActivity;
-import com.qiscus.internship.sudutnegeri.ui.GalleryAdapter;
-import com.qiscus.internship.sudutnegeri.ui.ListGalleryPresenter;
 import com.qiscus.internship.sudutnegeri.ui.LoginActivity;
 
 import java.util.List;

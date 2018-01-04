@@ -29,7 +29,6 @@
             android:theme="@style/Splashscreen" >
         </activity>
         <activity android:name=".ui.Add.AddActivity" />
-        <activity android:name=".ui.ListGalleryActivity" />
         <activity
             android:name=".ui.AddUser.AddUserActivity"
             android:theme="@style/Splashscreen"></activity>
