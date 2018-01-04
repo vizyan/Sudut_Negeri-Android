@@ -17,17 +17,16 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Splashscreen">
-
-        </activity>
-        <activity android:name=".ui.LandingPage.LandingActivity" />
-        <activity
-            android:name=".ui.LoginActivity"
-            android:theme="@style/Splashscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.LandingPage.LandingActivity" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@style/Splashscreen" >
         </activity>
         <activity android:name=".ui.Add.AddActivity" />
         <activity android:name=".ui.ListGalleryActivity" />
