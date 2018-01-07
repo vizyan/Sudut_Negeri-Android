@@ -11,72 +11,152 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_toolbar" />
+
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:minHeight="150dp"
-            app:cardCornerRadius="10dp">
+            android:background="@drawable/gradient_three"
+            android:minHeight="150dp">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginEnd="69dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="16dp"
+                android:text="#PadamuKuMengabdi"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.333"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:layout_marginEnd="69dp"
+                android:layout_marginStart="69dp"
+                android:layout_marginTop="7dp"
+                android:text="Siapkah kau mengabdi untuk negeri ini ?"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                >
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@drawable/sudut">
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"></LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:orientation="horizontal"></LinearLayout>
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_bg_purple"
+                    android:text="Join us"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_bg_purple"
+                    android:text="Login"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
 
-                        <LinearLayout
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:orientation="horizontal"></LinearLayout>
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:orientation="horizontal"></LinearLayout>
 
-                        <Button
-                            android:id="@+id/btnRegister"
-                            android:layout_width="40dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="#FEFEFE"
-                            android:text="Join us !"
-                            android:textAllCaps="false" />
+            </LinearLayout>
 
-                        <Button
-                            android:id="@+id/btnLogin"
-                            android:layout_width="40dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="#FEFEFE"
-                            android:text="Login"
-                            android:textAllCaps="false" />
-                    </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
-                </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F1F1F1"
+            android:orientation="horizontal">
 
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                app:srcCompat="@mipmap/ic_launcher" />
 
-        </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Ini Nanti Counter Uang"
+                android:textColor="@color/gradient1" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="Ini Nanti Counter Buku"
+                android:textColor="@color/gradient1" />
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerLanding"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="10dp" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 

@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LandingPage.LandingActivity" />
+        <activity android:name=".ui.LandingPage.LandingActivity"
+            android:label=""/>
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/Splashscreen" >
@@ -32,8 +33,7 @@
         <activity
             android:name=".ui.AddUser.AddUserActivity"
             android:theme="@style/Splashscreen"></activity>
-        <activity android:name=".ui.AboutActivity"
-            android:theme="@style/NoShadow"></activity>
+        <activity android:name=".ui.AboutActivity"></activity>
     </application>
 
 </manifest>

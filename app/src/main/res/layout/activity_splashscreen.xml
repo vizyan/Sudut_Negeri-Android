@@ -23,6 +23,7 @@
             android:layout_centerVertical="true"
             android:foregroundGravity="center"
             app:srcCompat="@drawable/shadow_logo" />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
