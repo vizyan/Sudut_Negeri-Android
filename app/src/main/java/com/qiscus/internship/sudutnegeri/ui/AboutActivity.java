@@ -17,7 +17,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        relativeLayout = findViewById(R.id.rl_about);
+        relativeLayout = findViewById(R.id.rlAbout);
         animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
 
         animationDrawable.setEnterFadeDuration(3000);

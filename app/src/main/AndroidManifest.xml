@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.DetailProjectActivity"/>
         <activity
             android:name=".ui.Splashscreen"
             android:noHistory="true"
