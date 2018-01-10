@@ -62,7 +62,6 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     @Override
     protected void onPause() {
         super.onPause();
-
         if (animationDrawable != null && animationDrawable.isRunning()){
             animationDrawable.stop();
         }
@@ -71,7 +70,6 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     @Override
     protected void onResume() {
         super.onResume();
-
         if (animationDrawable != null && !animationDrawable.isRunning()){
             animationDrawable.start();
         }
