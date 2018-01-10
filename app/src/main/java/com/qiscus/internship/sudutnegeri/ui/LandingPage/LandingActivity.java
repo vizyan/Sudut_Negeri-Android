@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.Car;
 import com.qiscus.internship.sudutnegeri.ui.AddUser.AddUserActivity;
-import com.qiscus.internship.sudutnegeri.ui.LoginActivity;
+import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
 
 import java.util.List;
 

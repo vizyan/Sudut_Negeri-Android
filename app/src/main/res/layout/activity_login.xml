@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/animation_bg"
-    tools:context="com.qiscus.internship.sudutnegeri.ui.LoginActivity">
+    tools:context="com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:ems="10"
                 android:textColor="#FEFEFE"
                 android:textColorHint="#FEFEFE"
-                android:background="@drawable/edit_text_bg"
+                android:background="@drawable/edit_text_bg_white"
                 android:hint="E-mail"
                 android:paddingBottom="12dp"
                 android:paddingTop="12dp"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:background="@drawable/edit_text_bg"
+                android:background="@drawable/edit_text_bg_white"
                 android:hint="Password"
                 android:paddingBottom="12dp"
                 android:paddingTop="12dp"

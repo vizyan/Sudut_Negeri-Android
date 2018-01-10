@@ -26,7 +26,7 @@
         <activity android:name=".ui.LandingPage.LandingActivity"
             android:label=""/>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.Login.LoginActivity"
             android:theme="@style/Splashscreen" >
         </activity>
         <activity android:name=".ui.Add.AddActivity" />

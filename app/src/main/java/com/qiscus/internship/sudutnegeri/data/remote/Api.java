@@ -17,6 +17,7 @@ public interface Api {
     @GET("cars")
     Call<JsonObject> getProjekAll();
 
+    @FormUrlEncoded
     @POST("cars")
     Call<JsonObject> saveCar(
             @Field("year") String year,

@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui;
+package com.qiscus.internship.sudutnegeri.ui.Login;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;

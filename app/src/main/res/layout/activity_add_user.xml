@@ -49,11 +49,11 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/etTambahNama"
+                    android:id="@+id/etAddNama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/edit_text_bg_white"
                     android:ems="10"
                     android:hint="Nama Lengkap"
                     android:inputType="textNoSuggestions"
@@ -64,10 +64,10 @@
                     android:textColorHint="#FEFEFE" />
 
                 <EditText
-                    android:id="@+id/etTambahEmail"
+                    android:id="@+id/etAddEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/edit_text_bg_white"
                     android:ems="10"
                     android:hint="E-mail"
                     android:inputType="textNoSuggestions"
@@ -78,15 +78,15 @@
                     android:textColorHint="#FEFEFE" />
 
                 <EditText
-                    android:id="@+id/etTambahPassword"
+                    android:id="@+id/etAddPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/edit_text_bg_white"
                     android:ems="10"
-                    android:hint="Password"
-                    android:inputType="textNoSuggestions"
+                    android:hint="Password (minimal 6 karakter)"
+                    android:inputType="textPassword"
                     android:paddingBottom="12dp"
                     android:paddingStart="20dp"
                     android:paddingTop="12dp"
@@ -94,14 +94,14 @@
                     android:textColorHint="#FEFEFE" />
 
                 <EditText
-                    android:id="@+id/etTambahRetypePassword"
+                    android:id="@+id/etAddRetypePassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/edit_text_bg_white"
                     android:ems="10"
                     android:hint="Retype Password"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="textPassword"
                     android:paddingBottom="12dp"
                     android:paddingStart="20dp"
                     android:paddingTop="12dp"
@@ -109,14 +109,14 @@
                     android:textColorHint="#FEFEFE" />
 
                 <EditText
-                    android:id="@+id/etTambahNoKTP"
+                    android:id="@+id/etAddNoKTP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/edit_text_bg_white"
                     android:ems="10"
                     android:hint="No. KTP"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="number"
                     android:paddingBottom="12dp"
                     android:paddingStart="20dp"
                     android:paddingTop="12dp"
@@ -124,11 +124,11 @@
                     android:textColorHint="#FEFEFE" />
 
                 <EditText
-                    android:id="@+id/etTambahAlamat"
+                    android:id="@+id/etAddAlamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/edit_text_bg_white"
                     android:ems="10"
                     android:hint="Alamat"
                     android:inputType="textNoSuggestions"
@@ -139,14 +139,14 @@
                     android:textColorHint="#FEFEFE" />
 
                 <EditText
-                    android:id="@+id/etTambahNoTelepon"
+                    android:id="@+id/etAddNoTelp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/edit_text_bg_white"
                     android:ems="10"
                     android:hint="No. Telepon"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="phone"
                     android:paddingBottom="12dp"
                     android:paddingStart="20dp"
                     android:paddingTop="12dp"
