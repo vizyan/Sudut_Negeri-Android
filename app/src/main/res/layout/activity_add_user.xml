@@ -164,7 +164,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnRegister2"
+                    android:id="@+id/btnLogin2"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -177,7 +177,7 @@
                     android:textSize="16sp" />
 
                 <Button
-                    android:id="@+id/btnLogin2"
+                    android:id="@+id/btnRegister2"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.Car;
+import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.util.regex.Pattern;
@@ -36,7 +37,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     EditText etAddNoKTP;
     EditText etAddAlamat;
     EditText etAddNoTelp;
-    Button btnRegister;
+    Button btnRegister, btnLogin;
     AddUserPresenter addUserPresenter;
     String passwd, retypepasswd, email, nama, noktp, alamat, notelp;
 
@@ -48,15 +49,8 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         initView();
         initPresenter();
         initAnimation();
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validation()==true){
-                   addUserPresenter.saveCar();
-                }
-            }
-        });
+        register();
+        login();
     }
 
     @Override
@@ -75,7 +69,6 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         }
     }
 
-
     private void initView() {
         //initial variable
         relativeLayout = findViewById(R.id.relativeRegister);
@@ -87,6 +80,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         etAddAlamat = findViewById(R.id.etAddAlamat);
         etAddNoTelp = findViewById(R.id.etAddNoTelp);
         btnRegister = findViewById(R.id.btnRegister2);
+        btnLogin = findViewById(R.id.btnLogin2);
         animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
     }
 
@@ -97,7 +91,30 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     }
 
     private void initPresenter() {
+        //initial AddUserPresenter
         addUserPresenter = new AddUserPresenter(this);
+    }
+
+    private void login() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent(AddUserActivity.this, LoginActivity.class);
+                startActivity(login);
+                finish();
+            }
+        });
+    }
+
+    private void register() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validation()==true){
+                    addUserPresenter.saveCar();
+                }
+            }
+        });
     }
 
     private boolean validation(){
@@ -247,5 +264,15 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         intent.putExtra(Constant.Extra.DATA, (Parcelable) car);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void failedParse() {
+        Toast.makeText(this, "Maaf kesalahan data", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void cantConnect() {
+        Toast.makeText(this, "Maaf, terjadi kesalahan sambungan", Toast.LENGTH_SHORT).show();
     }
 }

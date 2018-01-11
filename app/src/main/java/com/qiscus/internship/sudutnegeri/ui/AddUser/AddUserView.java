@@ -14,4 +14,8 @@ interface AddUserView {
     String getYear();
 
     void showSaveCar(Car car);
+
+    void failedParse();
+
+    void cantConnect();
 }

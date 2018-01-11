@@ -19,12 +19,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
-
-        relativeLayout = findViewById(R.id.relative);
-        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
-
-        animationDrawable.setEnterFadeDuration(3000);
-        animationDrawable.setExitFadeDuration(3000);
+        initView();
+        initAnimation();
     }
 
     @Override
@@ -43,5 +39,17 @@ public class LoginActivity extends AppCompatActivity {
         if (animationDrawable != null && !animationDrawable.isRunning()){
             animationDrawable.start();
         }
+    }
+
+    private void initView() {
+        //initial variable
+        relativeLayout = findViewById(R.id.relative);
+        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
+    }
+
+    private void initAnimation() {
+        //animation duration
+        animationDrawable.setEnterFadeDuration(3000);
+        animationDrawable.setExitFadeDuration(3000);
     }
 }

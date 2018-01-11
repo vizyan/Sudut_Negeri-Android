@@ -35,16 +35,20 @@ public class AddUserPresenter {
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        JsonObject object = response.body();
-                        JsonObject data = object.get("data").getAsJsonObject();
-                        Car car = new Gson().fromJson(data, Car.class);
+                        if(response.isSuccessful()){
+                            JsonObject object = response.body();
+                            JsonObject data = object.get("data").getAsJsonObject();
+                            Car car = new Gson().fromJson(data, Car.class);
 
-                        addUserView.showSaveCar(car);
+                            addUserView.showSaveCar(car);
+                        } else {
+                            addUserView.failedParse();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                        addUserView.cantConnect();
                     }
                 });
     }

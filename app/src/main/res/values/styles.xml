@@ -3,31 +3,38 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
         <item name="actionBarStyle">@style/Widget.AppTheme.ActionBar</item>
         <item name="android:actionBarStyle">@style/Widget.AppTheme.ActionBar</item>
     </style>
 
-    <style name="Splashscreen" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="Widget.AppTheme.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="MyOverlay.AppCompat" parent="ThemeOverlay.AppCompat.ActionBar">
+    <style name="Splashscreen" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Widget.AppTheme.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="background">@drawable/gradient_three</item>
-        <item name="android:background">@drawable/gradient_three</item>
+    <style name="MyOverlay.AppCompat" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/gradient3</item>
+        <item name="android:textColorPrimaryInverse">@color/gradient3</item>
+        <item name="android:textColorSecondary">@color/gradient3</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">@color/gradient3</item>
+        <item name="colorAccent">@color/gradient3</item>
+        <item name="colorControlNormal">@color/gradient3</item>
+        <item name="colorControlActivated">@color/gradient3</item>
     </style>
 
 </resources>
