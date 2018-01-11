@@ -3,7 +3,7 @@
 
     //About Us
     <string name="name1">Dwi Yulianto</string>
-    <string name="ket_about">Sudut adalah objek yang memerlukan fasilitas edukasi, sedangkan Negeri adalah objek yang akan memberikan fasilitas edukasi. Start-up Sudut Negeri berfokus pada bidang social-education demi pemerataan kualitas pendidikan Indonesia yang suistanable</string>
+    <string name="ket_about">Sudut adalah objek yang memerlukan fasilitas edukasi, sedangkan Negeri adalah objek yang akan memberikan fasilitas edukasi. Start-up Sudut Negeri berfokus pada bidang social-education demi pemerataan kualitas pendidikan Indonesia yang suistanable \n</string>
     <string name="pos1">Founder</string>
     <string name="name2">Aufal Marom</string>
     <string name="pos2">Founder</string>
@@ -23,6 +23,7 @@
     <string name="pos9">Full-Stack Web Developer</string>
     <string name="sn">Sudut Negeri</string>
     <string name="tentangsn">Platform kebaikan yang mempertemukan antara Sudut dan Negeri.</string>
+    <string name="taglinesn"></string>
 
     //Navigation drawer
     <string name="navigation_dashboard">Dashboard</string>
