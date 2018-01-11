@@ -15,7 +15,7 @@
 
     <item
         android:bottom="30dp"
-        android:drawable="@drawable/lsn500p"
+        android:drawable="@drawable/logo_white"
         android:left="0dp"
         android:right="30dp"
         android:top="0dp">

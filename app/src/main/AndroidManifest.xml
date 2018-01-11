@@ -6,13 +6,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/lsn_biru500p"
+        android:icon="@drawable/logo_blue"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/lsn_biru500p"
+        android:roundIcon="@drawable/logo_blue"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.DetailProjectActivity"/>
+        <activity android:name=".ui.DetailProjectActivity" />
         <activity
             android:name=".ui.Splashscreen"
             android:noHistory="true"
@@ -25,16 +25,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.LandingPage.LandingActivity"
+            android:name=".ui.Landing.LandingActivity"
             android:label="" />
         <activity
             android:name=".ui.Login.LoginActivity"
-            android:theme="@style/Splashscreen"></activity>
+            android:theme="@style/Splashscreen" />
         <activity
             android:name=".ui.AddUser.AddUserActivity"
             android:theme="@style/Splashscreen" />
         <activity android:name=".ui.AboutActivity" />
-        <activity android:name=".ui.Dashboard.DashboardActivity"></activity>
+        <activity android:name=".ui.Dashboard.DashboardActivity" />
+        <activity android:name=".ui.Profil.ProfilActivity"></activity>
     </application>
 
 </manifest>

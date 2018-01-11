@@ -1,6 +1,5 @@
 package com.qiscus.internship.sudutnegeri.ui.AddUser;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Parcelable;
@@ -8,23 +7,17 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.Car;
 import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
-
-import java.util.regex.Pattern;
 
 public class AddUserActivity extends AppCompatActivity implements AddUserView {
 
@@ -144,15 +137,15 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     @NonNull
     private String validEmail(){
         if(email.isEmpty()){
-            etAddEmail.setBackgroundResource(R.drawable.edit_text_bg_red);
+            etAddEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             etAddEmail.setHint("Isikan email");
             return "false";
         } else {
             if (Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                etAddEmail.setBackgroundResource(R.drawable.edit_text_bg_green);
+                etAddEmail.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return "true";
             } else {
-                etAddEmail.setBackgroundResource(R.drawable.edit_text_bg_red);
+                etAddEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
                 etAddEmail.setText("");
                 etAddEmail.setHint("Isikan email dengan benar");
                 return "false";
@@ -163,11 +156,11 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     @NonNull
     private String validNama(){
         if(nama.isEmpty()){
-            etAddNama.setBackgroundResource(R.drawable.edit_text_bg_red);
+            etAddNama.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             etAddNama.setHint("Isikan nama");
             return "false";
         } else {
-            etAddNama.setBackgroundResource(R.drawable.edit_text_bg_green);
+            etAddNama.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }
@@ -175,17 +168,17 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     @NonNull
     private String validPassword(){
         if(passwd.isEmpty()){
-            etAddPassword.setBackgroundResource(R.drawable.edit_text_bg_red);
+            etAddPassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             etAddPassword.setHint("Isikan password");
             return "false";
         } else {
             if (passwd.length()<6){
-                etAddPassword.setBackgroundResource(R.drawable.edit_text_bg_red);
+                etAddPassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
                 etAddPassword.setText("");
                 Toast.makeText(this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
                 return "false";
             } else {
-                etAddPassword.setBackgroundResource(R.drawable.edit_text_bg_green);
+                etAddPassword.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return "true";
             }
         }
@@ -194,15 +187,15 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     @NonNull
     private String validRetypePassword(){
         if (retypepasswd.isEmpty()){
-            etAddRetypePassword.setBackgroundResource(R.drawable.edit_text_bg_red);
+            etAddRetypePassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             etAddRetypePassword.setHint("Isikan ulang password");
             return "false";
         } else {
             if(retypepasswd.matches(passwd)){
-                etAddRetypePassword.setBackgroundResource(R.drawable.edit_text_bg_green);
+                etAddRetypePassword.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return "true";
             } else {
-                etAddRetypePassword.setBackgroundResource(R.drawable.edit_text_bg_red);
+                etAddRetypePassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
                 etAddRetypePassword.setText("");
                 etAddRetypePassword.setHint("Masukkan ulang password");
                 return "false";
@@ -213,30 +206,30 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     @NonNull
     private String validNoKTP(){
         if(noktp.isEmpty()){
-            etAddNoKTP.setBackgroundResource(R.drawable.edit_text_bg_red);
+            etAddNoKTP.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
-            etAddNoKTP.setBackgroundResource(R.drawable.edit_text_bg_green);
+            etAddNoKTP.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }
 
     private String validAlamat(){
         if(alamat.isEmpty()){
-            etAddAlamat.setBackgroundResource(R.drawable.edit_text_bg_red);
+            etAddAlamat.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
-            etAddAlamat.setBackgroundResource(R.drawable.edit_text_bg_green);
+            etAddAlamat.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }
 
     private String validNoTelp(){
         if(notelp.isEmpty()){
-            etAddNoTelp.setBackgroundResource(R.drawable.edit_text_bg_red);
+            etAddNoTelp.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
-            etAddNoTelp.setBackgroundResource(R.drawable.edit_text_bg_green);
+            etAddNoTelp.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }

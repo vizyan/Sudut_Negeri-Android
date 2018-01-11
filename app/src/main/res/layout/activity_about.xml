@@ -34,7 +34,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
-                app:srcCompat="@drawable/lsn500p" />
+                app:srcCompat="@drawable/logo_white" />
 
             <LinearLayout
                 android:layout_width="match_parent"

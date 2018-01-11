@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.qiscus.internship.sudutnegeri.ui.LandingPage.LandingActivity">
+    tools:context="com.qiscus.internship.sudutnegeri.ui.Landing.LandingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_bg_purple"
+                    android:background="@drawable/bg_rounded_trans_purple"
                     android:text="Join us"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
@@ -89,7 +89,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_bg_purple"
+                    android:background="@drawable/bg_rounded_trans_purple"
                     android:text="Login"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />

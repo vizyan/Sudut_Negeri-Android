@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.LandingPage;
+package com.qiscus.internship.sudutnegeri.ui.Landing;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

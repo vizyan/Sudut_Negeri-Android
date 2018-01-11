@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="75dp"
             android:layout_marginBottom="50dp"
-            app:srcCompat="@drawable/shadow_logo" />
+            app:srcCompat="@drawable/logo_shadow" />
 
         <TextView
             android:id="@+id/textView"
@@ -48,7 +48,7 @@
                 android:ems="10"
                 android:textColor="#FEFEFE"
                 android:textColorHint="#FEFEFE"
-                android:background="@drawable/edit_text_bg_white"
+                android:background="@drawable/bg_rounded_trans_white"
                 android:hint="E-mail"
                 android:paddingBottom="12dp"
                 android:paddingTop="12dp"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:background="@drawable/edit_text_bg_white"
+                android:background="@drawable/bg_rounded_trans_white"
                 android:hint="Password"
                 android:paddingBottom="12dp"
                 android:paddingTop="12dp"
@@ -100,7 +100,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:layout_marginStart="15dp"
-                android:background="@drawable/button_bg_purple"
+                android:background="@drawable/bg_rounded_trans_purple"
                 android:text="Masuk"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"

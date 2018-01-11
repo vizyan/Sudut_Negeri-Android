@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.LandingPage;
+package com.qiscus.internship.sudutnegeri.ui.Landing;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

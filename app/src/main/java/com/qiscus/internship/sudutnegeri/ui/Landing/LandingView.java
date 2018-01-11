@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.LandingPage;
+package com.qiscus.internship.sudutnegeri.ui.Landing;
 
 import com.qiscus.internship.sudutnegeri.data.model.Car;
 

@@ -22,7 +22,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:foregroundGravity="center"
-            app:srcCompat="@drawable/shadow_logo" />
+            app:srcCompat="@drawable/logo_shadow" />
 
     </RelativeLayout>
 
