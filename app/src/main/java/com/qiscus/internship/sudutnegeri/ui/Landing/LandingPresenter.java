@@ -46,7 +46,7 @@ public class LandingPresenter {
 
                             landingView.showData(projectList);
 
-                            Log.d("ListGallery", "onRespone" + body.toString());
+                            //Log.d("ListGallery", "onRespone" + body.toString());
                         }
 
                     }

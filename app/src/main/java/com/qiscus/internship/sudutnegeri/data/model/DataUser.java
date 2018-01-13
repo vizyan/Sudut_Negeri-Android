@@ -57,6 +57,18 @@ public class DataUser {
     @Expose
     private String verify;
 
+    @SerializedName("errors")
+    @Expose
+    private ErrorRegister errors;
+
+    public ErrorRegister getErrors() {
+        return errors;
+    }
+
+    public void setErrors(ErrorRegister errors) {
+        this.errors = errors;
+    }
+
     public String getVerify() {
         return verify;
     }

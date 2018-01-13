@@ -1,13 +1,13 @@
 package com.qiscus.internship.sudutnegeri.data.remote;
 
 import com.google.gson.JsonObject;
-import com.qiscus.internship.sudutnegeri.data.model.ResultLogin;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -24,7 +24,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("register")
-    Call<JsonObject> newUser(
+    Call<ResultUser> newUser(
             @Field("name") String name,
             @Field("email") String email,
             @Field("password") String password,
@@ -37,7 +37,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("login")
-    Call<ResultLogin> getUser(
+    Call<ResultUser> getUser(
             @Field("email") String email,
             @Field("password") String password
     );

@@ -11,4 +11,5 @@
     <color name="gradient5">#7E66E7</color>
 
     <color name="red">#F44336</color>
+    <color name="red_trans">#B3F44336</color>
 </resources>

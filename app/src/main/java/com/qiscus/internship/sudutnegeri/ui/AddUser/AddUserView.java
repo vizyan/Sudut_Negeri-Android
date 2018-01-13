@@ -8,11 +8,7 @@ import com.qiscus.internship.sudutnegeri.data.model.Car;
 
 interface AddUserView {
 
-    void success();
-
-    void failedParse();
-
-    void cantConnect();
+    void success(String message);
 
     String getName();
 
@@ -27,4 +23,8 @@ interface AddUserView {
     String getPhone();
 
     String getRetypePasswd();
+
+    void cantRegister();
+
+    void cantConnect();
 }

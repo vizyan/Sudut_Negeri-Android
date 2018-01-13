@@ -15,4 +15,6 @@ interface LoginView {
     void failed();
 
     void noConnection();
+
+    void notVerified();
 }

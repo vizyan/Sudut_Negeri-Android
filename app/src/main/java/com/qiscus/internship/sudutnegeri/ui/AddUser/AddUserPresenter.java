@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.Car;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.remote.RetrofitClient;
 
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class AddUserPresenter {
         String name = addUserView.getName();
         String email = addUserView.getEmail();
         String password = addUserView.getPassword();
-        String retypepasswd = addUserView.getRetypePasswd();
+        final String retypepasswd = addUserView.getRetypePasswd();
         String noIdentity = addUserView.getNoIdentity();
         String address = addUserView.getAddress();
         String phone = addUserView.getPhone();
@@ -44,21 +46,21 @@ public class AddUserPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .newUser(name, email, password, retypepasswd, noIdentity, address, phone, "no")
-                .enqueue(new Callback<JsonObject>() {
+                .enqueue(new Callback<ResultUser>() {
                     @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        if(response.isSuccessful()){
-                            JsonObject object = response.body();
-                            Log.e(null, "respon" +object);
-                            addUserView.success();
-                        } else {
-                            addUserView.failedParse();
+                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                        ResultUser resultUser = response.body();
+                        String message = resultUser.getMessage();
+
+                        if(message.equals("success")){
+                            addUserView.success(message);
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                    public void onFailure(Call<ResultUser> call, Throwable t) {
                         addUserView.cantConnect();
+                        Log.e(null, ""+t.getMessage());
                     }
                 });
     }

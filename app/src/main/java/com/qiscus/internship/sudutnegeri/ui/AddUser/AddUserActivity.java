@@ -1,24 +1,26 @@
 package com.qiscus.internship.sudutnegeri.ui.AddUser;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.data.model.Car;
 import com.qiscus.internship.sudutnegeri.ui.Landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
-import com.qiscus.internship.sudutnegeri.util.Constant;
 
 public class AddUserActivity extends AppCompatActivity implements AddUserView {
 
@@ -31,7 +33,8 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     EditText etAddNoKTP;
     EditText etAddAlamat;
     EditText etAddNoTelp;
-    Button btnRegister, btnLogin;
+    Button btnRegister, btnLogin, btnRetry, btnDissmiss;
+    TextView tvMessage, tvType;
     AddUserPresenter addUserPresenter;
     String passwd, retypepasswd, email, name, noIdentity, address, phone;
 
@@ -141,6 +144,52 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         }
     }
 
+    private void initPopupFailed(String messsage) {
+        try {
+            LayoutInflater inflater = (LayoutInflater) AddUserActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            if (messsage.equals("success")){
+                View layout = inflater.inflate(R.layout.layout_popup_success,
+                        null);
+                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, false);
+                pw.setOutsideTouchable(false);
+                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                btnDissmiss = layout.findViewById(R.id.btnDissmiss);
+
+                btnRetry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pw.dismiss();
+                    }
+                });
+
+            } else {
+                View layout = inflater.inflate(R.layout.layout_popup_failed,
+                        null);
+                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                pw.setOutsideTouchable(false);
+                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                tvMessage = layout.findViewById(R.id.tvMessage);
+                tvType = layout.findViewById(R.id.tvType);
+                btnRetry = layout.findViewById(R.id.btnRetry);
+                tvMessage.setText(messsage);
+                tvType.setText("Gagal Bergabung");
+
+                btnRetry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pw.dismiss();
+                    }
+                });
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @NonNull
     private String validEmail(){
         if(email.isEmpty()){
@@ -221,6 +270,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         }
     }
 
+    @NonNull
     private String validAlamat(){
         if(address.isEmpty()){
             etAddAlamat.setBackgroundResource(R.drawable.bg_sounded_trans_red);
@@ -231,6 +281,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         }
     }
 
+    @NonNull
     private String validNoTelp(){
         if(phone.isEmpty()){
             etAddNoTelp.setBackgroundResource(R.drawable.bg_sounded_trans_red);
@@ -277,20 +328,18 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     }
 
     @Override
-    public void success() {
-        Intent landing = new Intent(AddUserActivity.this, LandingActivity.class);
-        startActivity(landing);
-        finish();
+    public void success(String message) {
+        initPopupFailed(message);
     }
 
     @Override
-    public void failedParse() {
-        Toast.makeText(this, "Maaf kesalahan data", Toast.LENGTH_SHORT).show();
+    public void cantRegister() {
+        initPopupFailed("");
     }
 
     @Override
     public void cantConnect() {
-        Toast.makeText(this, "Maaf, terjadi kesalahan sambungan", Toast.LENGTH_SHORT).show();
+
     }
 
 
