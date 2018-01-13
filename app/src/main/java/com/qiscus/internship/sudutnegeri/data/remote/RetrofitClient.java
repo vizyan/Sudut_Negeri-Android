@@ -2,6 +2,11 @@ package com.qiscus.internship.sudutnegeri.data.remote;
 
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,9 +35,11 @@ public class RetrofitClient {
     }
 
     public Retrofit getRetrofit(){
+
         return new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.BASE_URL_USER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
 }

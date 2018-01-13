@@ -7,15 +7,24 @@ import com.qiscus.internship.sudutnegeri.data.model.Car;
  */
 
 interface AddUserView {
-    String getMake();
 
-    String getModel();
-
-    String getYear();
-
-    void showSaveCar(Car car);
+    void success();
 
     void failedParse();
 
     void cantConnect();
+
+    String getName();
+
+    String getEmail();
+
+    String getPassword();
+
+    String getNoIdentity();
+
+    String getAddress();
+
+    String getPhone();
+
+    String getRetypePasswd();
 }

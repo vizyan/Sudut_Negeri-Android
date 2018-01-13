@@ -1,11 +1,14 @@
 package com.qiscus.internship.sudutnegeri.data.remote;
 
 import com.google.gson.JsonObject;
+import com.qiscus.internship.sudutnegeri.data.model.ResultLogin;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -14,15 +17,29 @@ import retrofit2.http.POST;
 
 public interface Api {
 
-    @GET("cars")
-    Call<JsonObject> getProjekAll();
+    @Headers("Content-Type: application/json")
+
+    @GET("projects")
+    Call<JsonObject> getAllPorject();
 
     @FormUrlEncoded
-    @POST("cars")
-    Call<JsonObject> saveCar(
-            @Field("year") String year,
-            @Field("make") String make,
-            @Field("model") String model
+    @POST("register")
+    Call<JsonObject> newUser(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("password_confirmation") String retypePassword,
+            @Field("identity_number") String noIdentity,
+            @Field("address") String address,
+            @Field("phone") String phone,
+            @Field("verify") String verify
+    );
+
+    @FormUrlEncoded
+    @POST("login")
+    Call<ResultLogin> getUser(
+            @Field("email") String email,
+            @Field("password") String password
     );
 
 }

@@ -5,4 +5,14 @@ package com.qiscus.internship.sudutnegeri.ui.Login;
  */
 
 interface LoginView {
+
+    String getPassword();
+
+    String getEmail();
+
+    void success();
+
+    void failed();
+
+    void noConnection();
 }

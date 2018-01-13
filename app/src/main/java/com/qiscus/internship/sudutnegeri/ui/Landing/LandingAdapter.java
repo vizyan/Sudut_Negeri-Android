@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.Car;
+import com.qiscus.internship.sudutnegeri.data.model.Project;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,13 +22,13 @@ import java.util.List;
 public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ProjekViewHolder> {
 
     private Context context;
-    private List<Car> projekList;
+    private List<Project> projekList;
 
     public LandingAdapter(Context context){
         this.context = context;
     }
 
-    public void setData(List<Car> projekList){
+    public void setData(List<Project> projekList){
         this.projekList = projekList;
         notifyDataSetChanged();
     }
@@ -41,18 +42,18 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ProjekVi
 
     @Override
     public void onBindViewHolder(ProjekViewHolder holder, int position) {
-        Car car = projekList.get(position);
-        holder.tvProjectName.setText(car.getModel());
+        Project project = projekList.get(position);
+        holder.tvProjectName.setText(project.getNameProject());
 
-        Picasso.with(context)
-                .load(car.getImageUrl())
-                .into(holder.imgProject);
+        //Picasso.with(context)
+        //        .load(car.getImageUrl())
+        //        .into(holder.imgProject);
     }
 
     @Override
     public int getItemCount() {
         if (projekList == null) return 0;
-        return 5;
+        return projekList.size();
     }
 
     public class ProjekViewHolder extends RecyclerView.ViewHolder {

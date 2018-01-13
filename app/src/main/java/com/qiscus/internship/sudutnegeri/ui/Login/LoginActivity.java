@@ -8,16 +8,21 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.ui.AddUser.AddUserActivity;
 import com.qiscus.internship.sudutnegeri.ui.Dashboard.DashboardActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
     RelativeLayout relativeLayout;
     AnimationDrawable animationDrawable;
     Button btnLogin, btnRegister;
+    EditText etEmail, etPassword;
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         initView();
+        initPresenter();
         initAnimation();
         login();
         register();
@@ -52,6 +58,12 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+    }
+
+    private void initPresenter() {
+        loginPresenter = new LoginPresenter(this);
     }
 
     private void initAnimation() {
@@ -64,9 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
-                startActivity(login);
-                finish();
+                loginPresenter.login();
             }
         });
     }
@@ -75,10 +85,37 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent register = new Intent(LoginActivity.this, DashboardActivity.class);
+                Intent register = new Intent(LoginActivity.this, AddUserActivity.class);
                 startActivity(register);
                 finish();
             }
         });
+    }
+
+    @Override
+    public String getPassword() {
+        return etPassword.getText().toString();
+    }
+
+    @Override
+    public String getEmail() {
+        return etEmail.getText().toString();
+    }
+
+    @Override
+    public void success() {
+        Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
+        startActivity(login);
+        finish();
+    }
+
+    @Override
+    public void failed() {
+        Toast.makeText(this, "Maaf username atau password salah", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void noConnection() {
+        Toast.makeText(this, "Maaf, terjadi kesalahan sambugan", Toast.LENGTH_SHORT).show();
     }
 }

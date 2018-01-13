@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.Car;
+import com.qiscus.internship.sudutnegeri.ui.Landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
@@ -32,7 +33,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     EditText etAddNoTelp;
     Button btnRegister, btnLogin;
     AddUserPresenter addUserPresenter;
-    String passwd, retypepasswd, email, nama, noktp, alamat, notelp;
+    String passwd, retypepasswd, email, name, noIdentity, address, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +41,14 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_user);
         initView();
+
         initPresenter();
         initAnimation();
         register();
         login();
     }
+
+
 
     @Override
     protected void onPause() {
@@ -88,6 +92,16 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         addUserPresenter = new AddUserPresenter(this);
     }
 
+    private void initVariable() {
+        name = etAddNama.getText().toString();
+        email = etAddEmail.getText().toString();
+        passwd = etAddPassword.getText().toString();
+        retypepasswd = etAddRetypePassword.getText().toString();
+        noIdentity = etAddNoKTP.getText().toString();
+        address = etAddAlamat.getText().toString();
+        phone = etAddNoTelp.getText().toString();
+    }
+
     private void login() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,14 +125,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     }
 
     private boolean validation(){
-        nama = etAddNama.getText().toString();
-        email = etAddEmail.getText().toString();
-        passwd = etAddPassword.getText().toString();
-        retypepasswd = etAddRetypePassword.getText().toString();
-        noktp = etAddNoKTP.getText().toString();
-        alamat = etAddAlamat.getText().toString();
-        notelp = etAddNoTelp.getText().toString();
-
+        initVariable();
         validNama();
         validEmail();
         validPassword();
@@ -155,7 +162,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
 
     @NonNull
     private String validNama(){
-        if(nama.isEmpty()){
+        if(name.isEmpty()){
             etAddNama.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             etAddNama.setHint("Isikan nama");
             return "false";
@@ -205,7 +212,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
 
     @NonNull
     private String validNoKTP(){
-        if(noktp.isEmpty()){
+        if(noIdentity.isEmpty()){
             etAddNoKTP.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
@@ -215,7 +222,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     }
 
     private String validAlamat(){
-        if(alamat.isEmpty()){
+        if(address.isEmpty()){
             etAddAlamat.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
@@ -225,7 +232,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     }
 
     private String validNoTelp(){
-        if(notelp.isEmpty()){
+        if(phone.isEmpty()){
             etAddNoTelp.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
@@ -234,28 +241,45 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         }
     }
 
-    //implement AddUserView
     @Override
-    public String getMake() {
-        return etAddNama.getText().toString();
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getModel() {
-        return etAddEmail.getText().toString();
+    public String getEmail() {
+        return email;
     }
 
     @Override
-    public String getYear() {
-        return etAddAlamat.getText().toString();
+    public String getPassword() {
+        return passwd;
     }
 
     @Override
-    public void showSaveCar(Car car) {
-        Toast.makeText(this, "Selamat bergabung bersama para pengabdi negeri ini", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent();
-        intent.putExtra(Constant.Extra.DATA, (Parcelable) car);
-        setResult(RESULT_OK, intent);
+    public String getNoIdentity() {
+        return noIdentity;
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public String getPhone() {
+        return phone;
+    }
+
+    @Override
+    public String getRetypePasswd() {
+        return retypepasswd;
+    }
+
+    @Override
+    public void success() {
+        Intent landing = new Intent(AddUserActivity.this, LandingActivity.class);
+        startActivity(landing);
         finish();
     }
 
@@ -268,4 +292,6 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     public void cantConnect() {
         Toast.makeText(this, "Maaf, terjadi kesalahan sambungan", Toast.LENGTH_SHORT).show();
     }
+
+
 }

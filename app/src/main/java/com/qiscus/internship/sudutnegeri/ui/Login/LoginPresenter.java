@@ -1,6 +1,10 @@
 package com.qiscus.internship.sudutnegeri.ui.Login;
 
-import com.google.gson.JsonObject;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.data.model.ResultLogin;
 import com.qiscus.internship.sudutnegeri.data.remote.RetrofitClient;
 
 import retrofit2.Call;
@@ -19,19 +23,38 @@ public class LoginPresenter {
         this.loginVIew = loginView;
     }
 
-    public void validLogin(){
+    public void login(){
+        String email = loginVIew.getEmail();
+        String password = loginVIew.getPassword();
+        String header = "application/json";
+
         RetrofitClient.getInstance()
                 .getApi()
-                .getProjekAll()
-                .enqueue(new Callback<JsonObject>() {
+                .getUser(email, password)
+                .enqueue(new Callback<ResultLogin>() {
                     @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    public void onResponse(Call<ResultLogin> call, Response<ResultLogin> response) {
+                        ResultLogin user = response.body();
+                        String status = user.getStatus();
 
+                        if (status.equals("success")) {
+                            DataUser data = user.getData();
+                            Log.e(null, "respon " + status);
+                            String verify = data.getVerify();
+
+                            if (verify.equals("yes")) {
+                                loginVIew.success();
+                                Log.e("Respon ", "" + verify);
+                            }
+                        } else {
+                            loginVIew.failed();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                    public void onFailure(Call<ResultLogin> call, Throwable t) {
+                        Log.e("", "Gagal gan");
+                        loginVIew.noConnection();
                     }
                 });
     }

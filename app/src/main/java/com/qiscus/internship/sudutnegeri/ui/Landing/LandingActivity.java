@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.data.model.Car;
+import com.qiscus.internship.sudutnegeri.data.model.Project;
 import com.qiscus.internship.sudutnegeri.ui.AddUser.AddUserActivity;
 import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
 
@@ -79,7 +79,7 @@ public class LandingActivity extends AppCompatActivity implements LandingView {
     }
 
     @Override
-    public void showData(List<Car> projectList) {
+    public void showData(List<Project> projectList) {
         landingAdapter.setData(projectList);
     }
 }
