@@ -87,7 +87,7 @@ public class AdminActivity extends AppCompatActivity{
 
             @Override
             public void onTabReselected (TabLayout.Tab tab){
-                tab.setText("");
+
             }
         });
     }

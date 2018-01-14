@@ -5,9 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.qiscus.internship.sudutnegeri.ui.dashboard.NegeriFragment;
-import com.qiscus.internship.sudutnegeri.ui.dashboard.SudutFragment;
-
 /**
  * Created by Deadroit on 1/16/2017.
  */
