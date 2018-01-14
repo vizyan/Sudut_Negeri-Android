@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 email = etEmail.getText().toString();
                 passwd = etPassword.getText().toString();
 
-                Toast.makeText(LoginActivity.this, ""+email, Toast.LENGTH_LONG).show();
                 if(email.equals("admin")){
                     Intent login = new Intent(LoginActivity.this, AdminActivity.class);
                     startActivity(login);

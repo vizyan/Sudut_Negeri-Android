@@ -10,14 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.dashboard.ViewPagerAdapter;
+import com.qiscus.internship.sudutnegeri.ui.admin.ViewPagerAdapter;
 
-public class AdminActivity extends AppCompatActivity implements AdminView {
+public class AdminActivity extends AppCompatActivity{
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private AdminPresenter presenter;
     TextView title;
 
     @Override
@@ -28,18 +27,12 @@ public class AdminActivity extends AppCompatActivity implements AdminView {
         initView();
         setupToolbar();
         initViewPager();
-        initPresenter();
-    }
-
-    private void initPresenter() {
-        presenter = new AdminPresenter(this);
-        presenter.showUnverifiedUser();
     }
 
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
         tabLayout = findViewById(R.id.tabs);
-        viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.vpAdmin);
         title = findViewById(R.id.title_bar);
     }
 

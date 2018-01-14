@@ -7,15 +7,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.data.model.DataProject;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 
 /**
  * Created by Vizyan on 1/14/2018.
  */
 
 class UserViewHolder extends RecyclerView.ViewHolder {
-    private TextView tvProjectName;
-    private ImageView imgProject;
+
+    private TextView tvName;
+    private ImageView imgUser;
     private LinearLayout linearLayout;
 
     public UserViewHolder(View view) {
@@ -24,19 +25,17 @@ class UserViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void initView(View itemView) {
-        tvProjectName = itemView.findViewById(R.id.textNameProject);
-        imgProject = itemView.findViewById(R.id.img_project);
-        linearLayout = itemView.findViewById(R.id.llItemProject);
+        tvName = itemView.findViewById(R.id.tvNameUser);
+        linearLayout = itemView.findViewById(R.id.llItemUser);
     }
 
-    public void bind(final DataProject dataProject, final UserListener userListener) {
-        userListener.displayImg(imgProject, dataProject);
-        tvProjectName.setText(dataProject.getNameProject());
+    public void bind(final DataUser dataUser, final UserListener listener) {
+        tvName.setText(dataUser.getName());
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userListener.onProjectClick(dataProject);
+                listener.onUserClick(dataUser);
             }
         });
     }

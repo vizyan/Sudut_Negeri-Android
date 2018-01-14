@@ -16,7 +16,8 @@ public class FragmentVerifyUser extends Fragment {
 
     private AdminPresenter presenter;
 
-    public FragmentVerifyUser() {
+    public static FragmentVerifyUser newInstance() {
+        return new FragmentVerifyUser();
         // Required empty public constructor
     }
 
@@ -30,5 +31,4 @@ public class FragmentVerifyUser extends Fragment {
     private void initPresenter() {
 
     }
-
 }

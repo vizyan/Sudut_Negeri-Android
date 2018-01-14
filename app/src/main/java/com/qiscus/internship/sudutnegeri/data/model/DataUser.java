@@ -1,5 +1,8 @@
 package com.qiscus.internship.sudutnegeri.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Vizyan on 1/12/2018.
  */
 
-public class DataUser {
+public class DataUser implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -60,6 +63,37 @@ public class DataUser {
     @SerializedName("errors")
     @Expose
     private ErrorRegister errors;
+
+    protected DataUser(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        name = in.readString();
+        email = in.readString();
+        passwd = in.readString();
+        passwd_confirmation = in.readString();
+        createdAt = in.readString();
+        updatedAt = in.readString();
+        apiToken = in.readString();
+        identityNumber = in.readString();
+        address = in.readString();
+        phone = in.readString();
+        verify = in.readString();
+    }
+
+    public static final Creator<DataUser> CREATOR = new Creator<DataUser>() {
+        @Override
+        public DataUser createFromParcel(Parcel in) {
+            return new DataUser(in);
+        }
+
+        @Override
+        public DataUser[] newArray(int size) {
+            return new DataUser[size];
+        }
+    };
 
     public ErrorRegister getErrors() {
         return errors;
@@ -163,5 +197,43 @@ public class DataUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "DataUser{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", identity_number='" + identityNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", verify='" + verify + '\'' +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(passwd);
+        dest.writeString(passwd_confirmation);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
+        dest.writeString(apiToken);
+        dest.writeString(identityNumber);
+        dest.writeString(address);
+        dest.writeString(phone);
+        dest.writeString(verify);
     }
 }

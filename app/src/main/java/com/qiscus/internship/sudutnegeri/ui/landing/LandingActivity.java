@@ -16,20 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.adapter.user.UserAdapter;
-import com.qiscus.internship.sudutnegeri.adapter.user.UserListener;
+import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
+import com.qiscus.internship.sudutnegeri.adapter.project.ProjectListener;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
 
 import java.util.List;
 
-public class LandingActivity extends AppCompatActivity implements LandingView, UserListener {
+public class LandingActivity extends AppCompatActivity implements LandingView, ProjectListener {
 
     Button btnLogin, btnRegister;
     RecyclerView recyclerView;
     LandingPresenter landingPresenter;
-    UserAdapter userAdapter;
+    ProjectAdapter projectAdapter;
     TextView title;
     private Toolbar toolbar;
 
@@ -84,10 +84,10 @@ public class LandingActivity extends AppCompatActivity implements LandingView, U
 
     @Override
     public void showData(List<DataProject> dataProjectList) {
-        userAdapter = new UserAdapter(dataProjectList);
-        userAdapter.setAdapterListener(this);
+        projectAdapter = new ProjectAdapter(dataProjectList);
+        projectAdapter.setAdapterListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(userAdapter);
+        recyclerView.setAdapter(projectAdapter);
     }
 
     @Override

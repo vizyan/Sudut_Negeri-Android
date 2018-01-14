@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
-                android:text="Kami menunggu pengabdianmu"
+                android:text="Tunggu konfirmasi admin"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvType" />
 
             <Button
-                android:id="@+id/btnDissmiss"
+                android:id="@+id/btnNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"
@@ -62,10 +62,10 @@
                 android:id="@+id/tvType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="100dp"
                 android:fontFamily="@font/somanticrounded"
-                android:text="Selamat Datang"
+                android:gravity="center_horizontal"
+                android:text="Selamat Bergabung"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"

@@ -2,9 +2,11 @@ package com.qiscus.internship.sudutnegeri.ui.admin;
 
 import android.util.Log;
 
-import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.data.model.ResultListUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,14 +28,19 @@ public class AdminPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .getAllUser()
-                .enqueue(new Callback<DataUser>() {
+                .enqueue(new Callback<ResultListUser>() {
                     @Override
-                    public void onResponse(Call<DataUser> call, Response<DataUser> response) {
-                        Log.i(null, response.body().toString());
+                    public void onResponse(Call<ResultListUser> call, Response<ResultListUser> response) {
+                        if (response.isSuccessful()){
+                            ResultListUser resultListUser = response.body();
+                            List<DataUser> user = resultListUser.getData();
+                            adminView.showUser(user);
+                            Log.d(null, "Body" + response.body().getData());
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<DataUser> call, Throwable t) {
+                    public void onFailure(Call<ResultListUser> call, Throwable t) {
 
                     }
                 });

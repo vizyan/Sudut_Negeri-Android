@@ -19,7 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
+
+import okhttp3.Interceptor;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
 
@@ -32,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     EditText etAddNoKTP;
     EditText etAddAlamat;
     EditText etAddNoTelp;
-    Button btnRegister, btnLogin, btnRetry, btnDissmiss;
+    Button btnRegister, btnLogin, btnRetry, btnNext;
     TextView tvMessage, tvType;
     RegisterPresenter registerPresenter;
     String passwd, retypepasswd, email, name, noIdentity, address, phone;
@@ -49,8 +52,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         register();
         login();
     }
-
-
 
     @Override
     protected void onPause() {
@@ -154,12 +155,15 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, false);
                 pw.setOutsideTouchable(false);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                btnDissmiss = layout.findViewById(R.id.btnDissmiss);
+                btnNext = layout.findViewById(R.id.btnNext);
 
-                btnRetry.setOnClickListener(new View.OnClickListener() {
+                btnNext.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         pw.dismiss();
+                        Intent landing = new Intent(RegisterActivity.this, LandingActivity.class);
+                        startActivity(landing);
+                        finish();
                     }
                 });
 

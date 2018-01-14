@@ -5,30 +5,32 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ResultUser {
+/**
+ * Created by Vizyan on 1/14/2018.
+ */
 
-    @SerializedName("data")
-    @Expose
-    private DataUser data;
-
+public class ResultListUser {
     @SerializedName("message")
     @Expose
     private String message;
-
-    @SerializedName("errors")
+    @SerializedName("data")
     @Expose
-    private DataUser error;
-
-    public DataUser getError() {
-        return error;
-    }
+    private List<DataUser> data = null;
 
     public String getMessage() {
         return message;
     }
 
-    public DataUser getData() {
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<DataUser> getData() {
         return data;
+    }
+
+    public void setData(List<DataUser> data) {
+        this.data = data;
     }
 
 }

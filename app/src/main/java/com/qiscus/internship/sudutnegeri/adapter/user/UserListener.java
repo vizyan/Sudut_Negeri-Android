@@ -1,8 +1,6 @@
 package com.qiscus.internship.sudutnegeri.adapter.user;
 
-import android.widget.ImageView;
-
-import com.qiscus.internship.sudutnegeri.data.model.DataProject;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 
 /**
  * Created by Vizyan on 1/14/2018.
@@ -10,7 +8,5 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 
 public interface UserListener {
 
-    void onProjectClick(DataProject dataProject);
-
-    void displayImg(ImageView imgProject, DataProject dataProject);
+    void onUserClick(DataUser dataUser);
 }

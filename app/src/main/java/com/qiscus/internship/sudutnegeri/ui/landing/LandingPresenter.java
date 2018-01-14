@@ -2,15 +2,10 @@ package com.qiscus.internship.sudutnegeri.ui.landing;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
-import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
+import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,11 +28,11 @@ public class LandingPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .getAllPorject()
-                .enqueue(new Callback<ResultProject>() {
+                .enqueue(new Callback<ResultListProject>() {
                     @Override
-                    public void onResponse(Call<ResultProject> call, Response<ResultProject> response) {
+                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
                         if(response.isSuccessful()){
-                            ResultProject project = response.body();
+                            ResultListProject project = response.body();
                             List<DataProject> data = project.getData();
                             landingView.showData(data);
                             Log.d(null, "Body" + response.body().getData());
@@ -46,7 +41,7 @@ public class LandingPresenter {
                     }
 
                     @Override
-                    public void onFailure(Call<ResultProject> call, Throwable t) {
+                    public void onFailure(Call<ResultListProject> call, Throwable t) {
                         Log.e(null, "Gagal gan");
                     }
                 });

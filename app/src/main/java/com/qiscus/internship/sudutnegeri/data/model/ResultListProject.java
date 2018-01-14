@@ -9,11 +9,12 @@ import java.util.List;
  * Created by Vizyan on 1/14/2018.
  */
 
-public class ResultProject {
+public class ResultListProject {
 
     @SerializedName("status")
     @Expose
     private String status;
+
     @SerializedName("data")
     @Expose
     private List<DataProject> data = null;
