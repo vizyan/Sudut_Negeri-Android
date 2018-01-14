@@ -42,4 +42,11 @@ public interface Api {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
+    @POST("login/admin")
+    Call<JsonObject> getAdmin(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
 }

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.Project;
-import com.qiscus.internship.sudutnegeri.ui.AddUser.AddUserActivity;
+import com.qiscus.internship.sudutnegeri.ui.Register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public class LandingActivity extends AppCompatActivity implements LandingView {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent list = new Intent(LandingActivity.this, AddUserActivity.class);
+                Intent list = new Intent(LandingActivity.this, RegisterActivity.class);
                 startActivity(list);
             }
         });

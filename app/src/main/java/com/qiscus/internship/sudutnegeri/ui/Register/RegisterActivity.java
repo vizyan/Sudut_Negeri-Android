@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.AddUser;
+package com.qiscus.internship.sudutnegeri.ui.Register;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,10 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.Landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
 
-public class AddUserActivity extends AppCompatActivity implements AddUserView {
+public class RegisterActivity extends AppCompatActivity implements RegisterView {
 
     RelativeLayout relativeLayout;
     AnimationDrawable animationDrawable;
@@ -35,14 +34,14 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     EditText etAddNoTelp;
     Button btnRegister, btnLogin, btnRetry, btnDissmiss;
     TextView tvMessage, tvType;
-    AddUserPresenter addUserPresenter;
+    RegisterPresenter registerPresenter;
     String passwd, retypepasswd, email, name, noIdentity, address, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_add_user);
+        setContentView(R.layout.activity_register);
         initView();
 
         initPresenter();
@@ -91,8 +90,8 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
     }
 
     private void initPresenter() {
-        //initial AddUserPresenter
-        addUserPresenter = new AddUserPresenter(this);
+        //initial RegisterPresenter
+        registerPresenter = new RegisterPresenter(this);
     }
 
     private void initVariable() {
@@ -109,7 +108,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login = new Intent(AddUserActivity.this, LoginActivity.class);
+                Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(login);
                 finish();
             }
@@ -121,7 +120,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
             @Override
             public void onClick(View v) {
                 if (validation()==true){
-                    addUserPresenter.saveCar();
+                    registerPresenter.saveUser();
                 }
             }
         });
@@ -144,9 +143,9 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
         }
     }
 
-    private void initPopupFailed(String messsage) {
+    private void initPopupWindow(String messsage) {
         try {
-            LayoutInflater inflater = (LayoutInflater) AddUserActivity.this
+            LayoutInflater inflater = (LayoutInflater) RegisterActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if (messsage.equals("success")){
@@ -180,6 +179,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
                     @Override
                     public void onClick(View v) {
                         pw.dismiss();
+                        registerPresenter.saveUser();
                     }
                 });
             }
@@ -329,12 +329,12 @@ public class AddUserActivity extends AppCompatActivity implements AddUserView {
 
     @Override
     public void success(String message) {
-        initPopupFailed(message);
+        initPopupWindow(message);
     }
 
     @Override
     public void cantRegister() {
-        initPopupFailed("");
+        initPopupWindow("");
     }
 
     @Override

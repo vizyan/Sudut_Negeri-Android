@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.AddUser.AddUserActivity;
+import com.qiscus.internship.sudutnegeri.ui.Register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.Dashboard.DashboardActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent register = new Intent(LoginActivity.this, AddUserActivity.class);
+                Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(register);
                 finish();
             }
