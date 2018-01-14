@@ -63,6 +63,7 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
     public void onUserClick(DataUser dataUser) {
         Intent intent = new Intent(getActivity(), UserActivity.class);
         intent.putExtra(Constant.Extra.DATA, dataUser);
+        intent.putExtra(Constant.Extra.param, "admin");
         startActivity(intent);
     }
 

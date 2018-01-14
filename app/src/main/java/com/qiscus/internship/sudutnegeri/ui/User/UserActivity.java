@@ -3,9 +3,11 @@ package com.qiscus.internship.sudutnegeri.ui.User;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
@@ -16,7 +18,9 @@ public class UserActivity extends AppCompatActivity implements UserView {
     private UserPresenter presenter;
     private DataUser dataUser;
     private Toolbar toolbar;
+    String param;
     TextView title;
+    Button btnUserSave;
     EditText etUserName, etUserEmail, etUserIdNumber, etUserAddress, etUserPhone;
 
     @Override
@@ -28,6 +32,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         setupToolbar();
         initIntent();
         initPresenter();
+        initEditable();
         setTitle("");
         title.setText("Profile");
     }
@@ -38,6 +43,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         etUserIdNumber = findViewById(R.id.etUserIdNumber);
         etUserAddress = findViewById(R.id.etUserAddress);
         etUserPhone = findViewById(R.id.etUserPhone);
+        btnUserSave = findViewById(R.id.btnUserSave);
         toolbar = findViewById(R.id.toolbar);
         title = findViewById(R.id.title_bar);
     }
@@ -56,7 +62,21 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
     private void initIntent() {
         dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
+        param = getIntent().getStringExtra(Constant.Extra.param);
         if (dataUser == null) finish();
+    }
+
+    private void initEditable() {
+        if (param.equalsIgnoreCase("admin")){
+            btnUserSave.setText("Verifikasi");
+            etUserName.setEnabled(false);
+            etUserEmail.setEnabled(false);
+            etUserIdNumber.setEnabled(false);
+            etUserAddress.setEnabled(false);
+            etUserPhone.setEnabled(false);
+        } else {
+            btnUserSave.setText("Simpan");
+        }
     }
 
     @Override

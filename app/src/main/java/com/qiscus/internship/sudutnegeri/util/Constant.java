@@ -10,5 +10,6 @@ public class Constant {
 
     public final class Extra {
         public static final String DATA = "EXTRA_DATA";
+        public static final String param = "admin";
     }
 }
