@@ -511,8 +511,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/layout_header_drawer"
-        app:menu="@menu/menu_item_navigation">
+        app:headerLayout="@layout/layout_drawer_header"
+        app:menu="@menu/menu_navigation_drawer">
 
         <include layout="@layout/layout_drawer_footer"/>
 
