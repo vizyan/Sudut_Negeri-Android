@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_animation"
-    tools:context="com.qiscus.internship.sudutnegeri.ui.Register.RegisterActivity"
+    tools:context="com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity"
     android:id="@+id/relativeRegister">
 
     <ScrollView

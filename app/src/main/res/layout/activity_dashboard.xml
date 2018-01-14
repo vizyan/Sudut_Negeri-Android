@@ -5,7 +5,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.qiscus.internship.sudutnegeri.ui.Dashboard.DashboardActivity">
+    tools:context="com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:id="@+id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_three"
+            android:background="@color/gradient1"
             android:layout_alignParentBottom="true"
             app:tabSelectedTextColor="#ffffff"
             app:tabMode="fixed" />
@@ -44,7 +44,7 @@
         app:menu="@menu/menu_navigation_drawer">
 
         <include layout="@layout/layout_drawer_footer"/>
-        
+
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

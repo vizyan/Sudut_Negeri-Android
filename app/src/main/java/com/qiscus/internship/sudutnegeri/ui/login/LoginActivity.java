@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Login;
+package com.qiscus.internship.sudutnegeri.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,12 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.Register.RegisterActivity;
-import com.qiscus.internship.sudutnegeri.ui.Dashboard.DashboardActivity;
+import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
+import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
+import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -27,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     EditText etEmail, etPassword;
     TextView tvMessage, tvType;
     private LoginPresenter loginPresenter;
+    String email, passwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +84,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginPresenter.login();
+                email = etEmail.getText().toString();
+                passwd = etPassword.getText().toString();
+
+                Toast.makeText(LoginActivity.this, ""+email, Toast.LENGTH_LONG).show();
+                if(email.equals("admin")){
+                    Intent login = new Intent(LoginActivity.this, AdminActivity.class);
+                    startActivity(login);
+                } else {
+                    loginPresenter.login();
+                }
             }
         });
     }

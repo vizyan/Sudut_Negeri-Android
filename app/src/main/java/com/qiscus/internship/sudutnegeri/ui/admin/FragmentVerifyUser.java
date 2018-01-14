@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Admin;
+package com.qiscus.internship.sudutnegeri.ui.admin;
 
 
 import android.os.Bundle;
@@ -14,17 +14,21 @@ import com.qiscus.internship.sudutnegeri.R;
  */
 public class FragmentVerifyUser extends Fragment {
 
+    private AdminPresenter presenter;
 
     public FragmentVerifyUser() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fragment_verify_user, container, false);
+    }
+
+    private void initPresenter() {
+
     }
 
 }

@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Vizyan on 1/13/2018.
  */
 
-public class Project {
+public class DataProject {
 
     @SerializedName("id")
     @Expose

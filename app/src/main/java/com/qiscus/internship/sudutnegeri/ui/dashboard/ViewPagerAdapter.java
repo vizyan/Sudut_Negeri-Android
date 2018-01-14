@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Dashboard;
+package com.qiscus.internship.sudutnegeri.ui.dashboard;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

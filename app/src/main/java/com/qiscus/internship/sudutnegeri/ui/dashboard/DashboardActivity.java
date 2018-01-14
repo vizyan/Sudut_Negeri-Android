@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Dashboard;
+package com.qiscus.internship.sudutnegeri.ui.dashboard;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.ui.AboutActivity;
-import com.qiscus.internship.sudutnegeri.ui.Landing.LandingActivity;
-import com.qiscus.internship.sudutnegeri.ui.Profil.ProfilActivity;
+import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
+import com.qiscus.internship.sudutnegeri.ui.profile.ProfileActivity;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -67,7 +67,7 @@ public class DashboardActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Anda Berada di Dashboard",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.navigation2:
-                        Intent Profil = new Intent(DashboardActivity.this, ProfilActivity.class);
+                        Intent Profil = new Intent(DashboardActivity.this, ProfileActivity.class);
                         startActivity(Profil);
                         return false;
                     case R.id.navigation3:
@@ -105,7 +105,7 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.tab_home);
         tabLayout.getTabAt(1).setIcon(R.drawable.tab_jadwal);
 
-        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#7E66E7"), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#66F4F9FB"), PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
 
         title.setText("Dashboard Sudut");
@@ -122,13 +122,13 @@ public class DashboardActivity extends AppCompatActivity {
                         title.setText("Dashboard Negeri");
                         break;
                 }
-                tab.getIcon().setColorFilter(Color.parseColor("#7E66E7"), PorterDuff.Mode.SRC_IN);
+                tab.getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab){
                 super.onTabUnselected(tab);
-                tab.getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
+                tab.getIcon().setColorFilter(Color.parseColor("#66F4F9FB"), PorterDuff.Mode.SRC_IN);
             }
 
             @Override

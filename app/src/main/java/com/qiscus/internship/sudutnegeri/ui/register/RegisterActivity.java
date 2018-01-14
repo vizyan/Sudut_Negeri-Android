@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Register;
+package com.qiscus.internship.sudutnegeri.ui.register;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.Login.LoginActivity;
+import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
 

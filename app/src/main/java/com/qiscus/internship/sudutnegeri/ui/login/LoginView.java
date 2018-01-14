@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Login;
+package com.qiscus.internship.sudutnegeri.ui.login;
 
 /**
  * Created by Vizyan on 1/10/2018.

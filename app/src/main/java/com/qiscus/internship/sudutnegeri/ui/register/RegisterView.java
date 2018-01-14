@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Register;
+package com.qiscus.internship.sudutnegeri.ui.register;
 
 /**
  * Created by Vizyan on 1/10/2018.

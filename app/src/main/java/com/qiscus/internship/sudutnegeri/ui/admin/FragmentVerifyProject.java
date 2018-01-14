@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.Dashboard;
+package com.qiscus.internship.sudutnegeri.ui.admin;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.qiscus.internship.sudutnegeri.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NegeriFragment extends Fragment {
+public class FragmentVerifyProject extends Fragment {
 
 
-    public NegeriFragment() {
+    public FragmentVerifyProject() {
         // Required empty public constructor
     }
 
@@ -24,10 +24,7 @@ public class NegeriFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_negeri, container, false);
+        return inflater.inflate(R.layout.fragment_fragment_verify_project, container, false);
     }
 
-    public static Fragment newInstance() {
-        return new NegeriFragment();
-    }
 }

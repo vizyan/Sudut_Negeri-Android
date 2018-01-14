@@ -1,11 +1,11 @@
-package com.qiscus.internship.sudutnegeri.ui.Profil;
+package com.qiscus.internship.sudutnegeri.ui.profile;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.qiscus.internship.sudutnegeri.R;
 
-public class ProfilActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,10 +1,10 @@
-package com.qiscus.internship.sudutnegeri.ui.Login;
+package com.qiscus.internship.sudutnegeri.ui.login;
 
 import android.util.Log;
 
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
-import com.qiscus.internship.sudutnegeri.data.remote.RetrofitClient;
+import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +28,7 @@ public class LoginPresenter {
 
         RetrofitClient.getInstance()
                 .getApi()
-                .getUser(email, password)
+                .loginUser(email, password)
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardProject"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="50dp"
@@ -7,18 +9,23 @@
     android:layout_marginTop="5dp"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
-    app:cardCornerRadius="15dp">
+    app:cardCornerRadius="15dp"
+    android:clickable="true">
 
     <RelativeLayout
+        android:id="@+id/rvItemProject"
         android:layout_width="match_parent"
         android:background="@drawable/gradient_five"
         android:layout_height="wrap_content"
-        android:minHeight="50dp">
+        android:minHeight="50dp"
+        android:clickable="true">
 
         <LinearLayout
+            android:id="@+id/llItemProject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:clickable="true">
 
             <ImageView
                 android:id="@+id/img_project"

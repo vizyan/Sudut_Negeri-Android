@@ -1,9 +1,9 @@
-package com.qiscus.internship.sudutnegeri.ui.Register;
+package com.qiscus.internship.sudutnegeri.ui.register;
 
 import android.util.Log;
 
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
-import com.qiscus.internship.sudutnegeri.data.remote.RetrofitClient;
+import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +33,7 @@ public class RegisterPresenter {
 
         RetrofitClient.getInstance()
                 .getApi()
-                .newUser(name, email, password, retypepasswd, noIdentity, address, phone, "no")
+                .register(name, email, password, retypepasswd, noIdentity, address, phone, "no")
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
