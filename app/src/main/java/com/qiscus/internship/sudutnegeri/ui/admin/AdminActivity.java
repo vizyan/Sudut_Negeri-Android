@@ -15,8 +15,8 @@ import com.qiscus.internship.sudutnegeri.ui.admin.ViewPagerAdapter;
 public class AdminActivity extends AppCompatActivity{
 
     private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private TabLayout tlAdmin;
+    private ViewPager vpAdmin;
     TextView title;
 
     @Override
@@ -31,8 +31,8 @@ public class AdminActivity extends AppCompatActivity{
 
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
-        tabLayout = findViewById(R.id.tabs);
-        viewPager = findViewById(R.id.vpAdmin);
+        tlAdmin = findViewById(R.id.tlAdmin);
+        vpAdmin = findViewById(R.id.vpAdmin);
         title = findViewById(R.id.title_bar);
     }
 
@@ -44,9 +44,9 @@ public class AdminActivity extends AppCompatActivity{
     }
 
     private void initViewPager() {
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
+        setupViewPager(vpAdmin);
+        tlAdmin.setupWithViewPager(vpAdmin);
+        tlAdmin.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vpAdmin){
             @Override
             public void onTabSelected(TabLayout.Tab tab){
                 super.onTabSelected(tab);
@@ -56,15 +56,15 @@ public class AdminActivity extends AppCompatActivity{
     }
 
     private void setupTab() {
-        tabLayout.getTabAt(0).setIcon(R.drawable.tab_home);
-        tabLayout.getTabAt(1).setIcon(R.drawable.tab_jadwal);
+        tlAdmin.getTabAt(0).setIcon(R.drawable.tab_home);
+        tlAdmin.getTabAt(1).setIcon(R.drawable.tab_jadwal);
 
-        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#66F4F9FB"), PorterDuff.Mode.SRC_IN);
-        tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
+        tlAdmin.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
+        tlAdmin.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#66F4F9FB"), PorterDuff.Mode.SRC_IN);
 
         title.setText("Verifikasi Pengguna");
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
+        tlAdmin.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vpAdmin){
             @Override
             public void onTabSelected(TabLayout.Tab tab){
                 super.onTabSelected(tab);
@@ -96,7 +96,7 @@ public class AdminActivity extends AppCompatActivity{
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setTabsFromPagerAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlAdmin));
+        tlAdmin.setTabsFromPagerAdapter(viewPagerAdapter);
     }
 }

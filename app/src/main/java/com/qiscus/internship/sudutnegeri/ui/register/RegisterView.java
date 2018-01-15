@@ -22,7 +22,6 @@ interface RegisterView {
 
     String getRetypePasswd();
 
-    void cantRegister();
+    void noConnection();
 
-    void cantConnect();
 }

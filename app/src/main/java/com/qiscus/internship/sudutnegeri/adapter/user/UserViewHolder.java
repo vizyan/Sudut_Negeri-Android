@@ -15,9 +15,9 @@ import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 
 class UserViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView tvName;
-    private ImageView imgUser;
-    private LinearLayout linearLayout;
+    private TextView tvItemUName;
+    private ImageView ivItemU;
+    private LinearLayout llItemU;
 
     public UserViewHolder(View view) {
         super(view);
@@ -25,14 +25,14 @@ class UserViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void initView(View itemView) {
-        tvName = itemView.findViewById(R.id.tvNameUser);
-        linearLayout = itemView.findViewById(R.id.llItemUser);
+        tvItemUName = itemView.findViewById(R.id.tvItemUName);
+        llItemU = itemView.findViewById(R.id.llItemU);
     }
 
     public void bind(final DataUser dataUser, final UserListener listener) {
-        tvName.setText(dataUser.getName());
+        tvItemUName.setText(dataUser.getName());
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        llItemU.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onUserClick(dataUser);

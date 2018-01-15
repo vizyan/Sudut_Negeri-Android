@@ -22,42 +22,38 @@
             android:minHeight="150dp">
 
             <TextView
-                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="7dp"
                 android:layout_marginEnd="69dp"
                 android:layout_marginStart="35dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/somanticrounded"
                 android:text="#PadamuKuMengabdi"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/somanticrounded"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.333"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLand1"
                 app:layout_constraintVertical_bias="0.6" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tvLand1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
                 android:layout_marginEnd="69dp"
                 android:layout_marginStart="69dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="15dp"
                 android:text="Siapkah kau mengabdi untuk negeri ini ?"
                 android:textColor="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -73,24 +69,24 @@
                     android:orientation="horizontal"></LinearLayout>
 
                 <Button
-                    android:id="@+id/btnRegister"
+                    android:id="@+id/btnLandReg"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_rounded_trans_purple"
-                    android:text="Join us"
+                    android:text="Gabung"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/btnLogin"
+                    android:id="@+id/btnLandLog"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_rounded_trans_purple"
-                    android:text="Login"
+                    android:text="Masuk"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
 
@@ -111,7 +107,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivLandCount"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="5dp"
@@ -121,38 +117,18 @@
                 app:srcCompat="@mipmap/ic_launcher" />
 
             <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvLandCount"
+                android:layout_width="248dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="Ini Nanti Counter Uang"
                 android:textColor="@color/gradient1" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                app:srcCompat="@mipmap/ic_launcher" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:text="Ini Nanti Counter Buku"
-                android:textColor="@color/gradient1" />
-
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerLanding"
+            android:id="@+id/rvLand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">

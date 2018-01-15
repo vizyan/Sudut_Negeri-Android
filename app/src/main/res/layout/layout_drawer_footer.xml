@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnDrawerLogout"
         android:layout_width="150dp"
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
@@ -16,8 +16,8 @@
         android:layout_marginEnd="117dp"
         android:layout_marginStart="117dp"
         android:layout_weight="1"
-        android:text="Keluar"
         android:background="@drawable/bg_rounded_trans_purple"
+        android:text="Keluar"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"

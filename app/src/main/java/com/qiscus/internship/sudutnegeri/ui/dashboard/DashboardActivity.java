@@ -19,9 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.profile.ProfileActivity;
+import com.qiscus.internship.sudutnegeri.util.Constant;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -30,8 +32,9 @@ public class DashboardActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    TextView title;
-    Button btnLogout;
+    private DataUser dataUser;
+    TextView title, tvDrawerName;
+    Button btnDrawerLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class DashboardActivity extends AppCompatActivity {
         initView();
         initNavigation();
         initViewPager();
+        initDataIntent();
         logout();
     }
 
@@ -51,7 +55,14 @@ public class DashboardActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         drawerLayout = findViewById(R.id.drawer);
         title = findViewById(R.id.title_bar);
-        btnLogout = findViewById(R.id.btnLogout);
+        tvDrawerName = findViewById(R.id.tvDrawerName);
+        btnDrawerLogout = findViewById(R.id.btnDrawerLogout);
+    }
+
+    private void initDataIntent() {
+        dataUser = getIntent().getParcelableExtra(Constant.Extra.User);
+        if (dataUser == null) finish();
+        //tvDrawerName.setText(dataUser.getName());
     }
 
     private void initNavigation() {
@@ -147,7 +158,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void logout(){
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnDrawerLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);

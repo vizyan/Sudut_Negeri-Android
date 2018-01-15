@@ -14,9 +14,9 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
  */
 
 class ProjectViewHolder extends RecyclerView.ViewHolder {
-    private TextView tvProjectName;
-    private ImageView imgProject;
-    private LinearLayout linearLayout;
+    private TextView tvItemPName, tvItemPAddress;
+    private ImageView ivItemP;
+    private LinearLayout llItemP;
 
     public ProjectViewHolder(View view) {
         super(view);
@@ -24,16 +24,18 @@ class ProjectViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void initView(View itemView) {
-        tvProjectName = itemView.findViewById(R.id.textNameProject);
-        imgProject = itemView.findViewById(R.id.img_project);
-        linearLayout = itemView.findViewById(R.id.llItemProject);
+        tvItemPName = itemView.findViewById(R.id.tvItemPName);
+        tvItemPAddress = itemView.findViewById(R.id.tvItemPAddress);
+        ivItemP = itemView.findViewById(R.id.ivItemP);
+        llItemP = itemView.findViewById(R.id.llItemP);
     }
 
     public void bind(final DataProject dataProject, final ProjectListener projectListener) {
-        projectListener.displayImg(imgProject, dataProject);
-        tvProjectName.setText(dataProject.getNameProject());
+        projectListener.displayImg(ivItemP, dataProject);
+        tvItemPName.setText(dataProject.getNameProject());
+        tvItemPAddress.setText(dataProject.getLocation());
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        llItemP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 projectListener.onProjectClick(dataProject);

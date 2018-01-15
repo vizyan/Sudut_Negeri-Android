@@ -24,7 +24,7 @@ public class LandingPresenter {
         this.landingView = landingView;
     }
 
-    public void showUser(){
+    public void showProject(){
         RetrofitClient.getInstance()
                 .getApi()
                 .getAllPorject()
@@ -34,7 +34,7 @@ public class LandingPresenter {
                         if(response.isSuccessful()){
                             ResultListProject project = response.body();
                             List<DataProject> data = project.getData();
-                            landingView.showData(data);
+                            landingView.success(data);
                             Log.d(null, "Body" + response.body().getData());
                         }
 

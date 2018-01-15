@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/clLoginFailed"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlPopupF"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -20,7 +19,7 @@
             android:background="@drawable/bg_popup_failed">
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/imageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="85dp"
@@ -32,7 +31,7 @@
                 app:srcCompat="@drawable/ic_failed_white" />
 
             <TextView
-                android:id="@+id/tvMessage"
+                android:id="@+id/tvPopupFMsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -41,10 +40,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvType" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPopupFType" />
 
             <Button
-                android:id="@+id/btnRetry"
+                android:id="@+id/btnPopupFRetry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"
@@ -59,12 +58,12 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvType"
+                android:id="@+id/tvPopupFType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="100dp"
                 android:fontFamily="@font/somanticrounded"
+                android:gravity="center_horizontal"
                 android:text="Gagal Masuk"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"

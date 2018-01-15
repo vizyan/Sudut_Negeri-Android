@@ -22,23 +22,15 @@ import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
 
-import okhttp3.Interceptor;
-
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
 
-    RelativeLayout relativeLayout;
+    private RegisterPresenter registerPresenter;
     AnimationDrawable animationDrawable;
-    EditText etAddNama;
-    EditText etAddEmail;
-    EditText etAddPassword;
-    EditText etAddRetypePassword;
-    EditText etAddNoKTP;
-    EditText etAddAlamat;
-    EditText etAddNoTelp;
-    Button btnRegister, btnLogin, btnRetry, btnNext;
-    TextView tvMessage, tvType;
-    RegisterPresenter registerPresenter;
-    String passwd, retypepasswd, email, name, noIdentity, address, phone;
+    RelativeLayout rvReg;
+    EditText etRegName,etRegEmail, etRegPasswd, etRegRetypePasswd, etRegIdNo, etRegAddress, etRegPhone ;
+    Button btnRegReg, btnRegLog, btnPopupFRetry, btnPopupSNext;
+    TextView tvPopupMsg, tvPopupType;
+    String passwd, retypepasswd, email, name, idNo, address, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +38,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
         initView();
-
         initPresenter();
         initAnimation();
-        register();
+
         login();
+        register();
     }
 
     @Override
@@ -71,21 +63,21 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     private void initView() {
         //initial variable
-        relativeLayout = findViewById(R.id.relativeRegister);
-        etAddNama = findViewById(R.id.etAddNama);
-        etAddEmail = findViewById(R.id.etAddEmail);
-        etAddPassword = findViewById(R.id.etAddPassword);
-        etAddRetypePassword = findViewById(R.id.etAddRetypePassword);
-        etAddNoKTP = findViewById(R.id.etAddNoKTP);
-        etAddAlamat = findViewById(R.id.etAddAlamat);
-        etAddNoTelp = findViewById(R.id.etAddNoTelp);
-        btnRegister = findViewById(R.id.btnRegister2);
-        btnLogin = findViewById(R.id.btnLogin2);
-        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
+        rvReg = findViewById(R.id.rvReg);
+        etRegName = findViewById(R.id.etRegName);
+        etRegEmail = findViewById(R.id.etRegEmail);
+        etRegPasswd = findViewById(R.id.etRegPasswd);
+        etRegRetypePasswd = findViewById(R.id.etRegRetypePasswd);
+        etRegIdNo = findViewById(R.id.etRegIdNo);
+        etRegAddress = findViewById(R.id.etRegAddress);
+        etRegPhone = findViewById(R.id.etRegPhone);
+        btnRegReg = findViewById(R.id.btnRegReg);
+        btnRegLog = findViewById(R.id.btnRegLog);
     }
 
     private void initAnimation() {
         //animation duration
+        animationDrawable = (AnimationDrawable) rvReg.getBackground();
         animationDrawable.setEnterFadeDuration(3000);
         animationDrawable.setExitFadeDuration(3000);
     }
@@ -96,17 +88,17 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     private void initVariable() {
-        name = etAddNama.getText().toString();
-        email = etAddEmail.getText().toString();
-        passwd = etAddPassword.getText().toString();
-        retypepasswd = etAddRetypePassword.getText().toString();
-        noIdentity = etAddNoKTP.getText().toString();
-        address = etAddAlamat.getText().toString();
-        phone = etAddNoTelp.getText().toString();
+        name = etRegName.getText().toString();
+        email = etRegEmail.getText().toString();
+        passwd = etRegPasswd.getText().toString();
+        retypepasswd = etRegRetypePasswd.getText().toString();
+        idNo = etRegIdNo.getText().toString();
+        address = etRegAddress.getText().toString();
+        phone = etRegPhone.getText().toString();
     }
 
     private void login() {
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnRegLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -117,11 +109,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     private void register() {
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnRegReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validation()==true){
-                    registerPresenter.saveUser();
+                    registerPresenter.addUser();
                 }
             }
         });
@@ -129,15 +121,15 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     private boolean validation(){
         initVariable();
-        validNama();
+        validName();
         validEmail();
-        validPassword();
-        validRetypePassword();
-        validNoKTP();
-        validAlamat();
-        validNoTelp();
+        validPasswd();
+        validRetypePasswd();
+        validIdNo();
+        validAddress();
+        validPhone();
 
-        if (validNama() == "false" || validEmail() == "false" || validPassword() == "false" || validRetypePassword() == "false" || validNoKTP() == "false" || validAlamat() == "false" || validNoTelp() == "false" ){
+        if (validName().equals("false") || validEmail().equals("false") || validPasswd().equals("false") || validRetypePasswd().equals("false") || validIdNo().equals("false") || validAddress().equals("false") || validPhone().equals("false") ){
             return false;
         } else {
             return true;
@@ -155,9 +147,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, false);
                 pw.setOutsideTouchable(false);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                btnNext = layout.findViewById(R.id.btnNext);
+                btnPopupSNext = layout.findViewById(R.id.btnPopupSNext);
 
-                btnNext.setOnClickListener(new View.OnClickListener() {
+                btnPopupSNext.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         pw.dismiss();
@@ -173,17 +165,17 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
                 pw.setOutsideTouchable(false);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                tvMessage = layout.findViewById(R.id.tvMessage);
-                tvType = layout.findViewById(R.id.tvType);
-                btnRetry = layout.findViewById(R.id.btnRetry);
-                tvMessage.setText(messsage);
-                tvType.setText("Gagal Bergabung");
+                tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
+                tvPopupMsg = layout.findViewById(R.id.tvPopupSType);
+                btnPopupFRetry = layout.findViewById(R.id.btnPopupFRetry);
+                tvPopupMsg.setText(messsage);
+                tvPopupType.setText("Gagal Bergabung");
 
-                btnRetry.setOnClickListener(new View.OnClickListener() {
+                btnPopupFRetry.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         pw.dismiss();
-                        registerPresenter.saveUser();
+                        registerPresenter.addUser();
                     }
                 });
             }
@@ -197,101 +189,104 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @NonNull
     private String validEmail(){
         if(email.isEmpty()){
-            etAddEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-            etAddEmail.setHint("Isikan email");
+            etRegEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegEmail.setHint("Isikan email");
             return "false";
         } else {
             if (Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                etAddEmail.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+                etRegEmail.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return "true";
             } else {
-                etAddEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-                etAddEmail.setText("");
-                etAddEmail.setHint("Isikan email dengan benar");
+                etRegEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etRegEmail.setText("");
+                etRegEmail.setHint("Isikan email dengan benar");
                 return "false";
             }
         }
     }
 
     @NonNull
-    private String validNama(){
+    private String validName(){
         if(name.isEmpty()){
-            etAddNama.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-            etAddNama.setHint("Isikan nama");
+            etRegName.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegName.setHint("Isikan nama");
             return "false";
         } else {
-            etAddNama.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+            etRegName.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }
 
     @NonNull
-    private String validPassword(){
+    private String validPasswd(){
         if(passwd.isEmpty()){
-            etAddPassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-            etAddPassword.setHint("Isikan password");
+            etRegPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegPasswd.setHint("Isikan password");
             return "false";
         } else {
             if (passwd.length()<6){
-                etAddPassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-                etAddPassword.setText("");
+                etRegPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etRegPasswd.setText("");
                 Toast.makeText(this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
                 return "false";
             } else {
-                etAddPassword.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+                etRegPasswd.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return "true";
             }
         }
     }
 
     @NonNull
-    private String validRetypePassword(){
+    private String validRetypePasswd(){
         if (retypepasswd.isEmpty()){
-            etAddRetypePassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-            etAddRetypePassword.setHint("Isikan ulang password");
+            etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegRetypePasswd.setHint("Isikan ulang password");
             return "false";
         } else {
             if(retypepasswd.matches(passwd)){
-                etAddRetypePassword.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+                etRegRetypePasswd.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return "true";
             } else {
-                etAddRetypePassword.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-                etAddRetypePassword.setText("");
-                etAddRetypePassword.setHint("Masukkan ulang password");
+                etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etRegRetypePasswd.setText("");
+                etRegRetypePasswd.setHint("Masukkan ulang password");
                 return "false";
             }
         }
     }
 
     @NonNull
-    private String validNoKTP(){
-        if(noIdentity.isEmpty()){
-            etAddNoKTP.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+    private String validIdNo(){
+        if(idNo.isEmpty()){
+            etRegIdNo.setHint("Isikan no KTP");
+            etRegIdNo.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
-            etAddNoKTP.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+            etRegIdNo.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }
 
     @NonNull
-    private String validAlamat(){
+    private String validAddress(){
         if(address.isEmpty()){
-            etAddAlamat.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegAddress.setHint("Isikan Alamat");
+            etRegAddress.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
-            etAddAlamat.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+            etRegAddress.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }
 
     @NonNull
-    private String validNoTelp(){
+    private String validPhone(){
         if(phone.isEmpty()){
-            etAddNoTelp.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegPhone.setHint("Isikan no HP / no Telepon");
+            etRegPhone.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
-            etAddNoTelp.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+            etRegPhone.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return "true";
         }
     }
@@ -313,7 +308,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public String getNoIdentity() {
-        return noIdentity;
+        return idNo;
     }
 
     @Override
@@ -337,12 +332,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     @Override
-    public void cantRegister() {
-        initPopupWindow("");
-    }
-
-    @Override
-    public void cantConnect() {
+    public void noConnection() {
 
     }
 

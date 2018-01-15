@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_three"
-        android:titleTextColor="#FEFEFE"
-        android:id="@+id/tool"
-        android:theme="@style/MyOverlay.AppCompat"
-        android:elevation="0dp"
-        app:elevation="0dp"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradient_three"
+    android:elevation="0dp"
+    android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    android:theme="@style/MyOverlay.AppCompat"
+    android:titleTextColor="#FEFEFE"
+    app:elevation="0dp">
 
     <ImageView
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:src="@drawable/logo_white"/>
+        android:src="@drawable/logo_white" />
 
     <TextView
         android:id="@+id/title_bar"
-        android:layout_marginStart="25dp"
-        android:textColor="#FEFEFE"
-        android:textStyle="bold"
-        android:textSize="22sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ini Judul"/>
+        android:layout_marginStart="25dp"
+        android:text="Ini Judul"
+        android:textColor="#FEFEFE"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
-    </android.support.v7.widget.Toolbar>
+</android.support.v7.widget.Toolbar>

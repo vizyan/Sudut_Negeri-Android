@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.adapter.user.UserAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.user.UserListener;
+import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.User.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
@@ -26,10 +27,10 @@ import java.util.List;
  */
 public class FragmentVerifyUser extends Fragment implements UserListener, AdminView {
 
-    private AdminPresenter presenter;
-    private UserAdapter adapter;
-    private RecyclerView recyclerView;
-    private TextView tvName;
+    private AdminPresenter adminPresenter;
+    private UserAdapter userAdapter;
+    RecyclerView rvUserVerif;
+    TextView tvItemUName;
 
     public static FragmentVerifyUser newInstance() {
         return new FragmentVerifyUser();
@@ -50,13 +51,13 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
     }
 
     private void initView() {
-        recyclerView = getActivity().findViewById(R.id.rvUserList);
-        tvName = getActivity().findViewById(R.id.tvNameUser);
+        rvUserVerif = getActivity().findViewById(R.id.rvUserVerif);
+        tvItemUName = getActivity().findViewById(R.id.tvItemUName);
     }
 
     private void initPresenter() {
-        presenter = new AdminPresenter(this);
-        presenter.showUnverifiedUser();
+        adminPresenter = new AdminPresenter(this);
+        adminPresenter.showUnverifiedUser();
     }
 
     @Override
@@ -68,10 +69,15 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
     }
 
     @Override
-    public void showUser(List<DataUser> user) {
-        adapter = new UserAdapter(user);
-        adapter.setAdapterListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+    public void successShowUser(List<DataUser> dataUserList) {
+        userAdapter = new UserAdapter(dataUserList);
+        userAdapter.setAdapterListener(this);
+        rvUserVerif.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvUserVerif.setAdapter(userAdapter);
+    }
+
+    @Override
+    public void successShowProject(List<DataProject> projects) {
+
     }
 }

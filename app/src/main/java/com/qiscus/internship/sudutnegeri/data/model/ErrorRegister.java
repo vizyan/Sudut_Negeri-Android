@@ -14,6 +14,7 @@ public class ErrorRegister {
     @SerializedName("email")
     @Expose
     private List<String> email = null;
+
     @SerializedName("identity_number")
     @Expose
     private List<String> identityNumber = null;

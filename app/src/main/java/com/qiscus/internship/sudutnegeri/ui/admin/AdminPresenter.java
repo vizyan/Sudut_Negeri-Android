@@ -2,7 +2,9 @@ package com.qiscus.internship.sudutnegeri.ui.admin;
 
 import android.util.Log;
 
+import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
@@ -34,13 +36,34 @@ public class AdminPresenter {
                         if (response.isSuccessful()){
                             ResultListUser resultListUser = response.body();
                             List<DataUser> user = resultListUser.getData();
-                            adminView.showUser(user);
+                            adminView.successShowUser(user);
                             Log.d(null, "Body" + response.body().getData());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResultListUser> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    public void showUnverifiedProject(){
+        RetrofitClient.getInstance()
+                .getApi()
+                .getAllPorject()
+                .enqueue(new Callback<ResultListProject>() {
+                    @Override
+                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                        if (response.isSuccessful()){
+                            ResultListProject resultListProject = response.body();
+                            List<DataProject> projects = resultListProject.getData();
+                            adminView.successShowProject(projects);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultListProject> call, Throwable t) {
 
                     }
                 });

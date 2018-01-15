@@ -7,5 +7,7 @@ import com.qiscus.internship.sudutnegeri.data.model.DataUser;
  */
 
 public interface UserView {
+
     void showSuccess(DataUser user);
+
 }

@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardProject"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="50dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="5dp"
-    android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
-    app:cardCornerRadius="15dp"
-    android:clickable="true">
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="5dp"
+    android:clickable="true"
+    android:minHeight="50dp"
+    app:cardCornerRadius="15dp">
 
     <RelativeLayout
-        android:id="@+id/rvItemProject"
         android:layout_width="match_parent"
-        android:background="@drawable/gradient_five"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        android:clickable="true">
+        android:background="@drawable/gradient_five"
+        android:clickable="true"
+        android:minHeight="50dp">
 
         <LinearLayout
-            android:id="@+id/llItemProject"
+            android:id="@+id/llItemP"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:clickable="true">
+            android:layout_height="70dp"
+            android:clickable="true"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/img_project"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:id="@+id/ivItemP"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
                 android:src="@mipmap/ic_launcher" />
 
-            <TextView
-                android:id="@+id/textNameProject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="15dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Project Name"
-                android:textColor="#FEFEFE" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvItemPName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="2dp"
+                    android:text="Project Name"
+                    android:textColor="#FEFEFE"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvItemPAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="Address"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
 
         </LinearLayout>
     </RelativeLayout>

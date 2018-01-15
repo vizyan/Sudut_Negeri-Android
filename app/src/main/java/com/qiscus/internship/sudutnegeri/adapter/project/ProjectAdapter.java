@@ -17,7 +17,7 @@ import java.util.List;
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectViewHolder> {
 
     private List<DataProject> dataProjectList;
-    private ProjectListener listener;
+    private ProjectListener projectListener;
 
     public ProjectAdapter(List<DataProject> dataProjectList){
         this.dataProjectList = dataProjectList;
@@ -35,7 +35,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectViewHolder> {
     @Override
     public void onBindViewHolder(ProjectViewHolder holder, int position) {
         DataProject dataProject = getItem(position);
-        holder.bind(dataProject, listener);
+        holder.bind(dataProject, projectListener);
     }
 
     private DataProject getItem(int position) {
@@ -49,6 +49,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectViewHolder> {
     }
 
     public void setAdapterListener(ProjectListener listener) {
-        this.listener = listener;
+        this.projectListener = listener;
     }
 }

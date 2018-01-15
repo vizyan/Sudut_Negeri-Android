@@ -2,6 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.login;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
@@ -16,15 +17,15 @@ import retrofit2.Response;
 
 public class LoginPresenter {
 
-    private LoginView loginVIew;
+    private LoginView loginView;
 
     public LoginPresenter(LoginView loginView){
-        this.loginVIew = loginView;
+        this.loginView = loginView;
     }
 
-    public void login(){
-        String email = loginVIew.getEmail();
-        String password = loginVIew.getPassword();
+    public void loginUser(){
+        String email = loginView.getEmail();
+        String password = loginView.getPassword();
 
         RetrofitClient.getInstance()
                 .getApi()
@@ -40,20 +41,49 @@ public class LoginPresenter {
                             Log.e(null, "respon " + message);
                             String verify = data.getVerify();
                             if (verify.equals("yes")) {
-                                loginVIew.success();
+                                loginView.successUser(data);
                                 Log.e("Respon ", "" + verify);
                             } else {
-                                loginVIew.notVerified();
+                                loginView.notVerified();
                             }
                         } else {
-                            loginVIew.failed();
+                            loginView.failed();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResultUser> call, Throwable t) {
                         Log.e("", "Gagal gan");
-                        loginVIew.noConnection();
+                        loginView.noConnection();
+                    }
+                });
+    }
+
+    public void loginAdmin(){
+        String email = loginView.getEmail();
+        String password = loginView.getPassword();
+
+        RetrofitClient.getInstance()
+                .getApi()
+                .loginAdmin(email, password)
+                .enqueue(new Callback<ResultUser>() {
+                    @Override
+                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                        ResultUser login = response.body();
+                        String message = login.getMessage();
+
+                        if (message.equals("success")) {
+                            DataUser data = login.getData();
+                            Log.e(null, "respon " + message);
+                            loginView.successAdmin();
+                        } else {
+                            loginView.failed();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultUser> call, Throwable t) {
+
                     }
                 });
     }

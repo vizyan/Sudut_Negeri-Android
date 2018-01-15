@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/clLoginFailed"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlPopupS"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -31,7 +30,7 @@
                 app:srcCompat="@drawable/ic_success" />
 
             <TextView
-                android:id="@+id/tvMsgSuccess"
+                android:id="@+id/tvPopupSMsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -41,10 +40,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvType" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPopupSType" />
 
             <Button
-                android:id="@+id/btnNext"
+                android:id="@+id/btnPopupSNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"
@@ -59,7 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvType"
+                android:id="@+id/tvPopupSType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"

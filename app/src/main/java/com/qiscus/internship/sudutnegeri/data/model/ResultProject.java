@@ -3,13 +3,11 @@ package com.qiscus.internship.sudutnegeri.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
- * Created by Vizyan on 1/14/2018.
+ * Created by Vizyan on 1/15/2018.
  */
 
-public class ResultListProject {
+public class ResultProject {
 
     @SerializedName("message")
     @Expose
@@ -17,22 +15,22 @@ public class ResultListProject {
 
     @SerializedName("data")
     @Expose
-    private List<DataProject> data = null;
+    private DataProject dataProject;
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String status) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    public List<DataProject> getData() {
-        return data;
+    public DataProject getData() {
+        return dataProject;
     }
 
-    public void setData(List<DataProject> data) {
-        this.data = data;
+    public void setData(DataProject data) {
+        this.dataProject = data;
     }
 
 }

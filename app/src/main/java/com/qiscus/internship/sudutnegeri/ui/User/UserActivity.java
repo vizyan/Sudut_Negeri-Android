@@ -30,7 +30,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         setContentView(R.layout.activity_user);
         initView();
         setupToolbar();
-        initIntent();
+        initDataIntent();
         initPresenter();
         initEditable();
         setTitle("");
@@ -60,7 +60,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         presenter.showUserById(dataUser);
     }
 
-    private void initIntent() {
+    private void initDataIntent() {
         dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
         param = getIntent().getStringExtra(Constant.Extra.param);
         if (dataUser == null) finish();

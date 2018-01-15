@@ -19,26 +19,30 @@
         android:clickable="true">
 
         <LinearLayout
-            android:id="@+id/llItemUser"
+            android:id="@+id/llItemU"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:clickable="true">
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imgUser"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:id="@+id/ivItemU"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
-                android:id="@+id/tvNameUser"
+                android:id="@+id/tvItemUName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="15dp"
+                android:textStyle="bold"
                 android:gravity="center"
-                android:text="Project Name"
+                android:textSize="18sp"
+                android:text="Name"
                 android:textColor="#FEFEFE" />
 
         </LinearLayout>

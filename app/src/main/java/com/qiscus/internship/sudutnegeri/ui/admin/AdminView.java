@@ -1,5 +1,6 @@
 package com.qiscus.internship.sudutnegeri.ui.admin;
 
+import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public interface AdminView {
 
-    void showUser(List<DataUser> dataUserList);
+    void successShowUser(List<DataUser> dataUserList);
 
+    void successShowProject(List<DataProject> projects);
 }

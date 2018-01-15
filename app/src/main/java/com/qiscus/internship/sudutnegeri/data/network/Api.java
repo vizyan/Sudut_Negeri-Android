@@ -3,6 +3,7 @@ package com.qiscus.internship.sudutnegeri.data.network;
 import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
+import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListUser;
 
@@ -33,6 +34,11 @@ public interface Api {
             @Path("id") int id
     );
 
+    @GET("projects/{id}")
+    Call<ResultProject> getProject(
+            @Path("id") int id
+    );
+
     @FormUrlEncoded
     @POST("register")
     Call<ResultUser> register(
@@ -55,7 +61,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("login/admin")
-    Call<JsonObject> loginAdmin(
+    Call<ResultUser> loginAdmin(
             @Field("email") String email,
             @Field("password") String password
     );

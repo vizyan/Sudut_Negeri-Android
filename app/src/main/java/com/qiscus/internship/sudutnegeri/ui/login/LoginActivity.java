@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,28 +19,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.ui.User.UserActivity;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
+import com.qiscus.internship.sudutnegeri.util.Constant;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
-    RelativeLayout relativeLayout;
-    AnimationDrawable animationDrawable;
-    Button btnLogin, btnRegister, btnRetry;
-    EditText etEmail, etPassword;
-    TextView tvMessage, tvType;
     private LoginPresenter loginPresenter;
+    RelativeLayout rvLog;
+    AnimationDrawable animationDrawable;
+    Button btnLogLog, btnLogReg, btnPopupFRetry;
+    EditText etLogEmail, etLogPasswd;
+    TextView tvPopupMsg, tvPopupType;
     String email, passwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initPresenter();
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         initView();
-        initPresenter();
         initAnimation();
+
         login();
         register();
     }
@@ -61,13 +67,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private void initView() {
         //initial variable
-        relativeLayout = findViewById(R.id.relative);
-        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
-        btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
-        btnRetry = findViewById(R.id.btnRetry);
-        etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
+        rvLog = findViewById(R.id.rvLog);
+        btnLogLog = findViewById(R.id.btnLogLog);
+        btnLogReg = findViewById(R.id.btnLogReg);
+        btnPopupFRetry = findViewById(R.id.btnPopupFRetry);
+        etLogEmail = findViewById(R.id.etLogEmail);
+        etLogPasswd = findViewById(R.id.etLogPasswd);
     }
 
     private void initPresenter() {
@@ -76,29 +81,28 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private void initAnimation() {
         //animation duration
+        animationDrawable = (AnimationDrawable) rvLog.getBackground();
         animationDrawable.setEnterFadeDuration(3000);
         animationDrawable.setExitFadeDuration(3000);
     }
 
     private void login(){
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnLogLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = etEmail.getText().toString();
-                passwd = etPassword.getText().toString();
-
-                if(email.equals("admin")){
-                    Intent login = new Intent(LoginActivity.this, AdminActivity.class);
-                    startActivity(login);
-                } else {
-                    loginPresenter.login();
+                if(validation()==true){
+                    if(email.equals("admin@admin.com")){
+                        loginPresenter.loginAdmin();
+                    } else {
+                        loginPresenter.loginUser();
+                    }
                 }
             }
         });
     }
 
     private void register(){
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnLogReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -108,7 +112,60 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         });
     }
 
+    private void initVariable(){
+        email = etLogEmail.getText().toString();
+        passwd = etLogPasswd.getText().toString();
+    }
 
+    private boolean validation(){
+        initVariable();
+        validEmail();
+        validPasswd();
+
+        if(validEmail().equals("false") || validPasswd().equals("false")){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @NonNull
+    private String validEmail(){
+        if(email.isEmpty()){
+            etLogEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etLogEmail.setHint("Isikan email");
+            return "false";
+        } else {
+            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                etLogEmail.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+                return "true";
+            } else {
+                etLogEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etLogEmail.setText("");
+                etLogEmail.setHint("Isikan email dengan benar");
+                return "false";
+            }
+        }
+    }
+
+    @NonNull
+    private String validPasswd(){
+        if(passwd.isEmpty()){
+            etLogPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etLogPasswd.setHint("Isikan password");
+            return "false";
+        } else {
+            if (passwd.length()<6){
+                etLogPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etLogPasswd.setText("");
+                Toast.makeText(this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
+                return "false";
+            } else {
+                etLogPasswd.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+                return "true";
+            }
+        }
+    }
 
     private void initPopupWindow(String messsage) {
         try {
@@ -119,17 +176,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
             pw.setOutsideTouchable(false);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            tvMessage = layout.findViewById(R.id.tvMessage);
-            tvType = layout.findViewById(R.id.tvType);
-            btnRetry = layout.findViewById(R.id.btnRetry);
-            tvMessage.setText(messsage);
-            tvType.setText("Gagal Masuk");
+            tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
+            tvPopupType = layout.findViewById(R.id.tvPopupFType);
+            btnPopupFRetry = layout.findViewById(R.id.btnPopupFRetry);
+            tvPopupMsg.setText(messsage);
+            tvPopupType.setText("Gagal Masuk");
 
-            btnRetry.setOnClickListener(new View.OnClickListener() {
+            btnPopupFRetry.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         pw.dismiss();
-                        loginPresenter.login();
+                        loginPresenter.loginUser();
                     }
                 });
         } catch (Exception e) {
@@ -139,19 +196,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public String getPassword() {
-        return etPassword.getText().toString();
+        return passwd;
     }
 
     @Override
     public String getEmail() {
-        return etEmail.getText().toString();
-    }
-
-    @Override
-    public void success() {
-        Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
-        startActivity(login);
-        finish();
+        return email;
     }
 
     @Override
@@ -167,5 +217,20 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void notVerified() {
         initPopupWindow("Akun belum diverifikasi");
+    }
+
+    @Override
+    public void successUser(DataUser data) {
+        Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
+        login.putExtra(Constant.Extra.User, data);
+        startActivity(login);
+        finish();
+    }
+
+    @Override
+    public void successAdmin() {
+        Intent login = new Intent(LoginActivity.this, AdminActivity.class);
+        startActivity(login);
+        finish();
     }
 }

@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface LandingView {
 
-    void showData(List<DataProject> dataProjectList);
+    void success(List<DataProject> dataProjectList);
 
 }

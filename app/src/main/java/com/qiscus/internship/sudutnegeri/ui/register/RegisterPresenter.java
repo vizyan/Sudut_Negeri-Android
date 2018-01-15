@@ -21,7 +21,7 @@ public class RegisterPresenter {
         this.registerView = registerView;
     }
 
-    public void saveUser(){
+    public void addUser(){
         String name = registerView.getName();
         String email = registerView.getEmail();
         String password = registerView.getPassword();
@@ -47,7 +47,7 @@ public class RegisterPresenter {
 
                     @Override
                     public void onFailure(Call<ResultUser> call, Throwable t) {
-                        registerView.cantConnect();
+                        registerView.noConnection();
                         Log.e(null, ""+t.getMessage());
                     }
                 });
