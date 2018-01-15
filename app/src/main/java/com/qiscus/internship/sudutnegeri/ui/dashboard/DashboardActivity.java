@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewPager);
         drawerLayout = findViewById(R.id.drawer);
-        title = findViewById(R.id.title_bar);
+        title = findViewById(R.id.tvToolbarTitle);
         tvDrawerName = findViewById(R.id.tvDrawerName);
         btnDrawerLogout = findViewById(R.id.btnDrawerLogout);
     }

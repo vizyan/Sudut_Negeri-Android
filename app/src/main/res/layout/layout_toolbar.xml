@@ -17,7 +17,7 @@
         android:src="@drawable/logo_white" />
 
     <TextView
-        android:id="@+id/title_bar"
+        android:id="@+id/tvToolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"

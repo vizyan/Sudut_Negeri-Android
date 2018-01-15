@@ -44,7 +44,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         etUserPhone = findViewById(R.id.etUserPhone);
         btnUserSave = findViewById(R.id.btnUserSave);
         toolbar = findViewById(R.id.toolbar);
-        title = findViewById(R.id.title_bar);
+        title = findViewById(R.id.tvToolbarTitle);
     }
 
     private void setupToolbar() {

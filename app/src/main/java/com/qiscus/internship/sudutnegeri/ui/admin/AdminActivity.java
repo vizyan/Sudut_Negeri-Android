@@ -33,7 +33,7 @@ public class AdminActivity extends AppCompatActivity{
         toolbar = findViewById(R.id.toolbar);
         tlAdmin = findViewById(R.id.tlAdmin);
         vpAdmin = findViewById(R.id.vpAdmin);
-        title = findViewById(R.id.title_bar);
+        title = findViewById(R.id.tvToolbarTitle);
     }
 
     private void setupToolbar() {

@@ -60,7 +60,7 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
 
     private void initView(){
         toolbar = findViewById(R.id.toolbar);
-        title = findViewById(R.id.title_bar);
+        title = findViewById(R.id.tvToolbarTitle);
         btnLandLog = findViewById(R.id.btnLandLog);
         btnLandReg = findViewById(R.id.btnLandReg);
         tvLandCount = findViewById(R.id.tvLandCount);

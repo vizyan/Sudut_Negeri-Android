@@ -3,7 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_drawer">
+
+        <ImageView
+            android:id="@+id/ivDrawerUser"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tvDrawerName"
+            android:layout_marginBottom="44dp"
+            android:layout_marginEnd="16dp"
+            android:foregroundGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cloud_one" />
+
+        <TextView
+            android:id="@+id/tvDrawerName"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:minWidth="150dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_rounded_solid_blue"
+            android:fontFamily="@font/somanticrounded"
+            android:foregroundGravity="center_vertical"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <Button
         android:id="@+id/btnDrawerLogout"
@@ -12,17 +64,15 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="31dp"
-        android:layout_marginEnd="117dp"
-        android:layout_marginStart="117dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="45dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_rounded_trans_purple"
+        android:background="@drawable/bg_sounded_trans_red"
         android:text="Keluar"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
