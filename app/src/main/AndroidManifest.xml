@@ -36,6 +36,8 @@
         <activity android:name=".ui.dashboard.DashboardActivity" />
         <activity android:name=".ui.profile.ProfileActivity" />
         <activity android:name=".ui.admin.AdminActivity" />
+        <activity android:name=".ui.DetailUser.DetailUserActivity"></activity>
+        <activity android:name=".ui.DetailProject.DetailProjectActivity"></activity>
         <activity android:name=".ui.User.UserActivity"></activity>
     </application>
 
