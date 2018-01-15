@@ -60,6 +60,13 @@ public interface Api {
     );
 
     @FormUrlEncoded
+    @POST("login/user/cek")
+    Call<ResultUser> cekLoginUser(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
+    @FormUrlEncoded
     @POST("login/admin")
     Call<ResultUser> loginAdmin(
             @Field("email") String email,

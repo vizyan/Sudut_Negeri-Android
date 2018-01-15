@@ -5,10 +5,10 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.qiscus.internship.sudutnegeri.ui.DetailProject.DetailProjectActivity">
+    tools:context="com.qiscus.internship.sudutnegeri.ui.project.DetailProjectActivity">
 
     <ImageView
-        android:src="@drawable/sample"
+        android:src="@drawable/ic_about"
         android:layout_width="match_parent"
         android:layout_height="245dp"
         />

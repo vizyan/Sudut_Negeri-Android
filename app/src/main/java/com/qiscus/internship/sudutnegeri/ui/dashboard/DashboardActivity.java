@@ -22,7 +22,7 @@ import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
-import com.qiscus.internship.sudutnegeri.ui.profile.ProfileActivity;
+import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -78,7 +78,7 @@ public class DashboardActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Anda Berada di Dashboard",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.navigation2:
-                        Intent Profil = new Intent(DashboardActivity.this, ProfileActivity.class);
+                        Intent Profil = new Intent(DashboardActivity.this, UserActivity.class);
                         startActivity(Profil);
                         return false;
                     case R.id.navigation3:

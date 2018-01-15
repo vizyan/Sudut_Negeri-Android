@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
         <activity
-            android:name=".ui.Splashscreen"
+            android:name=".ui.splashscreen.SplashscreenActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Splashscreen">
@@ -36,9 +36,9 @@
         <activity android:name=".ui.dashboard.DashboardActivity" />
         <activity android:name=".ui.profile.ProfileActivity" />
         <activity android:name=".ui.admin.AdminActivity" />
+        <activity android:name=".ui.user.UserActivity"></activity>
         <activity android:name=".ui.DetailUser.DetailUserActivity"></activity>
-        <activity android:name=".ui.DetailProject.DetailProjectActivity"></activity>
-        <activity android:name=".ui.User.UserActivity"></activity>
+        <activity android:name=".ui.project.DetailProjectActivity"></activity>
     </application>
 
 </manifest>

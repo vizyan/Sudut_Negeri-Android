@@ -2,6 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +21,6 @@ import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.ui.User.UserActivity;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
@@ -194,6 +194,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
     }
 
+    private void initPreference(){
+        SharedPreferences preferences = getSharedPreferences("LoginPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email", email);
+        editor.putString("password", passwd);
+        editor.commit();
+        editor.apply();
+    }
+
     @Override
     public String getPassword() {
         return passwd;
@@ -221,6 +230,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void successUser(DataUser data) {
+        initPreference();
+
         Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
         login.putExtra(Constant.Extra.User, data);
         startActivity(login);

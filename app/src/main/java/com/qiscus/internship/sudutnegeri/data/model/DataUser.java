@@ -204,6 +204,7 @@ public class DataUser implements Parcelable {
         return "DataUser{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", password='" + passwd + '\'' +
                 ", identity_number='" + identityNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +

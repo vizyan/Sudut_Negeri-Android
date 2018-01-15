@@ -1,7 +1,5 @@
-package com.qiscus.internship.sudutnegeri.ui.DetailProject;
+package com.qiscus.internship.sudutnegeri.ui.project;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

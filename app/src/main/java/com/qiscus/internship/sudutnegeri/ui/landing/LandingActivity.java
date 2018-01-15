@@ -103,7 +103,7 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
 
     @Override
     public void displayImg(ImageView imgProject, DataProject dataProject) {
-        
+        //Picasso.with(this).load(dataProject.getPhoto()).into(imgProject);
     }
 
 }

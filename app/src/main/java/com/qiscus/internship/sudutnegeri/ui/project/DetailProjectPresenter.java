@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.DetailProject;
+package com.qiscus.internship.sudutnegeri.ui.project;
 
 /**
  * Created by aufalmarom23 on 15/01/18.

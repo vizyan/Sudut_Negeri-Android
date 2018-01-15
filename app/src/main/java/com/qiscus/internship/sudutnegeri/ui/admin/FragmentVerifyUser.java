@@ -3,7 +3,6 @@ package com.qiscus.internship.sudutnegeri.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,7 @@ import com.qiscus.internship.sudutnegeri.adapter.user.UserAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.user.UserListener;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.ui.User.UserActivity;
+import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.util.List;

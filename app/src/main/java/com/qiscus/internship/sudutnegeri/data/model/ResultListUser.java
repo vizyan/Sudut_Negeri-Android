@@ -13,6 +13,7 @@ public class ResultListUser {
     @SerializedName("message")
     @Expose
     private String message;
+
     @SerializedName("data")
     @Expose
     private List<DataUser> data = null;

@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.User;
+package com.qiscus.internship.sudutnegeri.ui.user;
 
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 

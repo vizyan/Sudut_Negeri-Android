@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.DetailUser;
+package com.qiscus.internship.sudutnegeri.ui.user;
 
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
@@ -9,17 +9,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by aufalmarom23 on 14/01/18.
+ * Created by Vizyan on 1/14/2018.
  */
 
-public class DetailUserPresenter {
-    private DetailUserView detailUserView;
+public class UserPresenter {
 
-    public DetailUserPresenter(DetailUserView detailUserView) {
-        this.detailUserView = detailUserView;
+    private UserView userVIew;
+
+    public UserPresenter(UserView userView){
+        this.userVIew = userView;
     }
 
-    public void getDetailUserById(DataUser dataUser) {
+    public void showUserById(DataUser dataUser){
         RetrofitClient.getInstance()
                 .getApi()
                 .getUser(dataUser.getId())
@@ -27,13 +28,10 @@ public class DetailUserPresenter {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
                         if (response.isSuccessful()){
-
                             ResultUser resultUser = response.body();
                             DataUser dataUser = resultUser.getData();
-
-                            detailUserView.showSuccessDetailUserById(dataUser);
+                            userVIew.showSuccess(dataUser);
                         }
-
                     }
 
                     @Override
@@ -42,5 +40,4 @@ public class DetailUserPresenter {
                     }
                 });
     }
-
 }
