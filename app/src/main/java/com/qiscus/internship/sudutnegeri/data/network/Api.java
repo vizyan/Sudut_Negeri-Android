@@ -11,8 +11,10 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -39,6 +41,24 @@ public interface Api {
             @Path("id") int id
     );
 
+    //Update user
+    @FormUrlEncoded
+    @PUT("users/{id}")
+    Call<ResultUser> putUser(
+            @Path("id") int id,
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("phone") String phone,
+            @Field("verify") String no
+    );
+
+    //Update project
+    @FormUrlEncoded
+    @PUT("project/{1}")
+    Call<ResultProject> putProject(
+
+    );
+
     @FormUrlEncoded
     @POST("register")
     Call<ResultUser> register(
@@ -53,12 +73,20 @@ public interface Api {
     );
 
     @FormUrlEncoded
+    @POST("projects")
+    Call<ResultProject> postProject(
+
+    );
+
+    //generate token
+    @FormUrlEncoded
     @POST("login/user")
     Call<ResultUser> loginUser(
             @Field("email") String email,
             @Field("password") String password
     );
 
+    //not generate token
     @FormUrlEncoded
     @POST("login/user/cek")
     Call<ResultUser> cekLoginUser(
@@ -69,6 +97,13 @@ public interface Api {
     @FormUrlEncoded
     @POST("login/admin")
     Call<ResultUser> loginAdmin(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST("logout")
+    Call<ResultUser> logout(
             @Field("email") String email,
             @Field("password") String password
     );

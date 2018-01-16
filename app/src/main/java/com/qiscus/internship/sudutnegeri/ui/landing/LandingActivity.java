@@ -46,6 +46,12 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
         rergister();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initPresenter();
+    }
+
     private void initPresenter() {
         landingPresenter = new LandingPresenter(this);
         landingPresenter.showProject();

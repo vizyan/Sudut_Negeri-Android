@@ -23,10 +23,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position){
             case 0:
-                fragment = NegeriFragment.newInstance();
+                fragment = FragmentNegeri.newInstance();
                 break;
             case 1:
-                fragment = SudutFragment.newInstance();
+                fragment = FragmentSudut.newInstance();
                 break;
         }
         return fragment;

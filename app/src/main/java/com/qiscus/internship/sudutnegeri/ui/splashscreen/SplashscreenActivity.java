@@ -75,7 +75,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
     @Override
     public void successUser(DataUser data) {
         Intent login = new Intent(SplashscreenActivity.this, DashboardActivity.class);
-        login.putExtra(Constant.Extra.User, data);
+        login.putExtra(Constant.Extra.DATA, data);
         startActivity(login);
         finish();
     }

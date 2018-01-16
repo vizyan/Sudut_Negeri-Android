@@ -44,6 +44,8 @@ public class SplashscreenPresenter {
                             } else {
                                 splashscreenView.successUser(data);
                             }
+                        } else {
+                            splashscreenView.notLogin();
                         }
                     }
 

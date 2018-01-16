@@ -7,12 +7,13 @@
     android:weightSum="1">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@drawable/bg_drawer_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bg_drawer">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivDrawerUser"
@@ -40,14 +41,15 @@
             android:id="@+id/tvDrawerName"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:minWidth="150dp"
             android:layout_marginStart="45dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_rounded_solid_blue"
             android:fontFamily="@font/somanticrounded"
             android:foregroundGravity="center_vertical"
             android:gravity="center"
-            android:paddingTop="5dp"
+            android:minWidth="150dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text="Name"
             android:textAlignment="center"
             android:textColor="@android:color/white"
@@ -64,8 +66,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
-        android:layout_marginStart="45dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="292dp"
         android:layout_weight="1"
         android:background="@drawable/bg_sounded_trans_red"
         android:text="Keluar"
@@ -73,6 +77,8 @@
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 </android.support.constraint.ConstraintLayout>

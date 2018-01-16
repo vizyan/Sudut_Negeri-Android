@@ -70,7 +70,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         rvLog = findViewById(R.id.rvLog);
         btnLogLog = findViewById(R.id.btnLogLog);
         btnLogReg = findViewById(R.id.btnLogReg);
-        btnPopupFRetry = findViewById(R.id.btnPopupFRetry);
         etLogEmail = findViewById(R.id.etLogEmail);
         etLogPasswd = findViewById(R.id.etLogPasswd);
     }
@@ -171,24 +170,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         try {
             LayoutInflater inflater = (LayoutInflater) LoginActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.layout_popup_failed,
-                    null);
+            View layout = inflater.inflate(R.layout.layout_popup_failed, null);
             final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
             pw.setOutsideTouchable(false);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
             tvPopupType = layout.findViewById(R.id.tvPopupFType);
-            btnPopupFRetry = layout.findViewById(R.id.btnPopupFRetry);
             tvPopupMsg.setText(messsage);
             tvPopupType.setText("Gagal Masuk");
-
-            btnPopupFRetry.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pw.dismiss();
-                        loginPresenter.loginUser();
-                    }
-                });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -233,9 +222,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         initPreference();
 
         Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
-        login.putExtra(Constant.Extra.User, data);
+        login.putExtra(Constant.Extra.DATA, data);
         startActivity(login);
-        finish();
+        finishAffinity();
     }
 
     @Override

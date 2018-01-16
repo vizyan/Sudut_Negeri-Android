@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
+    android:id="@+id/dlAbout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AboutActivity">
+    tools:context=".ui.about.AboutActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.AboutActivity">
+        tools:context=".ui.about.AboutActivity">
 
         <RelativeLayout
             android:id="@+id/rlAbout"
@@ -21,9 +22,8 @@
             <me.biubiubiu.justifytext.library.JustifyTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="0dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="100dp"
                 android:text="@string/ket_about"
                 android:textAlignment="center"
                 android:textColor="#FEFEFE"
@@ -34,55 +34,31 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="30dp"
-                    app:srcCompat="@drawable/logo_white" />
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="25dp"
-                        android:text="@string/sn"
-                        android:textColor="#FEFEEF"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/taglinesn"
-                        android:textColor="#FEFEFE"
-                        android:textSize="12dp" />
-
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/somanticrounded"
+                    android:gravity="center"
+                    android:text="@string/sn"
+                    android:textColor="#FEFEEF"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="230dp"
+                android:layout_marginTop="200dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Our Team"
+                    android:fontFamily="@font/somanticrounded"
                     android:textAlignment="center"
                     android:textColor="#FEFEFE"
                     android:textSize="20dp"
@@ -427,69 +403,69 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="240dp"
             android:src="@drawable/founder" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="390dp"
+            android:layout_marginTop="360dp"
             android:src="@drawable/founder" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="510dp"
+            android:layout_marginTop="480dp"
             android:src="@drawable/founderh" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="630dp"
+            android:layout_marginTop="600dp"
             android:src="@drawable/foundermu" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="750dp"
+            android:layout_marginTop="720dp"
             android:src="@drawable/founderver" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="880dp"
+            android:layout_marginTop="850dp"
             android:src="@drawable/cto" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="1010dp"
+            android:layout_marginTop="980dp"
             android:src="@drawable/frontend" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginTop="1140dp"
+            android:layout_marginTop="1110dp"
             android:src="@drawable/backend" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="1280dp"
+                android:layout_marginTop="1250dp"
                 android:src="@drawable/fullstack" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="1410dp"
+                android:layout_marginTop="1380dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -507,14 +483,14 @@
     </ScrollView>
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/navigation_view"
+        android:id="@+id/nvAbout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/layout_drawer_header"
         app:menu="@menu/menu_navigation_drawer">
 
-        <include layout="@layout/layout_drawer_footer"/>
+        <include layout="@layout/layout_drawer_footer" />
 
     </android.support.design.widget.NavigationView>
 

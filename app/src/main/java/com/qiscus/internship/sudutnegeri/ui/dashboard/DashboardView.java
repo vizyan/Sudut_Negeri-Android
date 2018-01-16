@@ -5,4 +5,9 @@ package com.qiscus.internship.sudutnegeri.ui.dashboard;
  */
 
 interface DashboardView {
+    String getEmail();
+
+    String getPassword();
+
+    void successLogout();
 }

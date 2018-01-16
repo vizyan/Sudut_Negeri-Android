@@ -8,6 +8,21 @@ import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 
 public interface UserView {
 
-    void showSuccess(DataUser user);
+    String getEmail();
 
+    String getPassword();
+
+    String getName();
+
+    String getPhone();
+
+    String getVerify();
+
+    void successUserbyId(DataUser dataUser);
+
+    void successPut(DataUser dataUser);
+
+    void successLogout();
+
+    String getAddress();
 }

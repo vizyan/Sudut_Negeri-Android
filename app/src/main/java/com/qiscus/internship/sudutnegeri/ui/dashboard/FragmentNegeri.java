@@ -12,10 +12,10 @@ import com.qiscus.internship.sudutnegeri.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SudutFragment extends Fragment {
+public class FragmentNegeri extends Fragment {
 
 
-    public SudutFragment() {
+    public FragmentNegeri() {
         // Required empty public constructor
     }
 
@@ -24,10 +24,10 @@ public class SudutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sudut, container, false);
+        return inflater.inflate(R.layout.fragment_negeri, container, false);
     }
 
     public static Fragment newInstance() {
-        return new SudutFragment();
+        return new FragmentNegeri();
     }
 }

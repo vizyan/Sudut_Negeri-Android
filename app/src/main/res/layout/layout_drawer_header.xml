@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:gravity="center"
-    android:background="@drawable/bg_drawer"
+    android:background="@drawable/bg_drawer_header"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:weightSum="1">

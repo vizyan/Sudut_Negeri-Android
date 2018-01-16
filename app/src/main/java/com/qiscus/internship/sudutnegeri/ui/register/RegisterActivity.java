@@ -34,11 +34,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initPresenter();
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
         initView();
-        initPresenter();
         initAnimation();
 
         login();
@@ -167,17 +167,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
                 tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
                 tvPopupMsg = layout.findViewById(R.id.tvPopupSType);
-                btnPopupFRetry = layout.findViewById(R.id.btnPopupFRetry);
                 tvPopupMsg.setText(messsage);
                 tvPopupType.setText("Gagal Bergabung");
-
-                btnPopupFRetry.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pw.dismiss();
-                        registerPresenter.addUser();
-                    }
-                });
             }
 
 

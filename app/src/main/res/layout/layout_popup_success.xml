@@ -8,7 +8,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,9 +21,11 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginEnd="85dp"
                 android:layout_marginStart="85dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvPopupSType"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,8 +37,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
+                android:paddingBottom="15dp"
                 android:text="Tunggu konfirmasi admin"
                 android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/btnPopupSNext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

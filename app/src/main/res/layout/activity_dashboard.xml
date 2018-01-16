@@ -2,7 +2,7 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer"
+    android:id="@+id/dlDashboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity">
@@ -14,36 +14,36 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/tbDashboard"
             layout="@layout/layout_toolbar" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
+            android:id="@+id/vpDashboard"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/tlDashboard"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gradient1"
             android:layout_alignParentBottom="true"
-            app:tabSelectedTextColor="#ffffff"
-            app:tabMode="fixed" />
+            android:background="@color/gradient1"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#ffffff" />
 
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/navigation_view"
+        android:id="@+id/nvDashboard"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/layout_drawer_header"
         app:menu="@menu/menu_navigation_drawer">
 
-        <include layout="@layout/layout_drawer_footer"/>
+        <include layout="@layout/layout_drawer_footer" />
 
     </android.support.design.widget.NavigationView>
 
