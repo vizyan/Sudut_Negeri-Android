@@ -16,6 +16,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by vizyan on 02/01/18.
@@ -25,11 +26,19 @@ public interface Api {
 
     @Headers("Content-Type: application/json")
 
+    @GET("users")
+    Call<ResultListUser> getAllUser();
+
     @GET("projects")
     Call<ResultListProject> getAllPorject();
 
-    @GET("users")
-    Call<ResultListUser> getAllUser();
+    //Get unverified user
+    @GET("users/verify/no")
+    Call<ResultListUser> getUnverifiedUser();
+
+    //Get unverified project
+    @GET("projects/verify/no")
+    Call<ResultListProject> getUnverifiedProject();
 
     @GET("users/{id}")
     Call<ResultUser> getUser(
