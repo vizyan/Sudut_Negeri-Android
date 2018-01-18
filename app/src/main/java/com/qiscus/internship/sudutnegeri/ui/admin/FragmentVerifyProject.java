@@ -1,6 +1,7 @@
 package com.qiscus.internship.sudutnegeri.ui.admin;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.project.ProjectListener;
-import com.qiscus.internship.sudutnegeri.adapter.user.UserAdapter;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
+import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
+import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_verify_project, container, false);
+        return inflater.inflate(R.layout.fragment_verify_project, container, false);
     }
 
     @Override
@@ -75,7 +78,10 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
 
     @Override
     public void onProjectClick(DataProject dataProject) {
-
+        Intent intent = new Intent(getActivity(), ProjectActivity.class);
+        intent.putExtra(Constant.Extra.Project, dataProject);
+        intent.putExtra(Constant.Extra.param, "admin");
+        startActivity(intent);
     }
 
     @Override

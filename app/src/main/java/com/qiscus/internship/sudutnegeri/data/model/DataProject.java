@@ -15,42 +15,36 @@ public class DataProject implements Parcelable {
     @SerializedName("id")
     @Expose
     private Integer id;
-
     @SerializedName("name_project")
     @Expose
     private String nameProject;
-
     @SerializedName("verify")
     @Expose
     private String verify;
-
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-
     @SerializedName("location")
     @Expose
     private String location;
-
     @SerializedName("target_at")
     @Expose
     private String targetAt;
-
     @SerializedName("information")
     @Expose
     private String information;
-
     @SerializedName("photo")
     @Expose
     private String photo;
-
     @SerializedName("id_user")
     @Expose
-    private Object idUser;
+    private Integer idUser;
+    @SerializedName("funds")
+    @Expose
+    private Integer funds;
 
     protected DataProject(Parcel in) {
         if (in.readByte() == 0) {
@@ -66,6 +60,8 @@ public class DataProject implements Parcelable {
         targetAt = in.readString();
         information = in.readString();
         photo = in.readString();
+        idUser = in.readInt();
+        funds = in.readInt();
     }
 
     public static final Creator<DataProject> CREATOR = new Creator<DataProject>() {
@@ -152,12 +148,20 @@ public class DataProject implements Parcelable {
         this.photo = photo;
     }
 
-    public Object getIdUser() {
+    public int getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Object idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    public Integer getFunds() {
+        return funds;
+    }
+
+    public void setFunds(Integer funds) {
+        this.funds = funds;
     }
 
     @Override
@@ -167,10 +171,11 @@ public class DataProject implements Parcelable {
                 ", name_project='" + nameProject + '\'' +
                 ", created_at='" + createdAt + '\'' +
                 ", updated_at='" + updatedAt + '\'' +
-                ", locations='" + location + '\'' +
+                ", location='" + location + '\'' +
                 ", information='" + information + '\'' +
                 ", photo='" + photo + '\'' +
                 ", id_user='" + idUser + '\'' +
+                ", funds='" + funds + '\'' +
                 '}';
     }
 
@@ -195,5 +200,7 @@ public class DataProject implements Parcelable {
         dest.writeString(targetAt);
         dest.writeString(information);
         dest.writeString(photo);
+        dest.writeInt(idUser);
+        dest.writeInt(funds);
     }
 }

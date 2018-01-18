@@ -33,12 +33,16 @@ public interface Api {
     Call<ResultListProject> getAllPorject();
 
     //Get unverified user
-    @GET("users/verify/no")
-    Call<ResultListUser> getUnverifiedUser();
+    @GET("users/verify/{verify}")
+    Call<ResultListUser> getUnverifiedUser(
+            @Path("verify") String verify
+    );
 
     //Get unverified project
-    @GET("projects/verify/no")
-    Call<ResultListProject> getUnverifiedProject();
+    @GET("projects/verify/{verify}")
+    Call<ResultListProject> getUnverifiedProject(
+            @Path("verify") String verify
+    );
 
     @GET("users/{id}")
     Call<ResultUser> getUser(
@@ -63,9 +67,17 @@ public interface Api {
 
     //Update project
     @FormUrlEncoded
-    @PUT("project/{1}")
+    @PUT("projects/{id}")
     Call<ResultProject> putProject(
-
+            @Path("id") int id,
+            @Field("name_project") String name_project,
+            @Field("verify") String verify,
+            @Field("location") String location,
+            @Field("target_at") String target,
+            @Field("information") String information,
+            @Field("photo") String urlPhoto,
+            @Field("id_user") int id_user,
+            @Field("funds") int funds
     );
 
     @FormUrlEncoded

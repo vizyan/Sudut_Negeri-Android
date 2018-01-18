@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.admin.ViewPagerAdapter;
 
 public class AdminActivity extends AppCompatActivity{
 
@@ -25,8 +24,14 @@ public class AdminActivity extends AppCompatActivity{
         setContentView(R.layout.activity_admin);
         setTitle("");
         initView();
-        setupToolbar();
         initViewPager();
+        setupToolbar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     private void initView() {
@@ -93,10 +98,10 @@ public class AdminActivity extends AppCompatActivity{
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
-        viewPager.setAdapter(viewPagerAdapter);
+        ViewPagerAdmin viewPagerAdmin = new ViewPagerAdmin(getSupportFragmentManager(), this);
+        viewPager.setAdapter(viewPagerAdmin);
         viewPager.setOffscreenPageLimit(2);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlAdmin));
-        tlAdmin.setTabsFromPagerAdapter(viewPagerAdapter);
+        tlAdmin.setTabsFromPagerAdapter(viewPagerAdmin);
     }
 }

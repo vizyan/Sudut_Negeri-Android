@@ -20,7 +20,7 @@ public interface UserView {
 
     void successUserbyId(DataUser dataUser);
 
-    void successPut(DataUser dataUser);
+    void successPutUser(DataUser dataUser);
 
     void successLogout();
 

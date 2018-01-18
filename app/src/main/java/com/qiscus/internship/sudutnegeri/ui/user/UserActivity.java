@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.UnicodeSetSpanner;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,10 +29,13 @@ import android.widget.Toast;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.about.AboutActivity;
+import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+
+import java.util.Date;
 
 public class UserActivity extends AppCompatActivity implements UserView {
 
@@ -41,9 +46,8 @@ public class UserActivity extends AppCompatActivity implements UserView {
     EditText etUserName, etUserEmail, etUserIdNumber, etUserAddress, etUserPhone;
     ImageView ivDrawerPhoto;
     NavigationView navigationView;
-    String email, passwd, param;
+    String email, passwd, param, name, phone, address;
     TextView title, tvDrawerName, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
         initDataPresenter();
         initDataDrawer();
         initEditable();
-        setupToolbar();
 
         putUser();
         logout();
@@ -82,14 +85,12 @@ public class UserActivity extends AppCompatActivity implements UserView {
         etUserAddress = findViewById(R.id.etUserAddress);
         etUserPhone = findViewById(R.id.etUserPhone);
         btnUserSave = findViewById(R.id.btnUserSave);
-        toolbar = findViewById(R.id.toolbar);
         title = findViewById(R.id.tvToolbarTitle);
         tvDrawerName = findViewById(R.id.tvDrawerName);
         ivDrawerPhoto = findViewById(R.id.ivDrawerUser);
         btnDrawerLogout = findViewById(R.id.btnDrawerLogout);
         drawerLayout = findViewById(R.id.dlUser);
         navigationView = findViewById(R.id.nvUser);
-        title.setText("Profile");
     }
 
     private void initNavigation() {
@@ -159,23 +160,23 @@ public class UserActivity extends AppCompatActivity implements UserView {
         }
     }
 
-    private void setupToolbar() {
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+    private void initVarible() {
+        name = etUserName.getText().toString();
+        address = etUserAddress.getText().toString();
+        phone = etUserPhone.getText().toString();
     }
 
     private void putUser() {
         btnUserSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userPresenter.putUser(dataUser);
+                initVarible();
+                userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
             }
         });
     }
 
-    private void popupWindow(String messsage) {
+    private void popupWindow(String messsage, String param) {
         try {
             LayoutInflater inflater = (LayoutInflater) UserActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -189,10 +190,30 @@ public class UserActivity extends AppCompatActivity implements UserView {
                 tvPopupSMsg = layout.findViewById(R.id.tvPopupSMsg);
                 tvPopupSType = layout.findViewById(R.id.tvPopupSType);
 
-                tvPopupSType.setText("Selamat");
-                tvPopupSMsg.setText("Profil anda berhasil diperbarui");
                 btnPopupSNext.setVisibility(View.GONE);
 
+                if(param.equalsIgnoreCase("admin")){
+                    tvPopupSType.setText("Verifikasi berhasil");
+                    tvPopupSMsg.setText("Pengguna " + dataUser.getName());
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
+                            Intent admin = new Intent(UserActivity.this, AdminActivity.class);
+                            startActivity(admin);
+                            UserActivity.this.finish();
+                        }
+
+                        private void finish() {
+                            // TODO Auto-generated method stub
+
+                        }
+                    }, 1000);
+                } else {
+                    tvPopupSType.setText("Selamat");
+                    tvPopupSMsg.setText("Profil anda berhasil diperbarui");
+                }
             } else {
                 View layout = inflater.inflate(R.layout.layout_popup_failed, null);
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
@@ -265,8 +286,8 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     @Override
-    public void successPut(DataUser dataUser) {
-        popupWindow("success");
+    public void successPutUser(DataUser dataUser) {
+        popupWindow("success", param);
         this.dataUser = dataUser;
         initDataDrawer();
     }

@@ -43,23 +43,23 @@ public class UserPresenter {
                 });
     }
 
-    public void putUser(DataUser dataUser){
+    public void putUser(int id, String pname, String paddress, String pphone, String pverify){
 
-        String name = userView.getName();
-        String address = userView.getAddress();
-        String phone = userView.getPhone();
-        String verify = userView.getVerify();
+        String name = pname;
+        String address = paddress;
+        String phone = pphone;
+        String verify = pverify;
 
         RetrofitClient.getInstance()
                 .getApi()
-                .putUser(dataUser.getId(), name, address, phone, verify)
+                .putUser(id, name, address, phone, verify)
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
                         if (response.isSuccessful()){
                             ResultUser resultUser = response.body();
                             DataUser dataUser = resultUser.getData();
-                            userView.successPut(dataUser);
+                            userView.successPutUser(dataUser);
                         }
                     }
 

@@ -9,11 +9,11 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Created by Deadroit on 1/16/2017.
  */
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdmin extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     final Context context;
 
-    public ViewPagerAdapter(FragmentManager fm, Context context) {
+    public ViewPagerAdmin(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }

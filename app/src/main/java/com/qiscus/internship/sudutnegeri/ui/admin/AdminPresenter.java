@@ -29,7 +29,7 @@ public class AdminPresenter {
     public void showUnverifiedUser(){
         RetrofitClient.getInstance()
                 .getApi()
-                .getUnverifiedUser()
+                .getUnverifiedUser("no")
                 .enqueue(new Callback<ResultListUser>() {
                     @Override
                     public void onResponse(Call<ResultListUser> call, Response<ResultListUser> response) {
@@ -51,7 +51,7 @@ public class AdminPresenter {
     public void showUnverifiedProject(){
         RetrofitClient.getInstance()
                 .getApi()
-                .getAllPorject()
+                .getUnverifiedProject("no")
                 .enqueue(new Callback<ResultListProject>() {
                     @Override
                     public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {

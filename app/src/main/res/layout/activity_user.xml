@@ -7,100 +7,112 @@
     android:layout_height="match_parent"
     tools:context="com.qiscus.internship.sudutnegeri.ui.user.UserActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/ivUserPhoto"
-                android:layout_marginEnd="99dp"
-                android:layout_marginStart="98dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_rounded_trans_blue"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="textNoSuggestions"
-                android:text="Pramudya Erviansyah"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivUserPhoto" />
-
-            <ImageView
-                android:id="@+id/ivUserPhoto"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginEnd="156dp"
-                android:layout_marginStart="155dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo_blue" />
-        </android.support.constraint.ConstraintLayout>
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/layout_toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnUserSave"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="35dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginStart="234dp"
-            android:layout_marginTop="57dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_rounded_trans_purple"
-            android:text="Simpan"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/bg_user_detail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/tlUser"
+                        layout="@layout/layout_toolbar_transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="42dp"
+                        app:layout_constraintBottom_toTopOf="@+id/etUserName"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/cloud_one" />
+
+                    <EditText
+                        android:id="@+id/etUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/ivUserPhoto"
+                        android:layout_marginBottom="50dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="42dp"
+                        android:background="@drawable/bg_rounded_solid_purple"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="textNoSuggestions"
+                        android:text="Nama User"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/ivUserPhoto" />
+
+                    <ImageView
+                        android:id="@+id/ivUserPhoto"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="65dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/logo_blue" />
+                </android.support.constraint.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/btnUserSave"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rounded_trans_blue"
+                    android:text="Masuk"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp">
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -114,7 +126,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_marginStart="10dp"
                             android:text="Email"
                             android:textColor="@color/gradient4"
                             android:textStyle="bold" />
@@ -122,7 +134,7 @@
                         <EditText
                             android:id="@+id/etuserEmail"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp"
+                            android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/bg_rounded_trans_purple"
                             android:ems="10"
@@ -134,8 +146,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:gravity="center"
                             android:text="No KTP"
                             android:textColor="@color/gradient4"
                             android:textStyle="bold" />
@@ -143,7 +155,7 @@
                         <EditText
                             android:id="@+id/etUserIdNumber"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp"
+                            android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/bg_rounded_trans_purple"
                             android:ems="10"
@@ -155,8 +167,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:gravity="center"
                             android:text="Alamat Lengkap"
                             android:textColor="@color/gradient4"
                             android:textStyle="bold" />
@@ -164,7 +176,7 @@
                         <EditText
                             android:id="@+id/etUserAddress"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp"
+                            android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/bg_rounded_trans_purple"
                             android:ems="10"
@@ -176,8 +188,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:gravity="center"
                             android:text="No Telp / HP"
                             android:textColor="@color/gradient4"
                             android:textStyle="bold" />
@@ -185,7 +197,7 @@
                         <EditText
                             android:id="@+id/etUserPhone"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp"
+                            android:layout_height="40dp"
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="10dp"
                             android:background="@drawable/bg_rounded_trans_purple"
@@ -196,10 +208,12 @@
                             android:textColor="@android:color/white" />
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-            </LinearLayout>
-        </ScrollView>
 
-    </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nvUser"

@@ -38,7 +38,7 @@
         <activity android:name=".ui.admin.AdminActivity" />
         <activity android:name=".ui.user.UserActivity"></activity>
         <activity android:name=".ui.DetailUser.DetailUserActivity"></activity>
-        <activity android:name=".ui.project.DetailProjectActivity"></activity>
+        <activity android:name=".ui.project.ProjectActivity"></activity>
     </application>
 
 </manifest>
