@@ -15,8 +15,9 @@ import com.qiscus.internship.sudutnegeri.R;
 public class FragmentSudut extends Fragment {
 
 
-    public FragmentSudut() {
+    public static FragmentSudut newInstance() {
         // Required empty public constructor
+        return new FragmentSudut();
     }
 
 
@@ -27,7 +28,4 @@ public class FragmentSudut extends Fragment {
         return inflater.inflate(R.layout.fragment_sudut, container, false);
     }
 
-    public static Fragment newInstance() {
-        return new FragmentSudut();
-    }
 }

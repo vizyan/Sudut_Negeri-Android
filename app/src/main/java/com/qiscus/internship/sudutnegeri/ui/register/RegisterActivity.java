@@ -3,6 +3,7 @@ package com.qiscus.internship.sudutnegeri.ui.register;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     AnimationDrawable animationDrawable;
     RelativeLayout rvReg;
     EditText etRegName,etRegEmail, etRegPasswd, etRegRetypePasswd, etRegIdNo, etRegAddress, etRegPhone ;
-    Button btnRegReg, btnRegLog, btnPopupFRetry, btnPopupSNext;
+    Button btnRegReg, btnRegLog;
     TextView tvPopupMsg, tvPopupType;
     String passwd, retypepasswd, email, name, idNo, address, phone;
 
@@ -136,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         }
     }
 
-    private void initPopupWindow(String messsage) {
+    private void initPopupWindow(String messsage, String error) {
         try {
             LayoutInflater inflater = (LayoutInflater) RegisterActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -147,31 +148,31 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, false);
                 pw.setOutsideTouchable(false);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                btnPopupSNext = layout.findViewById(R.id.btnPopupSNext);
 
-                btnPopupSNext.setOnClickListener(new View.OnClickListener() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onClick(View v) {
-                        pw.dismiss();
-                        Intent landing = new Intent(RegisterActivity.this, LandingActivity.class);
-                        startActivity(landing);
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Intent admin = new Intent(RegisterActivity.this, LandingActivity.class);
+                        startActivity(admin);
                         finish();
                     }
-                });
+
+                    private void finish() {
+                        // TODO Auto-generated method stub
+
+                    }
+                }, 1000);
 
             } else {
-                View layout = inflater.inflate(R.layout.layout_popup_failed,
-                        null);
+                View layout = inflater.inflate(R.layout.layout_popup_failed, null);
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                pw.setOutsideTouchable(false);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
                 tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
-                tvPopupMsg = layout.findViewById(R.id.tvPopupSType);
-                tvPopupMsg.setText(messsage);
+                tvPopupType = layout.findViewById(R.id.tvPopupFType);
+                tvPopupMsg.setText(error);
                 tvPopupType.setText("Gagal Bergabung");
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -319,12 +320,17 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void success(String message) {
-        initPopupWindow(message);
+        initPopupWindow(message, null);
     }
 
     @Override
     public void noConnection() {
 
+    }
+
+    @Override
+    public void failedRegister(String message, String error) {
+        initPopupWindow(message, error);
     }
 
 

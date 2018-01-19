@@ -186,15 +186,12 @@ public class UserActivity extends AppCompatActivity implements UserView {
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
                 pw.setOutsideTouchable(false);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                btnPopupSNext = layout.findViewById(R.id.btnPopupSNext);
                 tvPopupSMsg = layout.findViewById(R.id.tvPopupSMsg);
                 tvPopupSType = layout.findViewById(R.id.tvPopupSType);
-
-                btnPopupSNext.setVisibility(View.GONE);
-
                 if(param.equalsIgnoreCase("admin")){
+
                     tvPopupSType.setText("Verifikasi berhasil");
-                    tvPopupSMsg.setText("Pengguna " + dataUser.getName());
+                    tvPopupSMsg.setText("Atas nama " + dataUser.getName());
 
                     new Handler().postDelayed(new Runnable() {
                         @Override

@@ -1,9 +1,14 @@
 package com.qiscus.internship.sudutnegeri.ui.dashboard;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.qiscus.internship.sudutnegeri.data.model.DataProject;
+import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,8 +34,47 @@ public class DashboardPresenter {
 
     }
 
+    public void getProjectByVerify(){
+        RetrofitClient.getInstance()
+                .getApi()
+                .getUnverifiedProject("yes")
+                .enqueue(new Callback<ResultListProject>() {
+                    @Override
+                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                        if(response.isSuccessful()){
+                            ResultListProject resultListProject = response.body();
+                            List<DataProject> dataProjects = resultListProject.getData();
+                            dashboardView.successShowProjectVerify(dataProjects);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultListProject> call, Throwable t) {
+
+                    }
+                });
+    }
+
     public void getProjectByUser(){
 
+    }
+
+    public void getProjectByTime(){
+        RetrofitClient.getInstance()
+                .getApi()
+                .getPorjectTime()
+                .enqueue(new Callback<ResultListProject>() {
+                             @Override
+                             public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                                 ResultListProject resultListProject = response.body();
+                                 List<DataProject> dataProject = resultListProject.getData();
+                             }
+
+                             @Override
+                             public void onFailure(Call<ResultListProject> call, Throwable t) {
+
+                             }
+                         });
     }
 
     public void logout(){

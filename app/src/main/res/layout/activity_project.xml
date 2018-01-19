@@ -4,8 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     tools:context="com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity">
 
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_project_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvProjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginEnd="131dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/bg_rounded_trans_blue"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:minWidth="150dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:text="Project Name"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProjectCreator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Creator Name"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@+id/tvProjectName" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <Button
         android:id="@+id/btnProjectDonate"
@@ -35,8 +79,10 @@
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="585dp"
+        android:layout_height="470dp"
+        android:layout_marginTop="125dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -44,45 +90,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_project_detail">
-
-                <TextView
-                    android:id="@+id/tvProjectName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="131dp"
-                    android:layout_marginStart="130dp"
-                    android:layout_marginTop="45dp"
-                    android:background="@drawable/bg_rounded_trans_blue"
-                    android:foregroundGravity="center"
-                    android:gravity="center"
-                    android:minWidth="150dp"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:text="Project Name"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvProjectCreator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:foregroundGravity="center"
-                    android:gravity="center"
-                    android:text="Creator Name"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/tvProjectName" />
-
-            </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"

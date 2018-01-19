@@ -60,10 +60,6 @@ public class DataUser implements Parcelable {
     @Expose
     private String verify;
 
-    @SerializedName("errors")
-    @Expose
-    private ErrorRegister errors;
-
     protected DataUser(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
@@ -94,14 +90,6 @@ public class DataUser implements Parcelable {
             return new DataUser[size];
         }
     };
-
-    public ErrorRegister getErrors() {
-        return errors;
-    }
-
-    public void setErrors(ErrorRegister errors) {
-        this.errors = errors;
-    }
 
     public String getVerify() {
         return verify;

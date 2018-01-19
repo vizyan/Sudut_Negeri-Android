@@ -47,5 +47,8 @@ dependencies {
     //load picture
     compile 'com.squareup.picasso:picasso:2.5.2'
 
+    //Qiscus SDK chat
+    compile 'com.qiscus.sdk:chat:2.19.0'
+
     compile 'me.biubiubiu.justifytext:library:1.1'
 }

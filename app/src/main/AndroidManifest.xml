@@ -33,11 +33,13 @@
             android:name=".ui.register.RegisterActivity"
             android:theme="@style/Splashscreen" />
         <activity android:name=".ui.about.AboutActivity" />
-        <activity android:name=".ui.dashboard.DashboardActivity" />
-        <activity android:name=".ui.profile.ProfileActivity" />
+        <activity android:name=".ui.dashboard.DashboardActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.admin.AdminActivity" />
         <activity android:name=".ui.user.UserActivity"></activity>
-        <activity android:name=".ui.DetailUser.DetailUserActivity"></activity>
         <activity android:name=".ui.project.ProjectActivity"></activity>
     </application>
 

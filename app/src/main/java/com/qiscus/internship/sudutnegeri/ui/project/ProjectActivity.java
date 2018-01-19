@@ -33,6 +33,10 @@ import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import me.biubiubiu.justifytext.library.JustifyTextView;
 
 public class ProjectActivity extends AppCompatActivity implements ProjectView {
@@ -40,12 +44,13 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private ProjectPresenter projectPresenter;
     private DataProject dataProject;
     Button btnProjectDonate, btnPopupSNext;
+    Date date;
     FloatingActionButton fabProjectChat;
     ImageView ivProjectPhoto;
     int funds = 0;
     JustifyTextView jtProjectInformation;
     ProgressBar pbProjectProgress;
-    String param;
+    String param, postDate;
     TextView tvProjectName, tvProjectLocation, tvProjectTarget, tvProjectCreator, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType;
 
     @Override
@@ -58,12 +63,10 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         initView();
         initDataIntent();
         initDataPresenter();
-        initEditabel();
+        initEditable();
 
         putProject();
     }
-
-
 
     private void initPresenter() {
         projectPresenter = new ProjectPresenter(this);
@@ -92,7 +95,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         projectPresenter.getUserById(dataProject);
     }
 
-    private void initEditabel() {
+    private void initEditable() {
         if (param.equalsIgnoreCase("admin")){
             btnProjectDonate.setText("Verifikasi");
         }
@@ -121,13 +124,11 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
                 pw.setOutsideTouchable(false);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                btnPopupSNext = layout.findViewById(R.id.btnPopupSNext);
                 tvPopupSMsg = layout.findViewById(R.id.tvPopupSMsg);
                 tvPopupSType = layout.findViewById(R.id.tvPopupSType);
 
-                btnPopupSNext.setVisibility(View.GONE);
-
                 if(param.equalsIgnoreCase("admin")){
+
                     tvPopupSType.setText("Verifikasi berhasil");
                     tvPopupSMsg.setText("Project " + dataProject.getNameProject());
 
@@ -146,8 +147,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                         }
                     }, 1000);
                 } else {
-                    tvPopupSType.setText("Selamat");
-                    tvPopupSMsg.setText("Profil anda berhasil diperbarui");
+                    initDonate();
                 }
             } else {
                 View layout = inflater.inflate(R.layout.layout_popup_failed, null);
@@ -156,18 +156,37 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                 tvPopupFMsg = layout.findViewById(R.id.tvPopupFMsg);
                 tvPopupFType = layout.findViewById(R.id.tvPopupFType);
                 tvPopupFMsg.setText(messsage);
-                tvPopupFType.setText("Gagal merubah profil");
+                tvPopupFType.setText("Gagal");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void initDonate() {
+
+    }
+
+    private void setupDate(){
+        SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+        date = new Date();
+        try {
+            date = form.parse(dataProject.getTargetAt());
+            postDate = simpleDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void successProjectById(DataProject dataProject) {
+        this.dataProject = dataProject;
+        setupDate();
         tvProjectName.setText(dataProject.getNameProject());
         tvProjectLocation.setText(dataProject.getLocation());
-        tvProjectTarget.setText(dataProject.getTargetAt());
+        tvProjectTarget.setText("Hingga " +postDate);
 
         Picasso.with(ProjectActivity.this)
                 .load(dataProject.getPhoto())
@@ -181,7 +200,6 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     @Override
     public void successPutProject(DataProject dataProject) {
-        btnProjectDonate.setVisibility(View.INVISIBLE);
         popupWindow("success", param);
     }
 

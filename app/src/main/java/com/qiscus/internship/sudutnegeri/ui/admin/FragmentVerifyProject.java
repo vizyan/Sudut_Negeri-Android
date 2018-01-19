@@ -4,6 +4,7 @@ package com.qiscus.internship.sudutnegeri.ui.admin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
     private AdminPresenter adminPresenter;
     private ProjectAdapter projectAdapter;
     RecyclerView rvProjectVerif;
+    SwipeRefreshLayout swipeRefreshLayout;
     TextView tvItemPName, tvItemPAddress;
 
     public static FragmentVerifyProject newInstance() {
@@ -50,17 +52,39 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
         super.onActivityCreated(savedInstanceState);
         initPresenter();
         initView();
+        initDataPresenter();
+
+        refresh();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initDataPresenter();
+    }
+
+    private void initPresenter() {
+        adminPresenter = new AdminPresenter(this);
     }
 
     private void initView() {
         rvProjectVerif = getActivity().findViewById(R.id.rvProjectVerif);
         tvItemPName = getActivity().findViewById(R.id.tvItemPName);
         tvItemPAddress = getActivity().findViewById(R.id.tvItemPAddress);
+        swipeRefreshLayout = getActivity().findViewById(R.id.srlProject);
     }
 
-    private void initPresenter() {
-        adminPresenter = new AdminPresenter(this);
+    private void initDataPresenter(){
         adminPresenter.showUnverifiedProject();
+    }
+
+    private void refresh(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initDataPresenter();
+            }
+        });
     }
 
     @Override
@@ -70,6 +94,7 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
 
     @Override
     public void successShowProject(List<DataProject> projects) {
+        swipeRefreshLayout.setRefreshing(false);
         projectAdapter = new ProjectAdapter(projects);
         projectAdapter.setAdapterListener(this);
         rvProjectVerif.setLayoutManager(new LinearLayoutManager(getContext()));

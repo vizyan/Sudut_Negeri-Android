@@ -32,6 +32,9 @@ public interface Api {
     @GET("projects")
     Call<ResultListProject> getAllPorject();
 
+    @GET("landings")
+    Call<ResultListProject> getPorjectTime();
+
     //Get unverified user
     @GET("users/verify/{verify}")
     Call<ResultListUser> getUnverifiedUser(
@@ -96,7 +99,14 @@ public interface Api {
     @FormUrlEncoded
     @POST("projects")
     Call<ResultProject> postProject(
-
+            @Field("name_project") String name_project,
+            @Field("verify") String verify,
+            @Field("location") String location,
+            @Field("target_at") String target,
+            @Field("information") String information,
+            @Field("photo") String urlPhoto,
+            @Field("id_user") int id_user,
+            @Field("funds") int funds
     );
 
     //generate token

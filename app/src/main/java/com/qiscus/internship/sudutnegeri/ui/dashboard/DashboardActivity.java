@@ -13,7 +13,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.about.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
-import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardView {
 
@@ -150,11 +151,11 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     }
 
     private void setupViewPager(final ViewPager viewPager) {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
-        viewPager.setAdapter(viewPagerAdapter);
+        ViewPagerDashboard viewPagerDashboard = new ViewPagerDashboard(getSupportFragmentManager(), this);
+        viewPager.setAdapter(viewPagerDashboard);
         viewPager.setOffscreenPageLimit(2);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setTabsFromPagerAdapter(viewPagerAdapter);
+        tabLayout.setTabsFromPagerAdapter(viewPagerDashboard);
     }
 
     private void setupTab(){
@@ -226,5 +227,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         Intent logout = new Intent(DashboardActivity.this, LandingActivity.class);
         startActivity(logout);
         finish();
+    }
+
+    @Override
+    public void successShowProjectVerify(List<DataProject> dataProject) {
+
     }
 }

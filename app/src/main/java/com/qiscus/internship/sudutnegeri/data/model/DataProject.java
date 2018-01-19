@@ -45,6 +45,9 @@ public class DataProject implements Parcelable {
     @SerializedName("funds")
     @Expose
     private Integer funds;
+    @SerializedName("difftime")
+    @Expose
+    private Integer difftime;
 
     protected DataProject(Parcel in) {
         if (in.readByte() == 0) {
@@ -162,6 +165,14 @@ public class DataProject implements Parcelable {
 
     public void setFunds(Integer funds) {
         this.funds = funds;
+    }
+
+    public Integer getDifftime() {
+        return difftime;
+    }
+
+    public void setDifftime(Integer difftime) {
+        this.difftime = difftime;
     }
 
     @Override

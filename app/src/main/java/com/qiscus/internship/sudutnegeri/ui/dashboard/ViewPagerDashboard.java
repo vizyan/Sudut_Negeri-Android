@@ -9,11 +9,11 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Created by Deadroit on 1/16/2017.
  */
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerDashboard extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     final Context context;
 
-    public ViewPagerAdapter(FragmentManager fm, Context context) {
+    public ViewPagerDashboard(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -23,10 +23,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position){
             case 0:
-                fragment = FragmentNegeri.newInstance();
+                fragment = FragmentSudut.newInstance();
                 break;
             case 1:
-                fragment = FragmentSudut.newInstance();
+                fragment = FragmentNegeri.newInstance();
                 break;
         }
         return fragment;

@@ -15,11 +15,11 @@ public class ResultUser {
     @Expose
     private String message;
 
-    @SerializedName("errors")
+    @SerializedName("error")
     @Expose
-    private DataUser error;
+    private String error;
 
-    public DataUser getError() {
+    public String getError() {
         return error;
     }
 
