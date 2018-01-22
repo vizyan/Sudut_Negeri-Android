@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "625989023470",
+    "firebase_url": "https://sudut-negeri.firebaseio.com",
+    "project_id": "sudut-negeri",
+    "storage_bucket": "sudut-negeri.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625989023470:android:70f4fa1d2bdfadcb",
+        "android_client_info": {
+          "package_name": "com.qiscus.internship.sudutnegeri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625989023470-bfff7d998pk0gpvvb5kqph0nd3mdgdag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qiscus.internship.sudutnegeri",
+            "certificate_hash": "5c4d336309f5d4234de7f9b903c318be228320f6"
+          }
+        },
+        {
+          "client_id": "625989023470-p9imjlm7kfbisdmsi7ki7v5en0jpg8la.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeoJDsN6qaZWjjm9cNxshWJ84KwYo68e8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625989023470-p9imjlm7kfbisdmsi7ki7v5en0jpg8la.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

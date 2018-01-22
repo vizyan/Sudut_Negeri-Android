@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,8 +28,17 @@ import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import retrofit2.HttpException;
+
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
+    private static final String TAG = "" ;
     private LoginPresenter loginPresenter;
     RelativeLayout rvLog;
     AnimationDrawable animationDrawable;
@@ -232,5 +243,31 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Intent login = new Intent(LoginActivity.this, AdminActivity.class);
         startActivity(login);
         finish();
+    }
+
+    @Override
+    public void failedQiscuss(Throwable throwable) {
+        if (throwable instanceof HttpException) { //Error response from server
+            HttpException e = (HttpException) throwable;
+            try {
+                String errorMessage = e.response().errorBody().string();
+                JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
+                String finalError = json.getString("message");
+                if (json.has("detailed_messages") ) {
+                    JSONArray detailedMessages = json.getJSONArray("detailed_messages");
+                    finalError = (String) detailedMessages.get(0);
+                }
+                Log.e(TAG, errorMessage);
+                Toast.makeText(LoginActivity.this, finalError, Toast.LENGTH_LONG).show();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+        } else if (throwable instanceof IOException) { //Error from network
+            Log.d(null, "dunno1");
+        } else { //Unknown error
+            Log.d(null, "dunno2");
+        }
     }
 }

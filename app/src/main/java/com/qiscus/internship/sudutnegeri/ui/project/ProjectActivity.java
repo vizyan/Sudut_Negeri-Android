@@ -31,19 +31,28 @@ import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.data.remote.QiscusPusherApi;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import me.biubiubiu.justifytext.library.JustifyTextView;
+import retrofit2.HttpException;
 
 public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     private ProjectPresenter projectPresenter;
     private DataProject dataProject;
-    Button btnProjectDonate, btnPopupSNext;
+    private DataUser dataUser;
+    Button btnProjectDonate;
     Date date;
     FloatingActionButton fabProjectChat;
     ImageView ivProjectPhoto;
@@ -66,6 +75,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         initEditable();
 
         putProject();
+        chat();
     }
 
     private void initPresenter() {
@@ -107,9 +117,49 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
             public void onClick(View v) {
                 if (param.equalsIgnoreCase("admin")){
                     projectPresenter.putProject(dataProject);
-                } else if (param.equalsIgnoreCase("creator")){
-
+                } else if (param.equalsIgnoreCase("negeri")){
+                    initDonate();
                 }
+            }
+        });
+    }
+
+    private void chat() {
+        fabProjectChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Qiscus.buildChatWith(dataUser.getEmail())
+                        .build(ProjectActivity.this, new Qiscus.ChatActivityBuilderListener() {
+                            @Override
+                            public void onSuccess(Intent intent) {
+                                startActivity(intent);
+                                //QiscusPusherApi.getInstance().listenRoom();
+                            }
+                            @Override
+                            public void onError(Throwable throwable) {
+                                if (throwable instanceof HttpException) { //Error response from server
+                                    HttpException e = (HttpException) throwable;
+                                    try {
+                                        String errorMessage = e.response().errorBody().string();
+                                        JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
+                                        String finalError = json.getString("message");
+                                        if (json.has("detailed_messages") ) {
+                                            JSONArray detailedMessages = json.getJSONArray("detailed_messages");
+                                            finalError = (String) detailedMessages.get(0);
+                                        }
+                                        Toast.makeText(ProjectActivity.this, finalError, Toast.LENGTH_LONG).show();
+                                    } catch (IOException e1) {
+                                        e1.printStackTrace();
+                                    } catch (JSONException e1) {
+                                        e1.printStackTrace();
+                                    }
+                                } else if (throwable instanceof IOException) { //Error from network
+                                    Toast.makeText(ProjectActivity.this, "Tidak dapat terkoneksi dengan server", Toast.LENGTH_LONG).show();
+                                } else { //Unknown error
+                                    Toast.makeText(ProjectActivity.this, "Kesalahan", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
             }
         });
     }
@@ -147,7 +197,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                         }
                     }, 1000);
                 } else {
-                    initDonate();
+
                 }
             } else {
                 View layout = inflater.inflate(R.layout.layout_popup_failed, null);
@@ -195,16 +245,19 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     @Override
     public void successUserById(DataUser dataUser) {
+        this.dataUser = dataUser;
         tvProjectCreator.setText(dataUser.getName());
     }
 
     @Override
     public void successPutProject(DataProject dataProject) {
-        popupWindow("success", param);
+        if (param.equalsIgnoreCase("admin")){
+            popupWindow("success", param);
+        }
     }
 
     @Override
     public int getFunds() {
-        return funds;
+        return funds = funds + dataProject.getFunds();
     }
 }

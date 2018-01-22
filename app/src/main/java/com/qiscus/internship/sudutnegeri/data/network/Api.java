@@ -57,6 +57,11 @@ public interface Api {
             @Path("id") int id
     );
 
+    @GET("details/creator/{id}")
+    Call<ResultListProject> getProjectByUser(
+            @Path("id") int id
+    );
+
     //Update user
     @FormUrlEncoded
     @PUT("users/{id}")
@@ -82,6 +87,8 @@ public interface Api {
             @Field("id_user") int id_user,
             @Field("funds") int funds
     );
+
+
 
     @FormUrlEncoded
     @POST("register")

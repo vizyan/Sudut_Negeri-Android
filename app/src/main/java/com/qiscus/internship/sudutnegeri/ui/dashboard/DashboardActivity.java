@@ -233,4 +233,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     public void successShowProjectVerify(List<DataProject> dataProject) {
 
     }
+
+    @Override
+    public void successShowProjectByUser(List<DataProject> dataProjectList) {
+
+    }
 }

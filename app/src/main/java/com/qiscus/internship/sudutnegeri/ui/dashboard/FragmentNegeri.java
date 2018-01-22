@@ -29,6 +29,8 @@ import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -98,7 +100,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
 
     private void search(){
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView = getActivity().findViewById(R.id.svNegeriProject);
+        searchView = getActivity().findViewById(R.id.svDashboard);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
         int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
@@ -143,6 +145,11 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         swipeRefreshLayout.setRefreshing(false);
         dataProjectList = dataProject;
         initAdapter();
+    }
+
+    @Override
+    public void successShowProjectByUser(List<DataProject> dataProjectList) {
+
     }
 
     @Override

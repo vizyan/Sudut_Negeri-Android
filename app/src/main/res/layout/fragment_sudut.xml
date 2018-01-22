@@ -8,6 +8,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srlSudut"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,30 +17,60 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvSudut"
+                android:layout_width="match_parent"
+                android:layout_height="514dp"
+                android:layout_marginBottom="5dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/fabSudutChat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/fabSudutChat"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="15dp"
                 android:layout_marginEnd="30dp"
                 android:clickable="true"
                 android:src="@android:drawable/stat_notify_chat"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <ScrollView
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="664dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="70dp"
+                app:layout_constraintBottom_toTopOf="@+id/rvSudut"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btnSudutCreate"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginEnd="131dp"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/bg_rounded_trans_purple"
+                    android:text="Tambah Projek"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -6,10 +6,20 @@ import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.data.model.QiscusAccount;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+import static org.greenrobot.eventbus.EventBus.TAG;
 
 /**
  * Created by Vizyan on 1/10/2018.
@@ -41,8 +51,7 @@ public class LoginPresenter {
                             Log.e(null, "respon " + message);
                             String verify = data.getVerify();
                             if (verify.equals("yes")) {
-                                loginView.successUser(data);
-                                Log.e("Respon ", "" + verify);
+                                loginChat(data);
                             } else {
                                 loginView.notVerified();
                             }
@@ -74,7 +83,6 @@ public class LoginPresenter {
 
                         if (message.equals("success")) {
                             DataUser data = login.getData();
-                            Log.e(null, "respon " + message);
                             loginView.successAdmin();
                         } else {
                             loginView.failed();
@@ -86,5 +94,20 @@ public class LoginPresenter {
 
                     }
                 });
+    }
+
+    public void loginChat(DataUser dataUser){
+        Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
+                .withUsername(dataUser.getName())
+                .save()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(qiscusAccount -> {
+                    loginView.successUser(dataUser);
+                    Log.d(null, "ini respon sukses");
+                }, throwable -> {
+                    loginView.failedQiscuss(throwable);
+                });
+
     }
 }

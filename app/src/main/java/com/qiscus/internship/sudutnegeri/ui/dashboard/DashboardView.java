@@ -16,4 +16,6 @@ interface DashboardView {
     void successLogout();
 
     void successShowProjectVerify(List<DataProject> dataProject);
+
+    void successShowProjectByUser(List<DataProject> dataProjectList);
 }

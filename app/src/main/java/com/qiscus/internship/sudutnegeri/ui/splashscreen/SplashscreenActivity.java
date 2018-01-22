@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.qiscus.internship.sudutnegeri.Firebase.MyFirebaseInstanceIdService;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
@@ -28,6 +29,8 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splashscreen);
+        MyFirebaseInstanceIdService myFirebaseInstanceIdService = new MyFirebaseInstanceIdService();
+        myFirebaseInstanceIdService.onTokenRefresh();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -78,5 +81,10 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         login.putExtra(Constant.Extra.DATA, data);
         startActivity(login);
         finish();
+    }
+
+    @Override
+    public void failedQiscuss(Throwable throwable) {
+
     }
 }

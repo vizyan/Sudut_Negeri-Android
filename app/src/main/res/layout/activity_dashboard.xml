@@ -17,6 +17,32 @@
             android:id="@+id/tbDashboard"
             layout="@layout/layout_toolbar_solid" />
 
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/gradient_three">
+
+            <SearchView
+                android:id="@+id/svDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_rounded_trans_white"
+                android:queryBackground="@android:color/transparent"
+                android:submitBackground="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </SearchView>
+        </android.support.constraint.ConstraintLayout>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/vpDashboard"
             android:layout_width="match_parent"

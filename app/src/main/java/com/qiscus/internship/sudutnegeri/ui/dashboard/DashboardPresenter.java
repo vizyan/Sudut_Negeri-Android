@@ -4,7 +4,9 @@ import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
+import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
@@ -55,8 +57,25 @@ public class DashboardPresenter {
                 });
     }
 
-    public void getProjectByUser(){
+    public void getProjectByUser(DataUser dataUser){
+        RetrofitClient.getInstance()
+                .getApi()
+                .getProjectByUser(dataUser.getId())
+                .enqueue(new Callback<ResultListProject>() {
+                    @Override
+                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                        if (response.isSuccessful()){
+                            ResultListProject resultListProject = response.body();
+                            List<DataProject> dataProjectList = resultListProject.getData();
+                            dashboardView.successShowProjectByUser(dataProjectList);
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<ResultListProject> call, Throwable t) {
+
+                    }
+                });
     }
 
     public void getProjectByTime(){
@@ -75,6 +94,10 @@ public class DashboardPresenter {
 
                              }
                          });
+    }
+
+    public void postProject(){
+
     }
 
     public void logout(){

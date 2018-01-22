@@ -15,4 +15,6 @@ interface SplashscreenView {
     void notLogin();
 
     void successUser(DataUser data);
+
+    void failedQiscuss(Throwable throwable);
 }

@@ -21,4 +21,6 @@ interface LoginView {
     void successUser(DataUser data);
 
     void successAdmin();
+
+    void failedQiscuss(Throwable throwable);
 }

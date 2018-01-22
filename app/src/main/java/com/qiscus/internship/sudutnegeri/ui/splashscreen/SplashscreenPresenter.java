@@ -5,10 +5,14 @@ import android.util.Log;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.data.model.QiscusAccount;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Vizyan on 1/10/2018.
@@ -42,7 +46,7 @@ public class SplashscreenPresenter {
                             if (token==null) {
                                 splashscreenView.notLogin();
                             } else {
-                                splashscreenView.successUser(data);
+                                loginChat(data);
                             }
                         } else {
                             splashscreenView.notLogin();
@@ -55,6 +59,21 @@ public class SplashscreenPresenter {
                         splashscreenView.notLogin();
                     }
                 });
+    }
+
+    public void loginChat(DataUser dataUser){
+        Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
+                .withUsername(dataUser.getName())
+                .save()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(qiscusAccount -> {
+                    splashscreenView.successUser(dataUser);
+                    Log.d(null, "ini respon sukses");
+                }, throwable -> {
+                    splashscreenView.failedQiscuss(throwable);
+                });
+
     }
 
 }
