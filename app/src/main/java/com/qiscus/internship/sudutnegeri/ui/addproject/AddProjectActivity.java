@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
@@ -30,6 +31,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     private DataProject dataProject;
     private DataUser dataUser;
     private Uri uri;
+    AnimationDrawable animationDrawable;
     Button btnAddPCreate, btnAddPTaget, btnAddPPhoto;
     ConstraintLayout constraintLayout;
     DatePickerDialog datePickerDialog;
@@ -50,6 +52,22 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         postProject();
         setupDate();
         pickImage();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (animationDrawable != null && animationDrawable.isRunning()){
+            animationDrawable.stop();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (animationDrawable != null && !animationDrawable.isRunning()){
+            animationDrawable.start();
+        }
     }
 
     private void pickImage() {
@@ -100,7 +118,9 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     }
 
     private void initAnimation() {
-
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(3000);
+        animationDrawable.setExitFadeDuration(3000);
     }
 
     private void initDataIntent() {
@@ -147,8 +167,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         validPhoto();
         validInformation();
 
-        if (validName() || validLocation() || validTarget() || validPhoto() || validInformation()){
-            Toast.makeText(this, "" +validLocation(), Toast.LENGTH_LONG).show();
+        if (validName()==false || validLocation()==false || validTarget()==false || validPhoto()==false || validInformation()==false){
             return false;
         }
         return true;
@@ -209,8 +228,8 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             @Override
             public void onClick(View v) {
                 setupVariable();
-                addProjectPresenter.uploadFile(file, dataUser);
                 if (validate()) {
+                    addProjectPresenter.uploadFile(file, dataUser);
                     Toast.makeText(AddProjectActivity.this, " " +validate(), Toast.LENGTH_LONG).show();
                     //addProjectPresenter.postProject(dataUser);
                 }
@@ -255,12 +274,11 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     @Override
     public void successUploadFile(String response) {
-        photo = "http://vizyan.xyz/images/" + response;
-        Toast.makeText(AddProjectActivity.this, "Berhasil " + response, Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void failedUploadFile() {
-        Toast.makeText(AddProjectActivity.this, "Gagal", Toast.LENGTH_LONG).show();
+        Toast.makeText(AddProjectActivity.this, "Gagal upload foto", Toast.LENGTH_LONG).show();
     }
 }
