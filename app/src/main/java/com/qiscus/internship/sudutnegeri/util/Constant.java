@@ -7,7 +7,7 @@ package com.qiscus.internship.sudutnegeri.util;
 public class Constant {
 
     public static final String BASE_URL_QISCUS = "http://sudut-neg-nwpbjfivgtc.qicsus.com/";
-    public static final String BASE_URL_USER = "http://vizyan.xyz/api/";
+    public static final String BASE_URL_USER = "http://vizyan.xyz/";
     public static String QISCUS_APP_ID = "sudutnege-e9mcksqnzod";
 
     public final class Extra {

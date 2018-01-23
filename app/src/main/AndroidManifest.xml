@@ -52,14 +52,14 @@
             android:windowSoftInputMode="stateHidden" />
 
         <service
-            android:name=".Firebase.MyFirebaseInstanceIdService"
+            android:name=".firebase.MyFirebaseInstanceIdService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".Firebase.MyFirebaseMessagingService"
+            android:name=".firebase.MyFirebaseMessagingService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

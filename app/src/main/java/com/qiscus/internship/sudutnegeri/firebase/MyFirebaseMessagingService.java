@@ -1,6 +1,5 @@
-package com.qiscus.internship.sudutnegeri.Firebase;
+package com.qiscus.internship.sudutnegeri.firebase;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;

@@ -2,6 +2,9 @@ package com.qiscus.internship.sudutnegeri.data.network;
 
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -31,9 +34,15 @@ public class RetrofitClient {
 
     public Retrofit getRetrofit(){
 
+        final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .build();
+
         return new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL_USER)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
     }
 

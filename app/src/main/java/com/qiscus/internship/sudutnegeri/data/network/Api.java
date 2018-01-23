@@ -6,15 +6,20 @@ import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListUser;
+import com.qiscus.internship.sudutnegeri.data.model.UploadObject;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -26,45 +31,45 @@ public interface Api {
 
     @Headers("Content-Type: application/json")
 
-    @GET("users")
+    @GET("api/users")
     Call<ResultListUser> getAllUser();
 
-    @GET("projects")
+    @GET("api/projects")
     Call<ResultListProject> getAllPorject();
 
-    @GET("landings")
+    @GET("api/landings")
     Call<ResultListProject> getPorjectTime();
 
     //Get unverified user
-    @GET("users/verify/{verify}")
+    @GET("api/users/verify/{verify}")
     Call<ResultListUser> getUnverifiedUser(
             @Path("verify") String verify
     );
 
     //Get unverified project
-    @GET("projects/verify/{verify}")
+    @GET("api/projects/verify/{verify}")
     Call<ResultListProject> getUnverifiedProject(
             @Path("verify") String verify
     );
 
-    @GET("users/{id}")
+    @GET("api/users/{id}")
     Call<ResultUser> getUser(
             @Path("id") int id
     );
 
-    @GET("projects/{id}")
+    @GET("api/projects/{id}")
     Call<ResultProject> getProject(
             @Path("id") int id
     );
 
-    @GET("details/creator/{id}")
+    @GET("api/details/creator/{id}")
     Call<ResultListProject> getProjectByUser(
             @Path("id") int id
     );
 
     //Update user
     @FormUrlEncoded
-    @PUT("users/{id}")
+    @PUT("api/users/{id}")
     Call<ResultUser> putUser(
             @Path("id") int id,
             @Field("name") String name,
@@ -75,7 +80,7 @@ public interface Api {
 
     //Update project
     @FormUrlEncoded
-    @PUT("projects/{id}")
+    @PUT("api/projects/{id}")
     Call<ResultProject> putProject(
             @Path("id") int id,
             @Field("name_project") String name_project,
@@ -88,10 +93,8 @@ public interface Api {
             @Field("funds") int funds
     );
 
-
-
     @FormUrlEncoded
-    @POST("register")
+    @POST("api/register")
     Call<ResultUser> register(
             @Field("name") String name,
             @Field("email") String email,
@@ -104,7 +107,7 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("projects")
+    @POST("api/projects")
     Call<ResultProject> postProject(
             @Field("name_project") String name_project,
             @Field("verify") String verify,
@@ -118,7 +121,7 @@ public interface Api {
 
     //generate token
     @FormUrlEncoded
-    @POST("login/user")
+    @POST("api/login/user")
     Call<ResultUser> loginUser(
             @Field("email") String email,
             @Field("password") String password
@@ -126,21 +129,28 @@ public interface Api {
 
     //not generate token
     @FormUrlEncoded
-    @POST("login/user/cek")
+    @POST("api/login/user/cek")
     Call<ResultUser> cekLoginUser(
             @Field("email") String email,
             @Field("password") String password
     );
 
     @FormUrlEncoded
-    @POST("login/admin")
+    @POST("api/login/admin")
     Call<ResultUser> loginAdmin(
             @Field("email") String email,
             @Field("password") String password
     );
 
+    @Multipart
+    @POST("images/ImageUpload.php")
+    Call<UploadObject> uploadFile(
+            @Part MultipartBody.Part file,
+            @Part("name") RequestBody name
+    );
+
     @FormUrlEncoded
-    @POST("logout")
+    @POST("api/logout")
     Call<ResultUser> logout(
             @Field("email") String email,
             @Field("password") String password

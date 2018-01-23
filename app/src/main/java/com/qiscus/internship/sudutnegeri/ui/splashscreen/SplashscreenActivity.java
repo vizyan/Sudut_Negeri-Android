@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.qiscus.internship.sudutnegeri.Firebase.MyFirebaseInstanceIdService;
+import com.qiscus.internship.sudutnegeri.firebase.MyFirebaseInstanceIdService;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
@@ -85,6 +85,9 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     @Override
     public void failedQiscuss(Throwable throwable) {
-
+        Toast.makeText(SplashscreenActivity.this, "Tidak ada koneksi", Toast.LENGTH_LONG).show();
+        Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
+        startActivity(landing);
+        finish();
     }
 }

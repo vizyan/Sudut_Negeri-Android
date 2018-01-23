@@ -18,4 +18,8 @@ interface AddProjectView {
     void successPostProject();
 
     void failedPostProject(String message);
+
+    void successUploadFile(String response);
+
+    void failedUploadFile();
 }
