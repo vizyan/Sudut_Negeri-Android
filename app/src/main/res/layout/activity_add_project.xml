@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_animation"
-    tools:context="com.qiscus.internship.sudutnegeri.ui.AddProject.AddProjectActivity">
+    tools:context="com.qiscus.internship.sudutnegeri.ui.addproject.AddProjectActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,37 +76,38 @@
                     android:textColor="#FEFEFE"
                     android:textColorHint="#FEFEFE" />
 
-                <TextView
-                    android:id="@+id/tvAddPTarget"
+                <Button
+                    android:id="@+id/btnAddPTarget"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_rounded_trans_white"
-                    android:ems="10"
-                    android:clickable="true"
-                    android:hint="Tanggal target"
+                    android:gravity="start"
                     android:paddingBottom="12dp"
                     android:paddingStart="20dp"
                     android:paddingTop="12dp"
+                    android:hint="Tanggal target"
+                    android:textColorHint="@android:color/white"
+                    android:textAllCaps="false"
                     android:textColor="#FEFEFE"
-                    android:textColorHint="#FEFEFE"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/etAddPPhoto"
+                <Button
+                    android:id="@+id/btnAddPPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/bg_rounded_trans_white"
-                    android:ems="10"
-                    android:hint="Photo"
-                    android:inputType="textNoSuggestions"
+                    android:gravity="start"
                     android:paddingBottom="12dp"
                     android:paddingStart="20dp"
                     android:paddingTop="12dp"
+                    android:hint="Photo"
+                    android:textColorHint="@android:color/white"
+                    android:textAllCaps="false"
                     android:textColor="#FEFEFE"
-                    android:textColorHint="#FEFEFE" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/etAddPInformation"

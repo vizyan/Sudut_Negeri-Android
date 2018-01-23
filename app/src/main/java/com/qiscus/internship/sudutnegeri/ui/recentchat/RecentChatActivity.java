@@ -1,4 +1,4 @@
-package com.qiscus.internship.sudutnegeri.ui.RecentChat;
+package com.qiscus.internship.sudutnegeri.ui.recentchat;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

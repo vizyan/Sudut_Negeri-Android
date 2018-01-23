@@ -1,9 +1,8 @@
-package com.qiscus.internship.sudutnegeri.ui.AddProject;
+package com.qiscus.internship.sudutnegeri.ui.addproject;
 
 import android.util.Log;
 
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 

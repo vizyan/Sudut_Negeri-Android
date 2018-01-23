@@ -15,7 +15,6 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="sudut_negeri" />
 
-        <activity android:name=".ui.MainActivity" />
         <activity
             android:name=".ui.splashscreen.SplashscreenActivity"
             android:noHistory="true"
@@ -67,9 +66,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.RecentChat.RecentChatActivity"
+        <activity android:name=".ui.recentchat.RecentChatActivity"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".ui.AddProject.AddProjectActivity"
+        <activity android:name=".ui.addproject.AddProjectActivity"
             android:windowSoftInputMode="stateHidden"></activity>
     </application>
 

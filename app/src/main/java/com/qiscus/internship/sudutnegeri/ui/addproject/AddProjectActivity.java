@@ -1,7 +1,6 @@
-package com.qiscus.internship.sudutnegeri.ui.AddProject;
+package com.qiscus.internship.sudutnegeri.ui.addproject;
 
 import android.app.DatePickerDialog;
-import android.icu.text.UnicodeSetSpanner;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +23,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     private AddProjectPresenter addProjectPresenter;
     private DataProject dataProject;
     private DataUser dataUser;
-    Button btnAddPCreate;
+    Button btnAddPCreate, btnAddPTaget, btnAddPPhoto;
     ConstraintLayout constraintLayout;
     DatePickerDialog datePickerDialog;
     EditText etAddPName, etAddPLocation, etAddPInformation;
@@ -49,11 +48,12 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     private void initView() {
         btnAddPCreate = findViewById(R.id.btnAddPCreate);
+        btnAddPTaget = findViewById(R.id.btnAddPTarget);
+        btnAddPPhoto = findViewById(R.id.btnAddPPhoto);
         constraintLayout = findViewById(R.id.rlAddP);
         etAddPName = findViewById(R.id.etAddPName);
         etAddPLocation = findViewById(R.id.etAddPInformation);
         etAddPInformation = findViewById(R.id.etAddPInformation);
-        tvAddPTarger = findViewById(R.id.tvAddPTarget);
     }
 
     private void initAnimation() {
@@ -65,7 +65,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     }
 
     private void setupDate(){
-        tvAddPTarger.setOnClickListener(new View.OnClickListener() {
+        btnAddPTaget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
@@ -80,7 +80,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                                tvAddPTarger.setText(year + "-"
+                                btnAddPTaget.setText(year + "-"
                                         + (monthOfYear + 1) + "-" + dayOfMonth);
 
                             }
