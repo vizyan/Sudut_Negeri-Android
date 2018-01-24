@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     DrawerLayout drawerLayout;
     ImageView ivDrawerPhoto;
     NavigationView navigationView;
+    SearchView svNegeri, svSudut;
     String email, passwd;
     TabLayout tabLayout;
     TextView tvToolbarTitle, tvDrawerName;
@@ -81,6 +83,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         tvDrawerName = findViewById(R.id.tvDrawerName);
         ivDrawerPhoto = findViewById(R.id.ivDrawerUser);
         btnDrawerLogout = findViewById(R.id.btnDrawerLogout);
+        svSudut = findViewById(R.id.svDashboardSudut);
+        svNegeri = findViewById(R.id.svDashboardNegeri);
     }
 
     private void initNavigation() {
@@ -166,6 +170,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
 
         tvToolbarTitle.setText("Dashboard Sudut");
+        svNegeri.setVisibility(View.GONE);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
             @Override
@@ -174,9 +179,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
                 switch (tab.getPosition()){
                     case 0:
                         tvToolbarTitle.setText("Dashboard Sudut");
+                        svNegeri.setVisibility(View.GONE);
+                        svSudut.setVisibility(View.VISIBLE);
                         break;
                     case 1:
                         tvToolbarTitle.setText("Dashboard Negeri");
+                        svSudut.setVisibility(View.GONE);
+                        svNegeri.setVisibility(View.VISIBLE);
                         break;
                 }
                 tab.getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);

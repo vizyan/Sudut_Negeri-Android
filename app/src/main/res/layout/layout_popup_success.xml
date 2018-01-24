@@ -34,11 +34,12 @@
                 android:id="@+id/tvPopupSMsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
-                android:paddingBottom="15dp"
                 android:text="Tunggu konfirmasi admin"
                 android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPopupSType" />

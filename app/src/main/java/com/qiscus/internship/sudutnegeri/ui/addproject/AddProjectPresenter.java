@@ -57,10 +57,10 @@ public class AddProjectPresenter {
                 });
     }
 
-    public void uploadFile(File file, DataUser dataUser){
+    public void uploadFile(File file, DataUser dataUser, String random){
         RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", random + file.getName(), mFile);
+        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), random + file.getName());
         RetrofitClient.getInstance()
                 .getApi()
                 .uploadFile(fileToUpload, filename)
@@ -70,7 +70,6 @@ public class AddProjectPresenter {
                         UploadObject uploadObject = response.body();
                         String path = uploadObject.getSuccess();
                         postProject(dataUser, path);
-                        addProjectView.successUploadFile(path);
                     }
 
                     @Override

@@ -39,10 +39,9 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
     private DashboardPresenter dashboardPresenter;
     private ProjectAdapter projectAdapter;
     List<DataProject> dataProjectList;
-    RecyclerView rvNegeriProject;
-    SearchView searchView;
+    RecyclerView rvNegeri;
+    SearchView searchViewNegeri, searchViewSudut;
     SwipeRefreshLayout swipeRefreshLayout;
-    TextView tvItemPName, tvItemPAddress;
 
     public static FragmentNegeri newInstance() {
         // Required empty public constructor
@@ -73,16 +72,15 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
     }
 
     private void initView() {
-        rvNegeriProject = getActivity().findViewById(R.id.rvNegeriProject);
-        tvItemPAddress = getActivity().findViewById(R.id.tvItemPAddress);
-        tvItemPName = getActivity().findViewById(R.id.tvItemPName);
-        swipeRefreshLayout = getActivity().findViewById(R.id.srlNegeriProject);
+        rvNegeri = getActivity().findViewById(R.id.rvNegeri);
+        swipeRefreshLayout = getActivity().findViewById(R.id.srlNegeri);
+        searchViewNegeri = getActivity().findViewById(R.id.svDashboardNegeri);
     }
 
     private void initAdapter() {
         projectAdapter.setAdapterListener(this);
-        rvNegeriProject.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvNegeriProject.setAdapter(projectAdapter);
+        rvNegeri.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvNegeri.setAdapter(projectAdapter);
     }
 
     private void initDataPresenter() {
@@ -100,16 +98,16 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
 
     private void search(){
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView = getActivity().findViewById(R.id.svDashboard);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        TextView textView = searchView.findViewById(id);
+        searchViewNegeri.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchViewNegeri.setMaxWidth(Integer.MAX_VALUE);
+        int id = searchViewNegeri.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = searchViewNegeri.findViewById(id);
         textView.setTextColor(Color.WHITE);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchViewNegeri.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 projectAdapter.getFilter().filter(query);
                 initAdapter();
                 return false;

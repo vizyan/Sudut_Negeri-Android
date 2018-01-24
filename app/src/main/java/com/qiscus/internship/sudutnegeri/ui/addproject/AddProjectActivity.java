@@ -2,28 +2,39 @@ package com.qiscus.internship.sudutnegeri.ui.addproject;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
+import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
+import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Random;
 
 public class AddProjectActivity extends AppCompatActivity implements AddProjectView {
 
@@ -31,14 +42,15 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     private DataProject dataProject;
     private DataUser dataUser;
     private Uri uri;
+    private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
     AnimationDrawable animationDrawable;
     Button btnAddPCreate, btnAddPTaget, btnAddPPhoto;
     ConstraintLayout constraintLayout;
     DatePickerDialog datePickerDialog;
     File file;
     EditText etAddPName, etAddPLocation, etAddPInformation;
-    String project_name, location, target_at, information, photo;
-    TextView tvAddPTarger;
+    String project_name, location, target_at, information, photo, random;
+    TextView tvPopupMsg, tvPopupType, tvPopupSType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +102,16 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             file = new File(filePath);
             btnAddPPhoto.setText(file.getName());
         }
+    }
+
+    @NonNull
+    private static String random(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
     }
 
     private String getRealPathFromURIPath(Uri uri, AddProjectActivity addProjectActivity) {
@@ -160,6 +182,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         target_at = btnAddPTaget.getText().toString();
         photo = btnAddPPhoto.getText().toString();
     }
+
     private boolean validate(){
         validName();
         validLocation();
@@ -229,12 +252,55 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             public void onClick(View v) {
                 setupVariable();
                 if (validate()) {
-                    addProjectPresenter.uploadFile(file, dataUser);
-                    Toast.makeText(AddProjectActivity.this, " " +validate(), Toast.LENGTH_LONG).show();
-                    //addProjectPresenter.postProject(dataUser);
+                    random = random(32);
+                    addProjectPresenter.uploadFile(file, dataUser, random);
                 }
             }
         });
+    }
+
+    private void initPopupWindow(String messsage, String error) {
+        try {
+            LayoutInflater inflater = (LayoutInflater) AddProjectActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            if (messsage.equals("success")){
+                View layout = inflater.inflate(R.layout.layout_popup_success,
+                        null);
+                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, false);
+                pw.setOutsideTouchable(false);
+                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                tvPopupSType = layout.findViewById(R.id.tvPopupSType);
+                tvPopupSType.setText("Berhasil");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Intent user = new Intent(AddProjectActivity.this, DashboardActivity.class);
+                        user.putExtra(Constant.Extra.DATA, dataUser);
+                        startActivity(user);
+                        finish();
+                    }
+
+                    private void finish() {
+                        // TODO Auto-generated method stub
+
+                    }
+                }, 1000);
+
+            } else {
+                View layout = inflater.inflate(R.layout.layout_popup_failed, null);
+                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
+                tvPopupType = layout.findViewById(R.id.tvPopupFType);
+                tvPopupMsg.setText(error);
+                tvPopupType.setText("Gagal Bergabung");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -264,17 +330,12 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     @Override
     public void successPostProject() {
-        Toast.makeText(AddProjectActivity.this, "Berhasil", Toast.LENGTH_LONG).show();
+        initPopupWindow("success", null);
     }
 
     @Override
     public void failedPostProject(String message) {
-        Toast.makeText(AddProjectActivity.this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void successUploadFile(String response) {
-
+        initPopupWindow("failed", message);
     }
 
     @Override

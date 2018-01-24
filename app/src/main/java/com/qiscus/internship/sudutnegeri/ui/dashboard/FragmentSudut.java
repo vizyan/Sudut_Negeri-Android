@@ -4,6 +4,7 @@ package com.qiscus.internship.sudutnegeri.ui.dashboard;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -40,7 +41,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     private DataUser dataUser;
     Button btnSudutCreate;
     RecyclerView rvSudut;
-    SearchView searchView;
+    SearchView searchViewSudut;
     SwipeRefreshLayout swipeRefreshLayout;
 
     public static FragmentSudut newInstance() {
@@ -65,8 +66,8 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         dashboardPresenter.getProjectByUser(dataUser);
 
         refresh();
-        search();
         postProject();
+        search();
     }
 
     private void initPresenter() {
@@ -82,7 +83,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     private void initView() {
         btnSudutCreate = getActivity().findViewById(R.id.btnSudutCreate);
         rvSudut = getActivity().findViewById(R.id.rvSudut);
-        searchView = getActivity().findViewById(R.id.svDashboard);
+        searchViewSudut = getActivity().findViewById(R.id.svDashboardSudut);
         swipeRefreshLayout = getActivity().findViewById(R.id.srlSudut);
     }
 
@@ -103,18 +104,30 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         });
     }
 
+    private void postProject() {
+        btnSudutCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddProjectActivity.class);
+                intent.putExtra(Constant.Extra.User, dataUser);
+                intent.putExtra(Constant.Extra.param, "negeri");
+                startActivity(intent);
+            }
+        });
+    }
+
     private void search() {
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView = getActivity().findViewById(R.id.svDashboard);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        int id = searchView.getContext().getResources().getIdentifier("search", null, null);
-        TextView textView = searchView.findViewById(id);
-        //textView.setTextColor(Color.WHITE);
+        searchViewSudut.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchViewSudut.setMaxWidth(Integer.MAX_VALUE);
+        int id = searchViewSudut.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = searchViewSudut.findViewById(id);
+        textView.setTextColor(Color.WHITE);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchViewSudut.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 projectAdapter.getFilter().filter(query);
                 initAdapter();
                 return false;
@@ -125,18 +138,6 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
                 projectAdapter.getFilter().filter(newText);
                 initAdapter();
                 return false;
-            }
-        });
-    }
-
-    private void postProject() {
-        btnSudutCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddProjectActivity.class);
-                intent.putExtra(Constant.Extra.User, dataUser);
-                intent.putExtra(Constant.Extra.param, "negeri");
-                startActivity(intent);
             }
         });
     }

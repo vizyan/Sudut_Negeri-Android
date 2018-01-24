@@ -1,9 +1,17 @@
 package com.qiscus.internship.sudutnegeri.ui.project;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -52,13 +61,16 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private ProjectPresenter projectPresenter;
     private DataProject dataProject;
     private DataUser dataUser;
+    private Animator mCurrentAnimatorEffect;
+    private int mShortAnimationDurationEffect;
     Button btnProjectDonate;
     Date date;
     FloatingActionButton fabProjectChat;
-    ImageView ivProjectPhoto;
+    ImageView ivProjectPhoto, ivBigPhoto;
     int funds = 0;
     JustifyTextView jtProjectInformation;
     ProgressBar pbProjectProgress;
+    RelativeLayout rlBigPhoto;
     String param, postDate;
     TextView tvProjectName, tvProjectLocation, tvProjectTarget, tvProjectCreator, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType;
 
@@ -76,6 +88,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
         putProject();
         chat();
+        initZoomPhoto();
     }
 
     private void initPresenter() {
@@ -86,12 +99,17 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         btnProjectDonate = findViewById(R.id.btnProjectDonate);
         fabProjectChat = findViewById(R.id.fabProjectChat);
         ivProjectPhoto = findViewById(R.id.ivProjectPhoto);
+        ivBigPhoto = findViewById(R.id.ivBigPhoto);
         jtProjectInformation = findViewById(R.id.jtProjectInfo);
         pbProjectProgress = findViewById(R.id.pbProjectProgress);
+        rlBigPhoto = findViewById(R.id.rlBigPhoto);
         tvProjectName = findViewById(R.id.tvProjectName);
         tvProjectLocation = findViewById(R.id.tvProjectLocation);
         tvProjectTarget = findViewById(R.id.tvProjectTarget);
         tvProjectCreator = findViewById(R.id.tvProjectCreator);
+
+        mShortAnimationDurationEffect = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
     }
 
     private void initDataIntent() {
@@ -230,6 +248,118 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         }
     }
 
+    private void initZoomPhoto(){
+        ivProjectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupZoom(ivProjectPhoto);
+            }
+        });
+    }
+
+    private void setupZoom(final View thumbView) {
+        if (mCurrentAnimatorEffect != null) {
+            mCurrentAnimatorEffect.cancel();
+        }
+
+        final Rect startBounds = new Rect();
+        final Rect finalBounds = new Rect();
+        final Point globalOffset = new Point();
+
+        thumbView.getGlobalVisibleRect(startBounds);
+        findViewById(R.id.clProject).getGlobalVisibleRect(finalBounds, globalOffset);
+        startBounds.offset(-globalOffset.x, -globalOffset.y);
+        finalBounds.offset(-globalOffset.x, -globalOffset.y);
+
+        float startScale;
+        if ((float) finalBounds.width() / finalBounds.height()
+                > (float) startBounds.width() / startBounds.height()) {
+            // Extend start bounds horizontally
+            startScale = (float) startBounds.height() / finalBounds.height();
+            float startWidth = startScale * finalBounds.width();
+            float deltaWidth = (startWidth - startBounds.width()) / 2;
+            startBounds.left -= deltaWidth;
+            startBounds.right += deltaWidth;
+        } else {
+            // Extend start bounds vertically
+            startScale = (float) startBounds.width() / finalBounds.width();
+            float startHeight = startScale * finalBounds.height();
+            float deltaHeight = (startHeight - startBounds.height()) / 2;
+            startBounds.top -= deltaHeight;
+            startBounds.bottom += deltaHeight;
+        }
+
+        thumbView.setAlpha(0f);
+        rlBigPhoto.setVisibility(View.VISIBLE);
+        ivBigPhoto.setVisibility(View.VISIBLE);
+        fabProjectChat.setVisibility(View.INVISIBLE);
+
+        rlBigPhoto.setPivotX(0f);
+        rlBigPhoto.setPivotY(0f);
+
+        // scale properties (X, Y, SCALE_X, and SCALE_Y).
+        AnimatorSet set = new AnimatorSet();
+        set.play(ObjectAnimator.ofFloat(rlBigPhoto, View.X, startBounds.left, finalBounds.left))
+                .with(ObjectAnimator.ofFloat(rlBigPhoto, View.Y, startBounds.top, finalBounds.top))
+                .with(ObjectAnimator.ofFloat(rlBigPhoto, View.SCALE_X, startScale, 1f)).with(ObjectAnimator.ofFloat(rlBigPhoto, View.SCALE_Y, startScale, 1f));
+        set.setDuration(mShortAnimationDurationEffect);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mCurrentAnimatorEffect = null;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mCurrentAnimatorEffect = null;
+            }
+        });
+        set.start();
+        mCurrentAnimatorEffect = set;
+
+        final float startScaleFinal = startScale;
+        rlBigPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCurrentAnimatorEffect != null) {
+                    mCurrentAnimatorEffect.cancel();
+                }
+
+                // back to their original values.
+                AnimatorSet set = new AnimatorSet();
+                set.play(ObjectAnimator
+                        .ofFloat(rlBigPhoto, View.X, startBounds.left))
+                        .with(ObjectAnimator.ofFloat(rlBigPhoto, View.Y,startBounds.top))
+                        .with(ObjectAnimator.ofFloat(rlBigPhoto, View.SCALE_X, startScaleFinal))
+                        .with(ObjectAnimator.ofFloat(rlBigPhoto, View.SCALE_Y, startScaleFinal));
+                set.setDuration(mShortAnimationDurationEffect);
+                set.setInterpolator(new DecelerateInterpolator());
+                set.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        thumbView.setAlpha(1f);
+                        rlBigPhoto.setVisibility(View.GONE);
+                        ivBigPhoto.setVisibility(View.GONE);
+                        fabProjectChat.setVisibility(View.VISIBLE);
+                        mCurrentAnimatorEffect = null;
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        thumbView.setAlpha(1f);
+                        rlBigPhoto.setVisibility(View.GONE);
+                        ivBigPhoto.setVisibility(View.GONE);
+                        fabProjectChat.setVisibility(View.VISIBLE);
+                        mCurrentAnimatorEffect = null;
+                    }
+                });
+                set.start();
+                mCurrentAnimatorEffect = set;
+            }
+        });
+    }
+
     @Override
     public void successProjectById(DataProject dataProject) {
         this.dataProject = dataProject;
@@ -237,10 +367,15 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         tvProjectName.setText(dataProject.getNameProject());
         tvProjectLocation.setText(dataProject.getLocation());
         tvProjectTarget.setText("Hingga " +postDate);
+        jtProjectInformation.setText(dataProject.getInformation() + "\n");
 
         Picasso.with(ProjectActivity.this)
                 .load(dataProject.getPhoto())
                 .into(ivProjectPhoto);
+
+        Picasso.with(ProjectActivity.this)
+                .load(dataProject.getPhoto())
+                .into(ivBigPhoto);
     }
 
     @Override

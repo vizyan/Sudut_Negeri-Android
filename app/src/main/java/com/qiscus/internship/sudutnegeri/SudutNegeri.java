@@ -1,6 +1,8 @@
 package com.qiscus.internship.sudutnegeri;
 
 import android.app.Application;
+import android.os.Build;
+
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.sdk.Qiscus;
 import com.qiscus.sdk.data.model.QiscusComment;
@@ -32,24 +34,47 @@ public class SudutNegeri extends Application {
 
     public void initQiscus() {
         Qiscus.init(this, Constant.QISCUS_APP_ID);
-        Qiscus.getChatConfig()
-                .setSwipeRefreshColorScheme(R.color.colorPrimary, R.color.colorAccent)
-                .setLeftBubbleTextColor(R.color.qiscus_primary_text)
-                .setLeftBubbleTimeColor(R.color.qiscus_secondary_text)
-                .setLeftLinkTextColor(R.color.qiscus_primary_text)
-                .setSelectedBubbleBackgroundColor(R.color.colorPrimary)
-                .setReadIconColor(R.color.colorPrimary)
-                .setAppBarColor(R.color.colorPrimary)
-                .setStatusBarColor(R.color.colorPrimaryDark)
-                .setAccentColor(R.color.colorAccent)
-                .setAccountLinkingTextColor(R.color.colorPrimary)
-                .setButtonBubbleTextColor(R.color.colorPrimary)
-                .setReplyBarColor(R.color.colorPrimary)
-                .setReplySenderColor(R.color.colorPrimary)
-                .setSendButtonIcon(R.drawable.ic_qiscus_send_on)
-                .setShowAttachmentPanelIcon(R.drawable.ic_qiscus_send_off)
-                .setEnableAddFile(true)
-                .setEnablePushNotification(false)
-                .setEnableFcmPushNotification(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Qiscus.getChatConfig()
+                    .setSwipeRefreshColorScheme(R.color.colorPrimary, R.color.colorAccent)
+                    .setLeftBubbleTextColor(R.color.qiscus_primary_text)
+                    .setLeftBubbleTimeColor(R.color.qiscus_secondary_text)
+                    .setLeftLinkTextColor(R.color.qiscus_primary_text)
+                    .setSelectedBubbleBackgroundColor(R.color.colorPrimary)
+                    .setReadIconColor(R.color.colorPrimary)
+                    .setAppBarColor(R.color.colorPrimary)
+                    .setStatusBarColor(R.color.colorPrimaryDark)
+                    .setAccentColor(R.color.colorAccent)
+                    .setAccountLinkingTextColor(R.color.colorPrimary)
+                    .setButtonBubbleTextColor(R.color.colorPrimary)
+                    .setReplyBarColor(R.color.colorPrimary)
+                    .setReplySenderColor(R.color.colorPrimary)
+                    .setSendButtonIcon(R.drawable.ic_qiscus_send_on)
+                    .setShowAttachmentPanelIcon(R.drawable.ic_qiscus_send_off)
+                    .setEnableAddFile(true)
+                    .setEnableReplyNotification(true)
+                    .setEnablePushNotification(false)
+                    .setEnableFcmPushNotification(true);
+        } else {
+            Qiscus.getChatConfig()
+                    .setSwipeRefreshColorScheme(R.color.colorPrimary, R.color.colorAccent)
+                    .setLeftBubbleTextColor(R.color.qiscus_primary_text)
+                    .setLeftBubbleTimeColor(R.color.qiscus_secondary_text)
+                    .setLeftLinkTextColor(R.color.qiscus_primary_text)
+                    .setSelectedBubbleBackgroundColor(R.color.colorPrimary)
+                    .setReadIconColor(R.color.colorPrimary)
+                    .setAppBarColor(R.color.colorPrimary)
+                    .setStatusBarColor(R.color.colorPrimaryDark)
+                    .setAccentColor(R.color.colorAccent)
+                    .setAccountLinkingTextColor(R.color.colorPrimary)
+                    .setButtonBubbleTextColor(R.color.colorPrimary)
+                    .setReplyBarColor(R.color.colorPrimary)
+                    .setReplySenderColor(R.color.colorPrimary)
+                    .setSendButtonIcon(R.drawable.ic_qiscus_send_on)
+                    .setShowAttachmentPanelIcon(R.drawable.ic_qiscus_send_off)
+                    .setEnableAddFile(true)
+                    .setEnablePushNotification(false)
+                    .setEnableFcmPushNotification(true);
+        }
     }
 }
