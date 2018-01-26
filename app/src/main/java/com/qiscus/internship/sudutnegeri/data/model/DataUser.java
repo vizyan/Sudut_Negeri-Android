@@ -60,6 +60,10 @@ public class DataUser implements Parcelable {
     @Expose
     private String verify;
 
+    @SerializedName("photo")
+    @Expose
+    private String photo;
+
     protected DataUser(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
@@ -77,6 +81,7 @@ public class DataUser implements Parcelable {
         address = in.readString();
         phone = in.readString();
         verify = in.readString();
+        photo = in.readString();
     }
 
     public static final Creator<DataUser> CREATOR = new Creator<DataUser>() {
@@ -187,6 +192,14 @@ public class DataUser implements Parcelable {
         this.phone = phone;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public String toString() {
         return "DataUser{" +
@@ -197,6 +210,7 @@ public class DataUser implements Parcelable {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", verify='" + verify + '\'' +
+                ", photo='" + photo + '\'' +
                 '}';
     }
 
@@ -224,5 +238,6 @@ public class DataUser implements Parcelable {
         dest.writeString(address);
         dest.writeString(phone);
         dest.writeString(verify);
+        dest.writeString(photo);
     }
 }

@@ -2,6 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.addproject;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -47,8 +48,9 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     Button btnAddPCreate, btnAddPTaget, btnAddPPhoto;
     ConstraintLayout constraintLayout;
     DatePickerDialog datePickerDialog;
-    File file;
     EditText etAddPName, etAddPLocation, etAddPInformation;
+    File file;
+    ProgressDialog progressDialog = null;
     String project_name, location, target_at, information, photo, random;
     TextView tvPopupMsg, tvPopupType, tvPopupSType;
 
@@ -137,6 +139,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         etAddPName = findViewById(R.id.etAddPName);
         etAddPLocation = findViewById(R.id.etAddPLocation);
         etAddPInformation = findViewById(R.id.etAddPInformation);
+
     }
 
     private void initAnimation() {
@@ -252,6 +255,13 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             public void onClick(View v) {
                 setupVariable();
                 if (validate()) {
+                    progressDialog = new ProgressDialog(AddProjectActivity.this);
+                    progressDialog.setTitle(null);
+                    progressDialog.setMessage("Mengunggah projek");
+                    progressDialog.setIndeterminate(false);
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
                     random = random(32);
                     addProjectPresenter.uploadFile(file, dataUser, random);
                 }
@@ -330,16 +340,19 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     @Override
     public void successPostProject() {
+        progressDialog.dismiss();
         initPopupWindow("success", null);
     }
 
     @Override
     public void failedPostProject(String message) {
+        progressDialog.dismiss();
         initPopupWindow("failed", message);
     }
 
     @Override
     public void failedUploadFile() {
-        Toast.makeText(AddProjectActivity.this, "Gagal upload foto", Toast.LENGTH_LONG).show();
+        progressDialog.dismiss();
+        initPopupWindow("failed", "Tidak dapat mengunggah gambar");
     }
 }

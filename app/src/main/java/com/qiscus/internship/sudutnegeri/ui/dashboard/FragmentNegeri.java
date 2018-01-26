@@ -14,11 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
@@ -29,8 +27,6 @@ import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -38,10 +34,12 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
 
     private DashboardPresenter dashboardPresenter;
     private ProjectAdapter projectAdapter;
+    ImageView ivNegeriNoData;
     List<DataProject> dataProjectList;
     RecyclerView rvNegeri;
-    SearchView searchViewNegeri, searchViewSudut;
+    SearchView searchViewNegeri;
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView tvNegeriNoData;
 
     public static FragmentNegeri newInstance() {
         // Required empty public constructor
@@ -67,6 +65,14 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         search();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initDataPresenter();
+        dashboardPresenter.getProjectByVerify();
+        refresh();
+    }
+
     private void iniPresenter() {
         dashboardPresenter = new DashboardPresenter(this);
     }
@@ -75,6 +81,8 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         rvNegeri = getActivity().findViewById(R.id.rvNegeri);
         swipeRefreshLayout = getActivity().findViewById(R.id.srlNegeri);
         searchViewNegeri = getActivity().findViewById(R.id.svDashboardNegeri);
+        ivNegeriNoData = getActivity().findViewById(R.id.ivNegeriNoData);
+        tvNegeriNoData = getActivity().findViewById(R.id.tvNegeriNoData);
     }
 
     private void initAdapter() {
@@ -91,7 +99,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                dashboardPresenter.getProjectByVerify();
+                initDataPresenter();
             }
         });
     }
@@ -107,7 +115,6 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         searchViewNegeri.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 projectAdapter.getFilter().filter(query);
                 initAdapter();
                 return false;
@@ -142,11 +149,25 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         projectAdapter = new ProjectAdapter(dataProjectList);
         swipeRefreshLayout.setRefreshing(false);
         dataProjectList = dataProject;
+        if (dataProject.size()>0){
+            ivNegeriNoData.setVisibility(View.GONE);
+            tvNegeriNoData.setVisibility(View.GONE);
+        }
         initAdapter();
     }
 
     @Override
     public void successShowProjectByUser(List<DataProject> dataProjectList) {
+
+    }
+
+    @Override
+    public void failedShowProjectByVerify(String s) {
+
+    }
+
+    @Override
+    public void failedShowProjectByUser() {
 
     }
 

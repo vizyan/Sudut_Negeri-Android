@@ -6,6 +6,7 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,6 +44,25 @@ public class LandingPresenter {
                     @Override
                     public void onFailure(Call<ResultListProject> call, Throwable t) {
                         Log.e(null, "Gagal gan");
+                    }
+                });
+    }
+
+    public void getProjectByTime(){
+        RetrofitClient.getInstance()
+                .getApi()
+                .getPorjectTime(3)
+                .enqueue(new Callback<ResultListProject>() {
+                    @Override
+                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                        ResultListProject resultListProject = response.body();
+                        List<DataProject> dataProject = resultListProject.getData();
+                        landingView.successShowProjectByTime(dataProject);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultListProject> call, Throwable t) {
+
                     }
                 });
     }

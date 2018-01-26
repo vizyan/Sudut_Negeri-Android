@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.icu.text.UnicodeSetSpanner;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -34,6 +38,8 @@ import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.Date;
 
@@ -41,10 +47,10 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
     private UserPresenter userPresenter;
     private DataUser dataUser;
-    Button btnUserSave, btnDrawerLogout, btnPopupFRetry, btnPopupSNext;;
+    Button btnUserSave, btnDrawerLogout, btnPopupFRetry, btnPopupSNext;
     DrawerLayout drawerLayout;
     EditText etUserName, etUserEmail, etUserIdNumber, etUserAddress, etUserPhone;
-    ImageView ivDrawerPhoto;
+    ImageView ivDrawerPhoto, ivUserPhoto;
     NavigationView navigationView;
     String email, passwd, param, name, phone, address;
     TextView title, tvDrawerName, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType;
@@ -88,6 +94,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         title = findViewById(R.id.tvToolbarTitle);
         tvDrawerName = findViewById(R.id.tvDrawerName);
         ivDrawerPhoto = findViewById(R.id.ivDrawerUser);
+        ivUserPhoto = findViewById(R.id.ivUserPhoto);
         btnDrawerLogout = findViewById(R.id.btnDrawerLogout);
         drawerLayout = findViewById(R.id.dlUser);
         navigationView = findViewById(R.id.nvUser);
@@ -138,9 +145,9 @@ public class UserActivity extends AppCompatActivity implements UserView {
     private void initDataDrawer() {
         tvDrawerName.setText(dataUser.getName());
 
-        //Picasso.with(this)
-        //        .load(dataUser.getAddress())
-        //        .into(ivDrawerPhoto);
+        Picasso.with(this)
+                .load(dataUser.getPhoto())
+                .transform(new UserActivity.CircleTransform()).into(ivDrawerPhoto);
     }
 
     private void initEditable() {
@@ -160,7 +167,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         }
     }
 
-    private void initVarible() {
+    private void initVariable() {
         name = etUserName.getText().toString();
         address = etUserAddress.getText().toString();
         phone = etUserPhone.getText().toString();
@@ -170,7 +177,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         btnUserSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initVarible();
+                initVariable();
                 userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
             }
         });
@@ -243,6 +250,41 @@ public class UserActivity extends AppCompatActivity implements UserView {
         });
     }
 
+    public class CircleTransform implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            int size = Math.min(source.getWidth(), source.getHeight());
+
+            int x = (source.getWidth() - size) / 2;
+            int y = (source.getHeight() - size) / 2;
+
+            Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
+            if (squaredBitmap != source) {
+                source.recycle();
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap(size, size, source.getConfig());
+
+            Canvas canvas = new Canvas(bitmap);
+            Paint paint = new Paint();
+            BitmapShader shader = new BitmapShader(squaredBitmap,
+                    BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
+            paint.setShader(shader);
+            paint.setAntiAlias(true);
+
+            float r = size / 2f;
+            canvas.drawCircle(r, r, r, paint);
+
+            squaredBitmap.recycle();
+            return bitmap;
+        }
+
+        @Override
+        public String key() {
+            return "circle";
+        }
+    }
+
     @Override
     public String getEmail() {
         return email;
@@ -280,6 +322,9 @@ public class UserActivity extends AppCompatActivity implements UserView {
         etUserIdNumber.setText(dataUser.getIdentityNumber());
         etUserAddress.setText(dataUser.getAddress());
         etUserPhone.setText(dataUser.getPhone());
+        Picasso.with(this)
+                .load(dataUser.getPhoto())
+                .transform(new UserActivity.CircleTransform()).into(ivUserPhoto);
     }
 
     @Override

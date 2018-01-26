@@ -3,12 +3,17 @@ package com.qiscus.internship.sudutnegeri.ui.dashboard;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +33,8 @@ import com.qiscus.internship.sudutnegeri.ui.about.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -41,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     NavigationView navigationView;
     SearchView svNegeri, svSudut;
     String email, passwd;
+    SwipeRefreshLayout swipeRefreshLayoutNegeri, swipeRefreshLayoutSudut;
     TabLayout tabLayout;
     TextView tvToolbarTitle, tvDrawerName;
     Toolbar toolbar;
@@ -85,6 +93,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         btnDrawerLogout = findViewById(R.id.btnDrawerLogout);
         svSudut = findViewById(R.id.svDashboardSudut);
         svNegeri = findViewById(R.id.svDashboardNegeri);
+        swipeRefreshLayoutNegeri = findViewById(R.id.srlNegeri);
+        swipeRefreshLayoutSudut = findViewById(R.id.srlSudut);
     }
 
     private void initNavigation() {
@@ -142,9 +152,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     private void initDataDrawer() {
         tvDrawerName.setText(dataUser.getName());
 
-        //Picasso.with(this)
-        //        .load(dataUser.getAddress())
-        //        .into(ivDrawerUser);
+        Picasso.with(this)
+                .load(dataUser.getPhoto())
+                .transform(new CircleTransform()).into(ivDrawerPhoto);
     }
 
     private void setupToolbar() {
@@ -163,11 +173,11 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     }
 
     private void setupTab(){
-        tabLayout.getTabAt(0).setIcon(R.drawable.tab_home);
-        tabLayout.getTabAt(1).setIcon(R.drawable.tab_jadwal);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_sudut);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_negeri);
 
-        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#66F4F9FB"), PorterDuff.Mode.SRC_IN);
-        tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#66F4F9FB"), PorterDuff.Mode.SRC_IN);
+        //tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
 
         tvToolbarTitle.setText("Dashboard Sudut");
         svNegeri.setVisibility(View.GONE);
@@ -188,7 +198,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
                         svNegeri.setVisibility(View.VISIBLE);
                         break;
                 }
-                tab.getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
+                tab.getIcon().clearColorFilter();
             }
 
             @Override
@@ -221,6 +231,41 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         });
     }
 
+    public class CircleTransform implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            int size = Math.min(source.getWidth(), source.getHeight());
+
+            int x = (source.getWidth() - size) / 2;
+            int y = (source.getHeight() - size) / 2;
+
+            Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
+            if (squaredBitmap != source) {
+                source.recycle();
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap(size, size, source.getConfig());
+
+            Canvas canvas = new Canvas(bitmap);
+            Paint paint = new Paint();
+            BitmapShader shader = new BitmapShader(squaredBitmap,
+                    BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
+            paint.setShader(shader);
+            paint.setAntiAlias(true);
+
+            float r = size / 2f;
+            canvas.drawCircle(r, r, r, paint);
+
+            squaredBitmap.recycle();
+            return bitmap;
+        }
+
+        @Override
+        public String key() {
+            return "circle";
+        }
+    }
+
     @Override
     public String getEmail() {
         return email;
@@ -245,6 +290,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
 
     @Override
     public void successShowProjectByUser(List<DataProject> dataProjectList) {
+
+    }
+
+    @Override
+    public void failedShowProjectByVerify(String s) {
+
+    }
+
+    @Override
+    public void failedShowProjectByUser() {
 
     }
 }

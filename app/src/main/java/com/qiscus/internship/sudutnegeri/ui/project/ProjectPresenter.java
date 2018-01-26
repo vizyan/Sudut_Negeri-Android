@@ -54,9 +54,11 @@ public class ProjectPresenter {
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
-                        ResultUser resultUser = response.body();
-                        DataUser dataUser = resultUser.getData();
-                        projectView.successUserById(dataUser);
+                        if (response.isSuccessful()){
+                            ResultUser resultUser = response.body();
+                            DataUser dataUser = resultUser.getData();
+                            projectView.successUserById(dataUser);
+                        }
                     }
 
                     @Override

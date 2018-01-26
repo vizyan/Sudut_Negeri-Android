@@ -17,6 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/tvSudutNoData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/somanticrounded"
+                android:gravity="center"
+                android:text="Tidak ada projek"
+                android:textSize="18dp"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout4" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvSudut"
                 android:layout_width="match_parent"
@@ -24,7 +35,21 @@
                 android:layout_marginBottom="5dp"
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
-                android:paddingTop="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/fabSudutChat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+            <ImageView
+                android:id="@+id/ivSudutNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_no_data"
                 app:layout_constraintBottom_toTopOf="@+id/fabSudutChat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +92,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>

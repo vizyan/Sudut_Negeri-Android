@@ -12,9 +12,9 @@ public class Constant {
 
     public final class Extra {
         public static final String DATA = "EXTRA_DATA";
-        public static final String param = "admin";
-        public static final String User = "Data_user";
-        public static final String Project = "Data_project";
+        public static final String param = "DATA_PARAMETER";
+        public static final String User = "DATA_USER";
+        public static final String Project = "DATA_PROJECT";
 
     }
 }

@@ -52,12 +52,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="200dp"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/linearLayout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Our Team"
+                    android:gravity="center"
                     android:fontFamily="@font/somanticrounded"
                     android:textAlignment="center"
                     android:textColor="#FEFEFE"
@@ -80,22 +83,22 @@
 
 
                         <TextView
+                            android:gravity="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:textAlignment="center" />
+                            android:layout_height="30dp" />
 
                         <TextView
+                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/name1"
-                            android:textAlignment="center"
                             android:textSize="14dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:text="@string/pos1"
-                            android:textAlignment="center"
+                            android:gravity="center"
                             android:textSize="18dp" />
 
                     </LinearLayout>
@@ -119,20 +122,20 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:textAlignment="center" />
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:gravity="center"
                             android:text="@string/name2"
-                            android:textAlignment="center"
                             android:textSize="14dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:text="@string/pos2"
-                            android:textAlignment="center"
+                            android:gravity="center"
                             android:textSize="18dp" />
 
                     </LinearLayout>
@@ -152,24 +155,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:textAlignment="center" />
+                        android:gravity="center" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/name3"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:text="@string/pos3"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -189,24 +191,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:textAlignment="center" />
+                        android:gravity="center" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/name4"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:text="@string/pos4"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -226,24 +227,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:textAlignment="center" />
+                        android:gravity="center" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/name5"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:text="@string/pos5"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -263,24 +263,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:textAlignment="center" />
+                        android:gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/name6"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:text="@string/pos6"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -300,24 +299,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:textAlignment="center" />
+                        android:gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/name7"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:text="@string/pos7"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -337,24 +335,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:textAlignment="center" />
+                        android:gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/name8"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:text="@string/pos8"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -374,24 +371,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:textAlignment="center" />
+                        android:gravity="center" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/name9"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:text="@string/pos9"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -399,19 +395,24 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="240dp"
-            android:src="@drawable/founder" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/linearLayout"
+                android:layout_gravity="center"
+                android:layout_marginTop="36dp"
+                android:src="@drawable/founder"
+                android:id="@+id/imageView5" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="360dp"
-            android:src="@drawable/founder" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageView5"
+                android:layout_gravity="center"
+                android:layout_marginTop="52dp"
+                android:src="@drawable/founder" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -472,6 +473,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="15dp"
+                    android:gravity="center"
                     android:text="2018 Copyright @ Sudut Negeri"
                     android:textAlignment="center"
                     android:textColor="#FEFEFE"
@@ -490,7 +492,8 @@
         app:headerLayout="@layout/layout_drawer_header"
         app:menu="@menu/menu_navigation_drawer">
 
-        <include layout="@layout/layout_drawer_footer" />
+        <include
+            layout="@layout/layout_drawer_footer" />
 
     </android.support.design.widget.NavigationView>
 

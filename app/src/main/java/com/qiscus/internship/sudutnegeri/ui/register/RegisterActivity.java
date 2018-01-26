@@ -230,19 +230,26 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @NonNull
     private String validRetypePasswd(){
-        if (retypepasswd.isEmpty()){
+        if (validPasswd().equalsIgnoreCase("false")){
             etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             etRegRetypePasswd.setHint("Isikan ulang password");
+            etRegRetypePasswd.setText("");
             return "false";
         } else {
-            if(retypepasswd.matches(passwd)){
-                etRegRetypePasswd.setBackgroundResource(R.drawable.bg_rounded_trans_green);
-                return "true";
-            } else {
+            if (retypepasswd.isEmpty()){
                 etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
-                etRegRetypePasswd.setText("");
-                etRegRetypePasswd.setHint("Masukkan ulang password");
+                etRegRetypePasswd.setHint("Isikan ulang password");
                 return "false";
+            } else {
+                if(retypepasswd.matches(passwd)){
+                    etRegRetypePasswd.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+                    return "true";
+                } else {
+                    etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                    etRegRetypePasswd.setText("");
+                    etRegRetypePasswd.setHint("Masukkan ulang password");
+                    return "false";
+                }
             }
         }
     }
@@ -251,6 +258,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private String validIdNo(){
         if(idNo.isEmpty()){
             etRegIdNo.setHint("Isikan no KTP");
+            etRegIdNo.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            return "false";
+        } else if (!(idNo.length()==16)){
+            etRegIdNo.setText("");
+            etRegIdNo.setHint("Isikan no KTP dengan benar");
             etRegIdNo.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
@@ -273,8 +285,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @NonNull
     private String validPhone(){
+        int a = phone.length();
         if(phone.isEmpty()){
-            etRegPhone.setHint("Isikan no HP / no Telepon");
+            etRegPhone.setHint("Isikan nomer HP");
+            etRegPhone.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            return "false";
+        } else if (!(11 <= a && a <= 13)){
+            etRegPhone.setText("");
+            etRegPhone.setHint("Isikan nomer HP dengan benar");
             etRegPhone.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             return "false";
         } else {
@@ -331,7 +349,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @Override
     public void failedRegister(String message, String error) {
         initPopupWindow(message, error);
+        if (error.equalsIgnoreCase("Email sudah digunakan")){
+            etRegEmail.setText("");
+            etRegEmail.setBackgroundResource(R.drawable.bg_rounded_trans_white);
+        } else if (error.equalsIgnoreCase("No KTP sudah digunakan")){
+            etRegIdNo.setText("");
+            etRegIdNo.setBackgroundResource(R.drawable.bg_rounded_trans_white);
+        }
     }
-
 
 }

@@ -1,5 +1,6 @@
 package com.qiscus.internship.sudutnegeri.ui.splashscreen;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.firebase.MyFirebaseInstanceIdService;
@@ -20,6 +22,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     private static int splashInterval = 2000;
     private SplashscreenPresenter splashscreenPresenter;
+    ProgressDialog progressDialog;
     String email, passwd;
 
     @Override
@@ -36,8 +39,8 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                initPreference();
                 initPresenter();
+                initPreference();
             }
 
             private void finish() {
@@ -51,11 +54,22 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         SharedPreferences preferences = getSharedPreferences("LoginPreference", MODE_PRIVATE);
         email = preferences.getString("email", "");
         passwd = preferences.getString("password", "");
+        if (email.isEmpty()){
+            Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
+            startActivity(landing);
+            finish();
+        } else {
+            initDataPresenter();
+        }
     }
 
     private void initPresenter(){
         splashscreenPresenter = new SplashscreenPresenter(this);
+    }
+
+    private void initDataPresenter(){
         splashscreenPresenter.loginUser();
+        progressDialog.show(SplashscreenActivity.this, null, "Menyiapkan data", false, false);
     }
 
     @Override

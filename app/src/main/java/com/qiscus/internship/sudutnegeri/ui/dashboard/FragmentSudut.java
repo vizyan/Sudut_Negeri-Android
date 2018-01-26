@@ -40,9 +40,11 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     private List<DataProject> dataProjectList;
     private DataUser dataUser;
     Button btnSudutCreate;
+    ImageView ivSudutNoData;
     RecyclerView rvSudut;
     SearchView searchViewSudut;
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView tvSudutNoData;
 
     public static FragmentSudut newInstance() {
         // Required empty public constructor
@@ -70,6 +72,14 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         search();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initDataPresenter();
+        dashboardPresenter.getProjectByUser(dataUser);
+        refresh();
+    }
+
     private void initPresenter() {
         dashboardPresenter = new DashboardPresenter(this);
     }
@@ -82,9 +92,11 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
 
     private void initView() {
         btnSudutCreate = getActivity().findViewById(R.id.btnSudutCreate);
+        ivSudutNoData = getActivity().findViewById(R.id.ivSudutNoData);
         rvSudut = getActivity().findViewById(R.id.rvSudut);
         searchViewSudut = getActivity().findViewById(R.id.svDashboardSudut);
         swipeRefreshLayout = getActivity().findViewById(R.id.srlSudut);
+        tvSudutNoData = getActivity().findViewById(R.id.tvSudutNoData);
     }
 
     private void initDataPresenter() {
@@ -181,6 +193,20 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         projectAdapter = new ProjectAdapter(dataProjectList);
         swipeRefreshLayout.setRefreshing(false);
         dataProjectList = dataProject;
+        if (dataProject.size()>0){
+            ivSudutNoData.setVisibility(View.GONE);
+            tvSudutNoData.setVisibility(View.GONE);
+        }
         initAdapter();
+    }
+
+    @Override
+    public void failedShowProjectByVerify(String s) {
+
+    }
+
+    @Override
+    public void failedShowProjectByUser() {
+
     }
 }

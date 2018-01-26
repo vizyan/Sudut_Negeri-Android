@@ -8,6 +8,8 @@ import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListUser;
 import com.qiscus.internship.sudutnegeri.data.model.UploadObject;
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -37,8 +39,10 @@ public interface Api {
     @GET("api/projects")
     Call<ResultListProject> getAllPorject();
 
-    @GET("api/landings")
-    Call<ResultListProject> getPorjectTime();
+    @GET("api/landings/day/{difftime}")
+    Call<ResultListProject> getPorjectTime(
+            @Path("difftime") int difftime
+    );
 
     //Get unverified user
     @GET("api/users/verify/{verify}")

@@ -1,12 +1,10 @@
 package com.qiscus.internship.sudutnegeri.ui.dashboard;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
-import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
@@ -28,14 +26,6 @@ public class DashboardPresenter {
         this.dashboardView = dashboardView;
     }
 
-    public void getUserById(){
-
-    }
-
-    public void getAllProject(){
-
-    }
-
     public void getProjectByVerify(){
         RetrofitClient.getInstance()
                 .getApi()
@@ -45,14 +35,18 @@ public class DashboardPresenter {
                     public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
                         if(response.isSuccessful()){
                             ResultListProject resultListProject = response.body();
-                            List<DataProject> dataProjects = resultListProject.getData();
-                            dashboardView.successShowProjectVerify(dataProjects);
+                            try {
+                                List<DataProject> dataProjects = resultListProject.getData();
+                                dashboardView.successShowProjectVerify(dataProjects);
+                            } catch (NullPointerException e){
+                                dashboardView.failedShowProjectByVerify("Tidak ada data");
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResultListProject> call, Throwable t) {
-
+                        dashboardView.failedShowProjectByVerify("Tidak ada koneksi");
                     }
                 });
     }
@@ -73,31 +67,9 @@ public class DashboardPresenter {
 
                     @Override
                     public void onFailure(Call<ResultListProject> call, Throwable t) {
-
+                        dashboardView.failedShowProjectByUser();
                     }
                 });
-    }
-
-    public void getProjectByTime(){
-        RetrofitClient.getInstance()
-                .getApi()
-                .getPorjectTime()
-                .enqueue(new Callback<ResultListProject>() {
-                             @Override
-                             public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
-                                 ResultListProject resultListProject = response.body();
-                                 List<DataProject> dataProject = resultListProject.getData();
-                             }
-
-                             @Override
-                             public void onFailure(Call<ResultListProject> call, Throwable t) {
-
-                             }
-                         });
-    }
-
-    public void postProject(){
-
     }
 
     public void logout(){

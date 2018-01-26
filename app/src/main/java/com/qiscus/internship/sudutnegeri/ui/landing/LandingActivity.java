@@ -38,16 +38,17 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
     private Toolbar toolbar;
     Button btnLandLog, btnLandReg;
     RecyclerView rvLand;
-    TextView title, tvLandCount;
+    TextView title, tvLandCount, tvLandingNoData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initPresenter();
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_landing);
         setTitle("");
+        initPresenter();
         initView();
+        initDataPresenter();
         setupToolbar();
         setSupportActionBar(toolbar);
 
@@ -79,8 +80,13 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
         btnLandLog = findViewById(R.id.btnLandLog);
         btnLandReg = findViewById(R.id.btnLandReg);
         tvLandCount = findViewById(R.id.tvLandCount);
+        tvLandingNoData = findViewById(R.id.tvLandingNoData);
         rvLand = findViewById(R.id.rvLand);
         title.setText("Sudut Negeri");
+    }
+
+    private void initDataPresenter() {
+        landingPresenter.getProjectByTime();
     }
 
     private void rergister() {
@@ -105,7 +111,15 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
 
     @Override
     public void success(List<DataProject> dataProjectList) {
-        projectAdapter = new ProjectAdapter(dataProjectList);
+
+    }
+
+    @Override
+    public void successShowProjectByTime(List<DataProject> dataProject) {
+        if (dataProject.size()>0){
+            tvLandingNoData.setVisibility(View.GONE);
+        }
+        projectAdapter = new ProjectAdapter(dataProject);
         projectAdapter.setAdapterListener(this);
         rvLand.setLayoutManager(new LinearLayoutManager(this));
         rvLand.setAdapter(projectAdapter);

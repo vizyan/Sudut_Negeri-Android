@@ -18,4 +18,8 @@ interface DashboardView {
     void successShowProjectVerify(List<DataProject> dataProject);
 
     void successShowProjectByUser(List<DataProject> dataProjectList);
+
+    void failedShowProjectByVerify(String s);
+
+    void failedShowProjectByUser();
 }
