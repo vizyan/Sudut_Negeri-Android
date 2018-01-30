@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.ui.about.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
@@ -47,7 +48,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
     private UserPresenter userPresenter;
     private DataUser dataUser;
-    Button btnUserSave, btnDrawerLogout, btnPopupFRetry, btnPopupSNext;
+    Button btnUserSave, btnDrawerLogout, btnUserUnverify;
     DrawerLayout drawerLayout;
     EditText etUserName, etUserEmail, etUserIdNumber, etUserAddress, etUserPhone;
     ImageView ivDrawerPhoto, ivUserPhoto;
@@ -72,6 +73,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
         putUser();
         logout();
+        unverifyUser();
     }
 
     @Override
@@ -102,6 +104,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         etUserAddress = findViewById(R.id.etUserAddress);
         etUserPhone = findViewById(R.id.etUserPhone);
         btnUserSave = findViewById(R.id.btnUserSave);
+        btnUserUnverify = findViewById(R.id.btnUserUnverify);
         title = findViewById(R.id.tvToolbarTitle);
         tvDrawerName = findViewById(R.id.tvDrawerName);
         ivDrawerPhoto = findViewById(R.id.ivDrawerUser);
@@ -169,6 +172,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
             etUserIdNumber.setEnabled(false);
             etUserAddress.setEnabled(false);
             etUserPhone.setEnabled(false);
+            btnUserUnverify.setVisibility(View.VISIBLE);
             navigationView.setVisibility(View.GONE);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         } else {
@@ -194,7 +198,16 @@ public class UserActivity extends AppCompatActivity implements UserView {
         });
     }
 
-    private void popupWindow(String messsage, String param) {
+    private void unverifyUser(){
+        btnUserUnverify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userPresenter.unverify(dataUser.getId());
+            }
+        });
+    }
+
+    private void popupWindow(String messsage, String param, String verify) {
         try {
             LayoutInflater inflater = (LayoutInflater) UserActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -208,7 +221,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
                 tvPopupSType = layout.findViewById(R.id.tvPopupSType);
                 if(param.equalsIgnoreCase("admin")){
 
-                    tvPopupSType.setText("Verifikasi berhasil");
+                    tvPopupSType.setText(verify);
                     tvPopupSMsg.setText("Atas nama " + dataUser.getName());
 
                     new Handler().postDelayed(new Runnable() {
@@ -322,6 +335,11 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     @Override
+    public void successUnverify(ResultUser resultUser) {
+        popupWindow("success", param, "Tidak diverifikasi");
+    }
+
+    @Override
     public String getVerify() {
         return dataUser.getVerify();
     }
@@ -335,12 +353,13 @@ public class UserActivity extends AppCompatActivity implements UserView {
         etUserPhone.setText(dataUser.getPhone());
         Picasso.with(this)
                 .load(dataUser.getPhoto())
-                .transform(new UserActivity.CircleTransform()).into(ivUserPhoto);
+                .transform(new UserActivity.CircleTransform())
+                .into(ivUserPhoto);
     }
 
     @Override
     public void successPutUser(DataUser dataUser) {
-        popupWindow("success", param);
+        popupWindow("success", param, "Verifikasi berhasil");
         this.dataUser = dataUser;
         initDataDrawer();
     }

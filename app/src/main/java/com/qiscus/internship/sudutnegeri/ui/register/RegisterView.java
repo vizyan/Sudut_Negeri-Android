@@ -25,4 +25,6 @@ interface RegisterView {
     void noConnection();
 
     void failedRegister(String message, String error);
+
+    void failedUploadFile();
 }

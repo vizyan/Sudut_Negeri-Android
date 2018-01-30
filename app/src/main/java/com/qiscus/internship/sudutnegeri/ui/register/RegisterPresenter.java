@@ -2,9 +2,16 @@ package com.qiscus.internship.sudutnegeri.ui.register;
 
 import android.util.Log;
 
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
+import com.qiscus.internship.sudutnegeri.data.model.UploadObject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,7 +28,7 @@ public class RegisterPresenter {
         this.registerView = registerView;
     }
 
-    public void addUser(){
+    public void addUser(String path){
         String name = registerView.getName();
         String email = registerView.getEmail();
         String password = registerView.getPassword();
@@ -29,10 +36,11 @@ public class RegisterPresenter {
         String noIdentity = registerView.getNoIdentity();
         String address = registerView.getAddress();
         String phone = registerView.getPhone();
+        String photo = "http://vizyan.xyz/images/" +path;
 
         RetrofitClient.getInstance()
                 .getApi()
-                .register(name, email, password, retypepasswd, noIdentity, address, phone, "no")
+                .register(name, email, password, retypepasswd, noIdentity, address, phone, "no", photo)
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
@@ -54,6 +62,30 @@ public class RegisterPresenter {
                     @Override
                     public void onFailure(Call<ResultUser> call, Throwable t) {
                         registerView.noConnection();
+                    }
+                });
+    }
+
+    public void uploadFile(File file, String random){
+        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", random + file.getName(), mFile);
+        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), random + file.getName());
+        RetrofitClient.getInstance()
+                .getApi()
+                .uploadFile(fileToUpload, filename)
+                .enqueue(new Callback<UploadObject>() {
+                    @Override
+                    public void onResponse(Call<UploadObject> call, Response<UploadObject> response) {
+                        if (response.isSuccessful()){
+                            UploadObject uploadObject = response.body();
+                            String path = uploadObject.getSuccess();
+                            addUser(path);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UploadObject> call, Throwable t) {
+                        registerView.failedUploadFile();
                     }
                 });
     }

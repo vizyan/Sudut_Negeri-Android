@@ -43,7 +43,6 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     private DataProject dataProject;
     private DataUser dataUser;
     private Uri uri;
-    private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
     AnimationDrawable animationDrawable;
     Button btnAddPCreate, btnAddPTaget, btnAddPPhoto;
     ConstraintLayout constraintLayout;
@@ -113,7 +112,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         final Random random=new Random();
         final StringBuilder sb=new StringBuilder(sizeOfRandomString);
         for(int i=0;i<sizeOfRandomString;++i)
-            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+            sb.append(Constant.ALLOWED_CHARACTERS.charAt(random.nextInt(Constant.ALLOWED_CHARACTERS.length())));
         return sb.toString();
     }
 

@@ -13,6 +13,7 @@ import java.util.List;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -105,7 +106,8 @@ public interface Api {
             @Field("identity_number") String noIdentity,
             @Field("address") String address,
             @Field("phone") String phone,
-            @Field("verify") String verify
+            @Field("verify") String verify,
+            @Field("photo") String photo
     );
 
     @FormUrlEncoded
@@ -159,4 +161,9 @@ public interface Api {
             @Field("password") String password
     );
 
+    //Unverify user
+    @DELETE("api/users/{id}")
+    Call<ResultUser> deleteUser(
+            @Path("id") int id
+    );
 }

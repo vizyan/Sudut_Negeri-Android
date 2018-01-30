@@ -92,4 +92,24 @@ public class UserPresenter {
                     }
                 });
     }
+
+    public void unverify(int id){
+        RetrofitClient.getInstance()
+                .getApi()
+                .deleteUser(id)
+                .enqueue(new Callback<ResultUser>() {
+                    @Override
+                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                        if (response.isSuccessful()){
+                            ResultUser resultUser = response.body();
+                            userView.successUnverify(resultUser);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultUser> call, Throwable t) {
+
+                    }
+                });
+    }
 }
