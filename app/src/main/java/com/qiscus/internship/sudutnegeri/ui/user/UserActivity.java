@@ -74,6 +74,17 @@ public class UserActivity extends AppCompatActivity implements UserView {
         logout();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (param.equalsIgnoreCase("user")){
+            Intent dashboard = new Intent(UserActivity.this, DashboardActivity.class);
+            dashboard.putExtra(Constant.Extra.DATA, dataUser);
+            startActivity(dashboard);
+            finish();
+        }
+    }
+
     private void initPresenter() {
         userPresenter = new UserPresenter(this);
     }

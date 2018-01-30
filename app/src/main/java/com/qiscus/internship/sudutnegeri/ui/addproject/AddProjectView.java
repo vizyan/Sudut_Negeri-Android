@@ -20,4 +20,6 @@ interface AddProjectView {
     void failedPostProject(String message);
 
     void failedUploadFile();
+
+    int getTargetFunds();
 }

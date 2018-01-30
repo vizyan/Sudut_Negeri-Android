@@ -25,39 +25,22 @@ public class LandingPresenter {
         this.landingView = landingView;
     }
 
-    public void showProject(){
-        RetrofitClient.getInstance()
-                .getApi()
-                .getAllPorject()
-                .enqueue(new Callback<ResultListProject>() {
-                    @Override
-                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
-                        if(response.isSuccessful()){
-                            ResultListProject project = response.body();
-                            List<DataProject> data = project.getData();
-                            landingView.success(data);
-                            Log.d(null, "Body" + response.body().getData());
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResultListProject> call, Throwable t) {
-                        Log.e(null, "Gagal gan");
-                    }
-                });
-    }
-
     public void getProjectByTime(){
         RetrofitClient.getInstance()
                 .getApi()
-                .getPorjectTime(3)
+                .getPorjectTime()
                 .enqueue(new Callback<ResultListProject>() {
                     @Override
                     public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
-                        ResultListProject resultListProject = response.body();
-                        List<DataProject> dataProject = resultListProject.getData();
-                        landingView.successShowProjectByTime(dataProject);
+                        if (response.isSuccessful()){
+                            try{
+                                ResultListProject resultListProject = response.body();
+                                List<DataProject> dataProject = resultListProject.getData();
+                                landingView.successShowProjectByTime(dataProject);
+                            } catch (NullPointerException e){
+
+                            }
+                        }
                     }
 
                     @Override

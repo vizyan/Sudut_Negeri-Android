@@ -39,10 +39,8 @@ public interface Api {
     @GET("api/projects")
     Call<ResultListProject> getAllPorject();
 
-    @GET("api/landings/day/{difftime}")
-    Call<ResultListProject> getPorjectTime(
-            @Path("difftime") int difftime
-    );
+    @GET("api/landings")
+    Call<ResultListProject> getPorjectTime();
 
     //Get unverified user
     @GET("api/users/verify/{verify}")
@@ -120,7 +118,8 @@ public interface Api {
             @Field("information") String information,
             @Field("photo") String urlPhoto,
             @Field("id_user") int id_user,
-            @Field("funds") int funds
+            @Field("funds") int funds,
+            @Field("target_funds") int target_funds
     );
 
     //generate token

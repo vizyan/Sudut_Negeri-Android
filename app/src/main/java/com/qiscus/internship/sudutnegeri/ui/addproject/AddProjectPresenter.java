@@ -35,12 +35,13 @@ public class AddProjectPresenter {
         String target_at = addProjectView.getTarget();
         String information = addProjectView.getInformation();
         String photo = "http://vizyan.xyz/images/" +path;
+        int target_funds = addProjectView.getTargetFunds();
         int id_user = dataUser.getId();
         int funds = 0;
 
         RetrofitClient.getInstance()
                 .getApi()
-                .postProject(name, "no", location, target_at, information, photo, id_user, funds)
+                .postProject(name, "no", location, target_at, information, photo, id_user, funds, 0)
                 .enqueue(new Callback<ResultProject>() {
                     @Override
                     public void onResponse(Call<ResultProject> call, Response<ResultProject> response) {

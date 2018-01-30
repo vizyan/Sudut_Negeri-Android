@@ -14,7 +14,9 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -64,14 +66,15 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private Animator mCurrentAnimatorEffect;
     private int mShortAnimationDurationEffect;
     Button btnProjectDonate;
+    ConstraintLayout clProject;
     Date date;
     FloatingActionButton fabProjectChat;
-    ImageView ivProjectPhoto, ivBigPhoto;
+    ImageView ivProjectPhoto, ivBigPhoto, ivProjectVerify;
     int funds = 0;
     JustifyTextView jtProjectInformation;
     ProgressBar pbProjectProgress;
     RelativeLayout rlBigPhoto;
-    String param, postDate;
+    String param, postDate, verify;
     TextView tvProjectName, tvProjectLocation, tvProjectTarget, tvProjectCreator, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType;
 
     @Override
@@ -97,9 +100,11 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     private void initView() {
         btnProjectDonate = findViewById(R.id.btnProjectDonate);
+        clProject = findViewById(R.id.clProject);
         fabProjectChat = findViewById(R.id.fabProjectChat);
         ivProjectPhoto = findViewById(R.id.ivProjectPhoto);
         ivBigPhoto = findViewById(R.id.ivBigPhoto);
+        ivProjectVerify = findViewById(R.id.ivProjectVerify);
         jtProjectInformation = findViewById(R.id.jtProjectInfo);
         pbProjectProgress = findViewById(R.id.pbProjectProgress);
         rlBigPhoto = findViewById(R.id.rlBigPhoto);
@@ -108,8 +113,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         tvProjectTarget = findViewById(R.id.tvProjectTarget);
         tvProjectCreator = findViewById(R.id.tvProjectCreator);
 
-        mShortAnimationDurationEffect = getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
+        mShortAnimationDurationEffect = getResources().getInteger(android.R.integer.config_shortAnimTime);
     }
 
     private void initDataIntent() {
@@ -274,14 +278,12 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         float startScale;
         if ((float) finalBounds.width() / finalBounds.height()
                 > (float) startBounds.width() / startBounds.height()) {
-            // Extend start bounds horizontally
             startScale = (float) startBounds.height() / finalBounds.height();
             float startWidth = startScale * finalBounds.width();
             float deltaWidth = (startWidth - startBounds.width()) / 2;
             startBounds.left -= deltaWidth;
             startBounds.right += deltaWidth;
         } else {
-            // Extend start bounds vertically
             startScale = (float) startBounds.width() / finalBounds.width();
             float startHeight = startScale * finalBounds.height();
             float deltaHeight = (startHeight - startBounds.height()) / 2;
@@ -297,7 +299,6 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         rlBigPhoto.setPivotX(0f);
         rlBigPhoto.setPivotY(0f);
 
-        // scale properties (X, Y, SCALE_X, and SCALE_Y).
         AnimatorSet set = new AnimatorSet();
         set.play(ObjectAnimator.ofFloat(rlBigPhoto, View.X, startBounds.left, finalBounds.left))
                 .with(ObjectAnimator.ofFloat(rlBigPhoto, View.Y, startBounds.top, finalBounds.top))
@@ -326,7 +327,6 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                     mCurrentAnimatorEffect.cancel();
                 }
 
-                // back to their original values.
                 AnimatorSet set = new AnimatorSet();
                 set.play(ObjectAnimator
                         .ofFloat(rlBigPhoto, View.X, startBounds.left))
@@ -360,14 +360,38 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         });
     }
 
+    private void setupTooltip(String message){
+        ivProjectVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (message.equalsIgnoreCase("yes")){
+                    Snackbar snackbar = Snackbar.make(clProject, "Sudah diverifikasi", Snackbar.LENGTH_SHORT );
+                    snackbar.show();
+                } else {
+                    Snackbar snackbar = Snackbar.make(clProject, "Belum diverifikasi", Snackbar.LENGTH_SHORT );
+                    snackbar.show();
+                }
+            }
+        });
+    }
+
     @Override
     public void successProjectById(DataProject dataProject) {
         this.dataProject = dataProject;
         setupDate();
         tvProjectName.setText(dataProject.getNameProject());
         tvProjectLocation.setText(dataProject.getLocation());
-        tvProjectTarget.setText("Hingga " +postDate);
+        tvProjectTarget.setText("Projek berlangsung hingga : " +postDate);
         jtProjectInformation.setText(dataProject.getInformation() + "\n");
+        verify = dataProject.getVerify().toString();
+
+        if (verify.equalsIgnoreCase("yes")){
+            ivProjectVerify.setBackgroundResource(R.drawable.ic_success);
+            setupTooltip("yes");
+        } else {
+            ivProjectVerify.setBackgroundResource(R.drawable.ic_failed);
+            setupTooltip("no");
+        }
 
         Picasso.with(ProjectActivity.this)
                 .load(dataProject.getPhoto())

@@ -9,8 +9,5 @@ import java.util.List;
  */
 
 public interface LandingView {
-
-    void success(List<DataProject> dataProjectList);
-
     void successShowProjectByTime(List<DataProject> dataProject);
 }

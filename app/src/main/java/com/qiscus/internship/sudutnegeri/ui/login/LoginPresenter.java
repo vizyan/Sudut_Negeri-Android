@@ -43,20 +43,22 @@ public class LoginPresenter {
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
-                        ResultUser login = response.body();
-                        String message = login.getMessage();
+                        if (response.isSuccessful()){
+                            ResultUser login = response.body();
+                            String message = login.getMessage();
 
-                        if (message.equals("success")) {
-                            DataUser data = login.getData();
-                            Log.e(null, "respon " + message);
-                            String verify = data.getVerify();
-                            if (verify.equals("yes")) {
-                                loginChat(data);
+                            if (message.equals("success")) {
+                                DataUser data = login.getData();
+                                Log.e(null, "respon " + message);
+                                String verify = data.getVerify();
+                                if (verify.equals("yes")) {
+                                    loginChat(data);
+                                } else {
+                                    loginView.notVerified();
+                                }
                             } else {
-                                loginView.notVerified();
+                                loginView.failed();
                             }
-                        } else {
-                            loginView.failed();
                         }
                     }
 
@@ -78,14 +80,16 @@ public class LoginPresenter {
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
-                        ResultUser login = response.body();
-                        String message = login.getMessage();
+                        if (response.isSuccessful()){
+                            ResultUser login = response.body();
+                            String message = login.getMessage();
 
-                        if (message.equals("success")) {
-                            DataUser data = login.getData();
-                            loginView.successAdmin();
-                        } else {
-                            loginView.failed();
+                            if (message.equals("success")) {
+                                //DataUser data = login.getData();
+                                loginView.successAdmin();
+                            } else {
+                                loginView.failed();
+                            }
                         }
                     }
 

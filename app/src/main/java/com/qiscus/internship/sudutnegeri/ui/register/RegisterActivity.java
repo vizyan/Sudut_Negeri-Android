@@ -1,5 +1,6 @@
 package com.qiscus.internship.sudutnegeri.ui.register;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.ui.addproject.AddProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
 
@@ -30,8 +32,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     RelativeLayout rvReg;
     EditText etRegName,etRegEmail, etRegPasswd, etRegRetypePasswd, etRegIdNo, etRegAddress, etRegPhone ;
     Button btnRegReg, btnRegLog;
-    TextView tvPopupMsg, tvPopupType;
+    ProgressDialog progressDialog;
     String passwd, retypepasswd, email, name, idNo, address, phone;
+    TextView tvPopupMsg, tvPopupType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +117,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             @Override
             public void onClick(View v) {
                 if (validation()==true){
+                    progressDialog = new ProgressDialog(RegisterActivity.this);
+                    progressDialog.setTitle(null);
+                    progressDialog.setMessage("Mendaftar, tunggu beberapa saat");
+                    progressDialog.setIndeterminate(false);
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
                     registerPresenter.addUser();
                 }
             }
@@ -338,16 +348,18 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void success(String message) {
+        progressDialog.dismiss();
         initPopupWindow(message, null);
     }
 
     @Override
     public void noConnection() {
-
+        initPopupWindow("failed", "Tidak ada sambungan");
     }
 
     @Override
     public void failedRegister(String message, String error) {
+        progressDialog.dismiss();
         initPopupWindow(message, error);
         if (error.equalsIgnoreCase("Email sudah digunakan")){
             etRegEmail.setText("");

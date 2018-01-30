@@ -48,8 +48,9 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     Button btnAddPCreate, btnAddPTaget, btnAddPPhoto;
     ConstraintLayout constraintLayout;
     DatePickerDialog datePickerDialog;
-    EditText etAddPName, etAddPLocation, etAddPInformation;
+    EditText etAddPName, etAddPLocation, etAddPInformation, etAddPTFund;
     File file;
+    int target_fund;
     ProgressDialog progressDialog = null;
     String project_name, location, target_at, information, photo, random;
     TextView tvPopupMsg, tvPopupType, tvPopupSType;
@@ -139,7 +140,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         etAddPName = findViewById(R.id.etAddPName);
         etAddPLocation = findViewById(R.id.etAddPLocation);
         etAddPInformation = findViewById(R.id.etAddPInformation);
-
+        etAddPTFund = findViewById(R.id.etAddPTFund);
     }
 
     private void initAnimation() {
@@ -184,16 +185,18 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         information = etAddPInformation.getText().toString();
         target_at = btnAddPTaget.getText().toString();
         photo = btnAddPPhoto.getText().toString();
+        target_fund = Integer.parseInt(etAddPTFund.getText().toString());
     }
 
     private boolean validate(){
         validName();
         validLocation();
         validTarget();
+        validTargetFund();
         validPhoto();
         validInformation();
 
-        if (validName()==false || validLocation()==false || validTarget()==false || validPhoto()==false || validInformation()==false){
+        if (validName()==false || validLocation()==false || validTarget()==false || validTargetFund()==false || validPhoto()==false || validInformation()==false){
             return false;
         }
         return true;
@@ -229,14 +232,36 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         return true;
     }
 
+    private boolean validTargetFund(){
+        if (target_fund<=10000){
+            etAddPTFund.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etAddPTFund.setHint("Isikan target dana minimal Rp 10000");
+            etAddPTFund.setText("");
+            return false;
+        }
+        etAddPTFund.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+        return true;
+    }
+
     private boolean validPhoto(){
         if (photo.isEmpty()){
             btnAddPPhoto.setBackgroundResource(R.drawable.bg_sounded_trans_red);
             btnAddPPhoto.setHint("Pilih foto dari gallery");
             return false;
+        } else {
+            long fileInKb, fileInMb;
+            fileInKb = file.length() / 1024;
+            fileInMb = fileInKb / 1024;
+
+            if (fileInMb > 1){
+                btnAddPPhoto.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                btnAddPPhoto.setHint("Foto tidak boleh lebih dari 1MB");
+                btnAddPPhoto.setText("");
+                return false;
+            }
+            btnAddPPhoto.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+            return true;
         }
-        btnAddPPhoto.setBackgroundResource(R.drawable.bg_rounded_trans_green);
-        return true;
     }
 
     private boolean validInformation(){
@@ -354,5 +379,10 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     public void failedUploadFile() {
         progressDialog.dismiss();
         initPopupWindow("failed", "Tidak dapat mengunggah gambar");
+    }
+
+    @Override
+    public int getTargetFunds() {
+        return 0;
     }
 }

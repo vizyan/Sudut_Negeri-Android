@@ -29,7 +29,6 @@ public class RegisterPresenter {
         String noIdentity = registerView.getNoIdentity();
         String address = registerView.getAddress();
         String phone = registerView.getPhone();
-        String message, error;
 
         RetrofitClient.getInstance()
                 .getApi()
@@ -37,22 +36,24 @@ public class RegisterPresenter {
                 .enqueue(new Callback<ResultUser>() {
                     @Override
                     public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
-                        ResultUser resultUser = response.body();
-                        String message = resultUser.getMessage();
-                        String error = resultUser.getError();
+                        if (response.isSuccessful()){
+                            ResultUser resultUser = response.body();
+                            String message = resultUser.getMessage();
+                            String error = resultUser.getError();
 
-                        if(message.equals("success")){
-                            registerView.success(message);
-                        } else {
-                            registerView.failedRegister(message, error);
-                            Log.d(null, message);
+                            if(message.equals("success")){
+                                registerView.success(message);
+                            } else {
+                                registerView.failedRegister(message, error);
+                                Log.d(null, message);
+                            }
                         }
+
                     }
 
                     @Override
                     public void onFailure(Call<ResultUser> call, Throwable t) {
                         registerView.noConnection();
-                        //Log.e(null, ""+t.getMessage());
                     }
                 });
     }

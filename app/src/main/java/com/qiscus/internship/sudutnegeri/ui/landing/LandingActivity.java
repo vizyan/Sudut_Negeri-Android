@@ -64,7 +64,6 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
 
     private void initPresenter() {
         landingPresenter = new LandingPresenter(this);
-        landingPresenter.showProject();
     }
 
     private void setupToolbar() {
@@ -107,11 +106,6 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
                 startActivity(login);
             }
         });
-    }
-
-    @Override
-    public void success(List<DataProject> dataProjectList) {
-
     }
 
     @Override

@@ -76,6 +76,16 @@ public class AboutActivity extends AppCompatActivity implements AboutView{
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent dashboard = new Intent(AboutActivity.this, DashboardActivity.class);
+        dashboard.putExtra(Constant.Extra.DATA, dataUser);
+        dashboard.putExtra(Constant.Extra.param, "user");
+        startActivity(dashboard);
+        finish();
+    }
+
     private void initPresenter() {
         aboutPresenter = new AboutPresenter(this);
     }
@@ -113,7 +123,6 @@ public class AboutActivity extends AppCompatActivity implements AboutView{
                     case R.id.navigation1:
                         Intent dashboard = new Intent(AboutActivity.this, DashboardActivity.class);
                         dashboard.putExtra(Constant.Extra.DATA, dataUser);
-                        dashboard.putExtra(Constant.Extra.param, "user");
                         startActivity(dashboard);
                         finish();
                         return false;

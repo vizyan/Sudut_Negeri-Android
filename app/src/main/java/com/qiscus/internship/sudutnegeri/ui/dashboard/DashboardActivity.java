@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -42,6 +43,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
 
     private DashboardPresenter dashboardPresenter;
     private DataUser dataUser;
+    boolean doubleBackToExit = false;
     Button btnDrawerLogout;
     DrawerLayout drawerLayout;
     ImageView ivDrawerPhoto;
@@ -69,6 +71,27 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         setupToolbar();
 
         logout();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else if (!doubleBackToExit) {
+            this.doubleBackToExit = true;
+            Toast.makeText(this,"Tekan 2 kali untuk keluar", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExit = false;
+                }
+            }, 2000);
+        } else {
+            super.onBackPressed();
+            return;
+        }
     }
 
     private void initPresenter() {

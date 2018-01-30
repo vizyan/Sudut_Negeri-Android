@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void noConnection() {
-        initPopupWindow("Kesalahan sambungan");
+        initPopupWindow("Tidak ada sambungan");
     }
 
     @Override
@@ -235,7 +235,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
         login.putExtra(Constant.Extra.DATA, data);
         startActivity(login);
-        finishAffinity();
+        finish();
     }
 
     @Override
