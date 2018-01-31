@@ -66,10 +66,13 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.recentchat.RecentChatActivity"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".ui.addproject.AddProjectActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".ui.recentchat.RecentChatActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.addproject.AddProjectActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.chat.ChatActivity"></activity>
     </application>
 
 </manifest>

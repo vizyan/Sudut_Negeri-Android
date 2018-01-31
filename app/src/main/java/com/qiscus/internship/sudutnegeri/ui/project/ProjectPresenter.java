@@ -88,4 +88,23 @@ public class ProjectPresenter {
                     }
                 });
     }
+
+    public void unverifyProject(int id){
+        RetrofitClient.getInstance()
+                .getApi()
+                .deleteProject(id)
+                .enqueue(new Callback<ResultProject>() {
+                    @Override
+                    public void onResponse(Call<ResultProject> call, Response<ResultProject> response) {
+                        if (response.isSuccessful()){
+                            projectView.successUnverify();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultProject> call, Throwable t) {
+
+                    }
+                });
+    }
 }

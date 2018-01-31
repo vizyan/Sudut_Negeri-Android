@@ -65,7 +65,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private DataUser dataUser;
     private Animator mCurrentAnimatorEffect;
     private int mShortAnimationDurationEffect;
-    Button btnProjectDonate;
+    Button btnProjectDonate, btnProjectUnverify;
     ConstraintLayout clProject;
     Date date;
     FloatingActionButton fabProjectChat;
@@ -90,6 +90,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         initEditable();
 
         putProject();
+        unverifyProject();
         chat();
         initZoomPhoto();
     }
@@ -100,6 +101,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     private void initView() {
         btnProjectDonate = findViewById(R.id.btnProjectDonate);
+        btnProjectUnverify = findViewById(R.id.btnProjectUnverify);
         clProject = findViewById(R.id.clProject);
         fabProjectChat = findViewById(R.id.fabProjectChat);
         ivProjectPhoto = findViewById(R.id.ivProjectPhoto);
@@ -130,6 +132,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private void initEditable() {
         if (param.equalsIgnoreCase("admin")){
             btnProjectDonate.setText("Verifikasi");
+            btnProjectUnverify.setVisibility(View.VISIBLE);
         }
     }
 
@@ -142,6 +145,15 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                 } else if (param.equalsIgnoreCase("negeri")){
                     initDonate();
                 }
+            }
+        });
+    }
+
+    private void unverifyProject(){
+        btnProjectUnverify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                projectPresenter.unverifyProject(dataProject.getId());
             }
         });
     }
@@ -186,7 +198,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         });
     }
 
-    private void popupWindow(String messsage, String param) {
+    private void popupWindow(String messsage, String param, String verify) {
         try {
             LayoutInflater inflater = (LayoutInflater) ProjectActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -201,7 +213,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
                 if(param.equalsIgnoreCase("admin")){
 
-                    tvPopupSType.setText("Verifikasi berhasil");
+                    tvPopupSType.setText(verify);
                     tvPopupSMsg.setText("Project " + dataProject.getNameProject());
 
                     new Handler().postDelayed(new Runnable() {
@@ -411,12 +423,19 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     @Override
     public void successPutProject(DataProject dataProject) {
         if (param.equalsIgnoreCase("admin")){
-            popupWindow("success", param);
+            popupWindow("success", param, "Verifikasi berhasil");
         }
     }
 
     @Override
     public int getFunds() {
         return funds = funds + dataProject.getFunds();
+    }
+
+    @Override
+    public void successUnverify() {
+        if (param.equalsIgnoreCase("admin")){
+            popupWindow("success", param, "Projek telah ditolak");
+        }
     }
 }

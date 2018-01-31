@@ -76,6 +76,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fabProjectChat" />
 
+    <Button
+        android:id="@+id/btnProjectUnverify"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/bg_rounded_trans_red"
+        android:text="Tolak"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnProjectDonate" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabProjectChat"
         android:layout_width="60dp"

@@ -166,4 +166,10 @@ public interface Api {
     Call<ResultUser> deleteUser(
             @Path("id") int id
     );
+
+    //Unverify project
+    @DELETE("api/projects/{id}")
+    Call<ResultProject> deleteProject(
+            @Path("id") int id
+    );
 }

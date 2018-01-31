@@ -23,14 +23,11 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
-import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
-import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.io.File;
@@ -203,7 +200,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     private boolean validName(){
         if (project_name.isEmpty()){
-            etAddPName.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etAddPName.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etAddPName.setHint("Isikan nama projek");
             return false;
         }
@@ -213,7 +210,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     private boolean validLocation(){
         if(location.isEmpty()) {
-            etAddPLocation.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etAddPLocation.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etAddPLocation.setHint("Isikan lokasi");
             return false;
         }
@@ -223,7 +220,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     private boolean validTarget(){
         if (target_at.isEmpty()) {
-            btnAddPTaget.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            btnAddPTaget.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             btnAddPTaget.setHint("Pilih tanggal target");
             return false;
         }
@@ -233,7 +230,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     private boolean validTargetFund(){
         if (target_fund<=10000){
-            etAddPTFund.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etAddPTFund.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etAddPTFund.setHint("Isikan target dana minimal Rp 10000");
             etAddPTFund.setText("");
             return false;
@@ -244,7 +241,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     private boolean validPhoto(){
         if (photo.isEmpty()){
-            btnAddPPhoto.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            btnAddPPhoto.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             btnAddPPhoto.setHint("Pilih foto dari gallery");
             return false;
         } else {
@@ -253,7 +250,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             fileInMb = fileInKb / 1024;
 
             if (fileInMb > 1){
-                btnAddPPhoto.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                btnAddPPhoto.setBackgroundResource(R.drawable.bg_rounded_trans_red);
                 btnAddPPhoto.setHint("Foto tidak boleh lebih dari 1MB");
                 btnAddPPhoto.setText("");
                 return false;
@@ -265,7 +262,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
 
     private boolean validInformation(){
         if (information.isEmpty()) {
-            etAddPInformation.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etAddPInformation.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etAddPInformation.setHint("Isikan informasi");
             return false;
         }

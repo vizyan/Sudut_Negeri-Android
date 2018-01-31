@@ -16,4 +16,6 @@ public interface ProjectView {
     void successPutProject(DataProject dataProject);
 
     int getFunds();
+
+    void successUnverify();
 }

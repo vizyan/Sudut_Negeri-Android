@@ -30,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.addproject.AddProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
@@ -302,7 +301,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @NonNull
     private boolean validEmail(){
         if(email.isEmpty()){
-            etRegEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegEmail.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etRegEmail.setHint("Isikan email");
             return false;
         } else {
@@ -310,7 +309,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 etRegEmail.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return true;
             } else {
-                etRegEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etRegEmail.setBackgroundResource(R.drawable.bg_rounded_trans_red);
                 etRegEmail.setText("");
                 etRegEmail.setHint("Isikan email dengan benar");
                 return false;
@@ -321,7 +320,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @NonNull
     private boolean validName(){
         if(name.isEmpty()){
-            etRegName.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegName.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etRegName.setHint("Isikan nama");
             return false;
         } else {
@@ -333,12 +332,12 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @NonNull
     private boolean validPasswd(){
         if(passwd.isEmpty()){
-            etRegPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegPasswd.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etRegPasswd.setHint("Isikan password");
             return false;
         } else {
             if (passwd.length()<6){
-                etRegPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etRegPasswd.setBackgroundResource(R.drawable.bg_rounded_trans_red);
                 etRegPasswd.setText("");
                 Toast.makeText(this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
                 return false;
@@ -352,13 +351,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @NonNull
     private boolean validRetypePasswd(){
         if (validPasswd()==false){
-            etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegRetypePasswd.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etRegRetypePasswd.setHint("Isikan ulang password");
             etRegRetypePasswd.setText("");
             return false;
         } else {
             if (retypepasswd.isEmpty()){
-                etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etRegRetypePasswd.setBackgroundResource(R.drawable.bg_rounded_trans_red);
                 etRegRetypePasswd.setHint("Isikan ulang password");
                 return false;
             } else {
@@ -366,7 +365,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                     etRegRetypePasswd.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                     return true;
                 } else {
-                    etRegRetypePasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                    etRegRetypePasswd.setBackgroundResource(R.drawable.bg_rounded_trans_red);
                     etRegRetypePasswd.setText("");
                     etRegRetypePasswd.setHint("Masukkan ulang password");
                     return false;
@@ -379,12 +378,12 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private boolean validIdNo(){
         if(idNo.isEmpty()){
             etRegIdNo.setHint("Isikan no KTP");
-            etRegIdNo.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegIdNo.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             return false;
         } else if (!(idNo.length()==16)){
             etRegIdNo.setText("");
             etRegIdNo.setHint("Isikan no KTP dengan benar");
-            etRegIdNo.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegIdNo.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             return false;
         } else {
             etRegIdNo.setBackgroundResource(R.drawable.bg_rounded_trans_green);
@@ -396,7 +395,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private boolean validAddress(){
         if(address.isEmpty()){
             etRegAddress.setHint("Isikan Alamat");
-            etRegAddress.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegAddress.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             return false;
         } else {
             etRegAddress.setBackgroundResource(R.drawable.bg_rounded_trans_green);
@@ -409,12 +408,12 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         int a = phone.length();
         if(phone.isEmpty()){
             etRegPhone.setHint("Isikan nomer HP");
-            etRegPhone.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegPhone.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             return false;
         } else if (!(11 <= a && a <= 13)){
             etRegPhone.setText("");
             etRegPhone.setHint("Isikan nomer HP dengan benar");
-            etRegPhone.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etRegPhone.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             return false;
         } else {
             etRegPhone.setBackgroundResource(R.drawable.bg_rounded_trans_green);

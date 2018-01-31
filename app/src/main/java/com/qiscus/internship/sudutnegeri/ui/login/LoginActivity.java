@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -142,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @NonNull
     private String validEmail(){
         if(email.isEmpty()){
-            etLogEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etLogEmail.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etLogEmail.setHint("Isikan email");
             return "false";
         } else {
@@ -150,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 etLogEmail.setBackgroundResource(R.drawable.bg_rounded_trans_green);
                 return "true";
             } else {
-                etLogEmail.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etLogEmail.setBackgroundResource(R.drawable.bg_rounded_trans_red);
                 etLogEmail.setText("");
                 etLogEmail.setHint("Isikan email dengan benar");
                 return "false";
@@ -161,12 +160,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @NonNull
     private String validPasswd(){
         if(passwd.isEmpty()){
-            etLogPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+            etLogPasswd.setBackgroundResource(R.drawable.bg_rounded_trans_red);
             etLogPasswd.setHint("Isikan password");
             return "false";
         } else {
             if (passwd.length()<6){
-                etLogPasswd.setBackgroundResource(R.drawable.bg_sounded_trans_red);
+                etLogPasswd.setBackgroundResource(R.drawable.bg_rounded_trans_red);
                 etLogPasswd.setText("");
                 Toast.makeText(this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
                 return "false";
