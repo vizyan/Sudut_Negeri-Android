@@ -85,7 +85,6 @@ public class LoginPresenter {
                             String message = login.getMessage();
 
                             if (message.equals("success")) {
-                                //DataUser data = login.getData();
                                 loginView.successAdmin();
                             } else {
                                 loginView.failed();
@@ -101,17 +100,33 @@ public class LoginPresenter {
     }
 
     public void loginChat(DataUser dataUser){
+
         Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
                 .withUsername(dataUser.getName())
-                .save()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(qiscusAccount -> {
-                    loginView.successUser(dataUser);
-                    Log.d(null, "ini respon sukses");
-                }, throwable -> {
-                    loginView.failedQiscuss(throwable);
+                .withAvatarUrl(dataUser.getPhoto())
+                .save(new Qiscus.SetUserListener() {
+                    @Override
+                    public void onSuccess(QiscusAccount qiscusAccount) {
+                        //on success followup
+                        loginView.successUser(dataUser);
+                    }
+                    @Override
+                    public void onError(Throwable throwable) {
+                        //do anything if error occurs
+                        loginView.failedQiscuss(throwable);
+                    }
                 });
-
+//
+//        Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
+//                .withUsername(dataUser.getName())
+//                .save()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(qiscusAccount -> {
+//                    loginView.successUser(dataUser);
+//                    Log.d(null, "ini respon sukses");
+//                }, throwable -> {
+//                    loginView.failedQiscuss(throwable);
+//                });
     }
 }

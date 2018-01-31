@@ -16,5 +16,5 @@ interface SplashscreenView {
 
     void successUser(DataUser data);
 
-    void failedQiscuss(Throwable throwable);
+    void failedQiscus(Throwable throwable);
 }

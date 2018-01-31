@@ -98,7 +98,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
     }
 
     @Override
-    public void failedQiscuss(Throwable throwable) {
+    public void failedQiscus(Throwable throwable) {
         Toast.makeText(SplashscreenActivity.this, "Tidak ada koneksi", Toast.LENGTH_LONG).show();
         Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
         startActivity(landing);

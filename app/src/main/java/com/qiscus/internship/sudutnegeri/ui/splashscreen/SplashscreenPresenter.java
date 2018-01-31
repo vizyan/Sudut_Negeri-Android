@@ -64,14 +64,18 @@ public class SplashscreenPresenter {
     public void loginChat(DataUser dataUser){
         Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
                 .withUsername(dataUser.getName())
-                .save()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(qiscusAccount -> {
-                    splashscreenView.successUser(dataUser);
-                    Log.d(null, "ini respon sukses");
-                }, throwable -> {
-                    splashscreenView.failedQiscuss(throwable);
+                .withAvatarUrl(dataUser.getPhoto())
+                .save(new Qiscus.SetUserListener() {
+                    @Override
+                    public void onSuccess(QiscusAccount qiscusAccount) {
+                        //on success followup
+                        splashscreenView.successUser(dataUser);
+                    }
+                    @Override
+                    public void onError(Throwable throwable) {
+                        //do anything if error occurs
+                        splashscreenView.failedQiscus(throwable);
+                    }
                 });
 
     }

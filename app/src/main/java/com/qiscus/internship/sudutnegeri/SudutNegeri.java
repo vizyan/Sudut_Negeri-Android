@@ -1,6 +1,7 @@
 package com.qiscus.internship.sudutnegeri;
 
 import android.app.Application;
+import android.graphics.Color;
 import android.os.Build;
 
 import com.qiscus.internship.sudutnegeri.util.Constant;
@@ -37,10 +38,13 @@ public class SudutNegeri extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Qiscus.getChatConfig()
                     .setSwipeRefreshColorScheme(R.color.colorPrimary, R.color.colorAccent)
-                    .setLeftBubbleTextColor(R.color.qiscus_primary_text)
-                    .setLeftBubbleTimeColor(R.color.qiscus_secondary_text)
-                    .setLeftLinkTextColor(R.color.qiscus_primary_text)
+//                    .setLeftBubbleTextColor(R.color.qiscus_primary_text)
+//                    .setLeftBubbleTimeColor(R.color.qiscus_secondary_text)
+//                    .setLeftLinkTextColor(R.color.qiscus_primary_text)
                     .setSelectedBubbleBackgroundColor(R.color.colorPrimary)
+                    .setMessageFieldHint("Ketikkan pesan...")
+                    .setLeftLinkTextColor(R.color.colorAccent)
+                    .setRightLinkTextColor(R.color.colorAccent)
                     .setReadIconColor(R.color.colorPrimary)
                     .setAppBarColor(R.color.colorPrimary)
                     .setStatusBarColor(R.color.colorPrimaryDark)
@@ -57,12 +61,15 @@ public class SudutNegeri extends Application {
                     .setEnableFcmPushNotification(true);
         } else {
             Qiscus.getChatConfig()
-                    .setSwipeRefreshColorScheme(R.color.colorPrimary, R.color.colorAccent)
-                    .setLeftBubbleTextColor(R.color.qiscus_primary_text)
-                    .setLeftBubbleTimeColor(R.color.qiscus_secondary_text)
-                    .setLeftLinkTextColor(R.color.qiscus_primary_text)
+//                    .setSwipeRefreshColorScheme(R.color.colorPrimary, R.color.colorAccent)
+//                    .setLeftBubbleTextColor(R.color.qiscus_primary_text)
+//                    .setLeftBubbleTimeColor(R.color.qiscus_secondary_text)
+//                    .setLeftLinkTextColor(R.color.qiscus_primary_text)
                     .setSelectedBubbleBackgroundColor(R.color.colorPrimary)
                     .setReadIconColor(R.color.colorPrimary)
+                    .setMessageFieldHint("Ketikkan pesan...")
+                    .setLeftLinkTextColor(R.color.colorAccent)
+                    .setRightLinkTextColor(R.color.colorAccent)
                     .setAppBarColor(R.color.colorPrimary)
                     .setStatusBarColor(R.color.colorPrimaryDark)
                     .setAccentColor(R.color.colorAccent)

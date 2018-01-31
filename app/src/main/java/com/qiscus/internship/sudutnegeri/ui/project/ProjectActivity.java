@@ -40,10 +40,14 @@ import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
+import com.qiscus.internship.sudutnegeri.ui.chat.ChatActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.data.model.QiscusChatRoom;
+import com.qiscus.sdk.data.remote.QiscusApi;
 import com.qiscus.sdk.data.remote.QiscusPusherApi;
+import com.qiscus.sdk.ui.view.QiscusChatScrollListener;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -162,13 +166,14 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         fabProjectChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Qiscus.buildChatWith(dataUser.getEmail())
-                        .build(ProjectActivity.this, new Qiscus.ChatActivityBuilderListener() {
+                Qiscus.buildChatRoomWith(dataUser.getEmail())
+                        .build(new Qiscus.ChatBuilderListener() {
                             @Override
-                            public void onSuccess(Intent intent) {
+                            public void onSuccess(QiscusChatRoom qiscusChatRoom) {
+                                Intent intent = ChatActivity.generateIntent(ProjectActivity.this, qiscusChatRoom);
                                 startActivity(intent);
-                                //QiscusPusherApi.getInstance().listenRoom();
                             }
+
                             @Override
                             public void onError(Throwable throwable) {
                                 if (throwable instanceof HttpException) { //Error response from server
@@ -194,6 +199,39 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                                 }
                             }
                         });
+
+//                Qiscus.buildChatWith(dataUser.getEmail())
+//                        .build(ProjectActivity.this, new Qiscus.ChatActivityBuilderListener() {
+//                            @Override
+//                            public void onSuccess(Intent intent) {
+//                                startActivity(intent);
+//                                //QiscusPusherApi.getInstance().listenRoom();
+//                            }
+//                            @Override
+//                            public void onError(Throwable throwable) {
+//                                if (throwable instanceof HttpException) { //Error response from server
+//                                    HttpException e = (HttpException) throwable;
+//                                    try {
+//                                        String errorMessage = e.response().errorBody().string();
+//                                        JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
+//                                        String finalError = json.getString("message");
+//                                        if (json.has("detailed_messages") ) {
+//                                            JSONArray detailedMessages = json.getJSONArray("detailed_messages");
+//                                            finalError = (String) detailedMessages.get(0);
+//                                        }
+//                                        Toast.makeText(ProjectActivity.this, finalError, Toast.LENGTH_LONG).show();
+//                                    } catch (IOException e1) {
+//                                        e1.printStackTrace();
+//                                    } catch (JSONException e1) {
+//                                        e1.printStackTrace();
+//                                    }
+//                                } else if (throwable instanceof IOException) { //Error from network
+//                                    Toast.makeText(ProjectActivity.this, "Tidak dapat terkoneksi dengan server", Toast.LENGTH_LONG).show();
+//                                } else { //Unknown error
+//                                    Toast.makeText(ProjectActivity.this, "Kesalahan", Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        });
             }
         });
     }

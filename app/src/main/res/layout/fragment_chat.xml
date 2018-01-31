@@ -123,18 +123,10 @@
 
         <LinearLayout
             android:id="@+id/box"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:background="#FEFEFE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_rounded_solid_white"
             android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1.6dp"
-                android:alpha="0.5"
-                android:background="@color/qiscus_light_grey"/>
 
             <LinearLayout
                 android:id="@+id/field_message_container"
@@ -145,61 +137,72 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/clEditChat"
-                    android:layout_width="335dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/bg_rounded_trans_purple"
-                    android:layout_height="46dp">
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_rounded_trans_blue">
 
-                    <com.qiscus.sdk.ui.view.QiscusEditText
-                        android:id="@+id/field_message"
-                        android:layout_width="288dp"
-                        android:layout_height="46dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:paddingStart="3dp"
-                        android:background="@android:color/transparent"
-                        android:hint="Ketikan pesan"
-                        android:imeOptions="actionSend"
-                        android:inputType="textLongMessage|textAutoCorrect|textCapSentences|textMultiLine"
-                        android:maxLines="4"
-                        android:nextFocusRight="@+id/button_send"
-                        android:padding="8dp"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="@color/qiscus_white"
-                        android:textSize="16sp"
-                        app:emojiSize="22sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/button_add_emoticon"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/button_add_emoticon"
-                        android:layout_width="46dp"
-                        android:layout_height="46dp"
-                        android:layout_gravity="bottom"
-                        android:layout_marginEnd="3dp"
-                        android:background="@drawable/bt_qiscus_selector_grey"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_qiscus_emot"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.qiscus.sdk.ui.view.QiscusEditText
+                            android:id="@+id/field_message"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="Ketikan pesan"
+                            android:imeOptions="actionSend"
+                            android:inputType="textLongMessage|textCapSentences|textMultiLine"
+                            android:maxLines="5"
+                            android:nextFocusRight="@+id/button_send"
+                            android:paddingStart="3dp"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="@android:color/white"
+                            android:textSize="16sp"
+                            app:emojiSize="22sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/button_add_emoticon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/button_add_emoticon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginEnd="3dp"
+                            android:background="@drawable/bt_qiscus_selector_grey"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_qiscus_emot"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>
+
                 </android.support.constraint.ConstraintLayout>
 
                 <ImageView
                     android:id="@+id/button_send"
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="8dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="5dp"
                     android:src="@drawable/ic_qiscus_attach" />
 
             </LinearLayout>
