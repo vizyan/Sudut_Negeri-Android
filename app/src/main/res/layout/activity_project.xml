@@ -62,41 +62,47 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btnProjectDonate"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/bg_rounded_trans_blue"
-        android:text="Donasi"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fabProjectChat" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
 
-    <Button
-        android:id="@+id/btnProjectUnverify"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/bg_rounded_trans_red"
-        android:text="Tolak"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
+        <Button
+            android:id="@+id/btnProjectDonate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bg_rounded_trans_blue"
+            android:text="Donasi"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabProjectUnverify"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:clickable="true"
         android:visibility="invisible"
+        android:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnProjectDonate" />
+        app:layout_constraintStart_toEndOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabProjectChat"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

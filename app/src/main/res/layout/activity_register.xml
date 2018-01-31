@@ -28,7 +28,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="130dp"
                     android:layout_marginStart="131dp"
-                    android:layout_marginTop="75dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/bg_photo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +40,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="75dp"
-                    android:layout_marginTop="170dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="125dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -184,7 +183,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
-                android:minHeight="120dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <Button

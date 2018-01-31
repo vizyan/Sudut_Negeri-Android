@@ -116,17 +116,5 @@ public class LoginPresenter {
                         loginView.failedQiscuss(throwable);
                     }
                 });
-//
-//        Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
-//                .withUsername(dataUser.getName())
-//                .save()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(qiscusAccount -> {
-//                    loginView.successUser(dataUser);
-//                    Log.d(null, "ini respon sukses");
-//                }, throwable -> {
-//                    loginView.failedQiscuss(throwable);
-//                });
     }
 }

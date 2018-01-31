@@ -9,8 +9,10 @@
     <color name="gradient3">#F4F9FB</color>
     <color name="gradient4">#0479ED</color>
     <color name="gradient5">#7E66E7</color>
+    <color name="gradient6">#673AB7</color>
 
     <color name="red">#F44336</color>
     <color name="red_trans">#B3F44336</color>
     <color name="black_trans">#CC000000</color>
+    <color name="black">#000000</color>
 </resources>

@@ -22,7 +22,7 @@
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/qiscus_dark_white">
+    android:background="#EDE7F6">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -123,7 +123,6 @@
 
         <LinearLayout
             android:id="@+id/box"
-            android:background="#FEFEFE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -143,7 +142,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/bg_rounded_trans_blue">
+                    android:background="@drawable/bg_rounded_real_white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -172,6 +171,7 @@
                             android:textColorHint="@android:color/white"
                             android:textSize="16sp"
                             app:emojiSize="22sp"
+                            android:padding="5dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/button_add_emoticon"
                             app:layout_constraintStart_toStartOf="parent"
@@ -179,13 +179,11 @@
 
                         <ImageView
                             android:id="@+id/button_add_emoticon"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
                             android:layout_gravity="bottom"
                             android:layout_marginEnd="3dp"
-                            android:background="@drawable/bt_qiscus_selector_grey"
                             android:padding="8dp"
-                            android:src="@drawable/ic_qiscus_emot"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -196,13 +194,14 @@
 
                 <ImageView
                     android:id="@+id/button_send"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
+                    android:padding="3dp"
                     android:src="@drawable/ic_qiscus_attach" />
 
             </LinearLayout>

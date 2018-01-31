@@ -69,10 +69,10 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private DataUser dataUser;
     private Animator mCurrentAnimatorEffect;
     private int mShortAnimationDurationEffect;
-    Button btnProjectDonate, btnProjectUnverify;
+    Button btnProjectDonate;
     ConstraintLayout clProject;
     Date date;
-    FloatingActionButton fabProjectChat;
+    FloatingActionButton fabProjectChat, fabProjectUnverify;
     ImageView ivProjectPhoto, ivBigPhoto, ivProjectVerify;
     int funds = 0;
     JustifyTextView jtProjectInformation;
@@ -105,9 +105,9 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     private void initView() {
         btnProjectDonate = findViewById(R.id.btnProjectDonate);
-        btnProjectUnverify = findViewById(R.id.btnProjectUnverify);
         clProject = findViewById(R.id.clProject);
         fabProjectChat = findViewById(R.id.fabProjectChat);
+        fabProjectUnverify = findViewById(R.id.fabProjectUnverify);
         ivProjectPhoto = findViewById(R.id.ivProjectPhoto);
         ivBigPhoto = findViewById(R.id.ivBigPhoto);
         ivProjectVerify = findViewById(R.id.ivProjectVerify);
@@ -136,7 +136,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private void initEditable() {
         if (param.equalsIgnoreCase("admin")){
             btnProjectDonate.setText("Verifikasi");
-            btnProjectUnverify.setVisibility(View.VISIBLE);
+            fabProjectUnverify.setVisibility(View.VISIBLE);
         }
     }
 
@@ -154,7 +154,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     }
 
     private void unverifyProject(){
-        btnProjectUnverify.setOnClickListener(new View.OnClickListener() {
+        fabProjectUnverify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 projectPresenter.unverifyProject(dataProject.getId());
@@ -199,39 +199,6 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                                 }
                             }
                         });
-
-//                Qiscus.buildChatWith(dataUser.getEmail())
-//                        .build(ProjectActivity.this, new Qiscus.ChatActivityBuilderListener() {
-//                            @Override
-//                            public void onSuccess(Intent intent) {
-//                                startActivity(intent);
-//                                //QiscusPusherApi.getInstance().listenRoom();
-//                            }
-//                            @Override
-//                            public void onError(Throwable throwable) {
-//                                if (throwable instanceof HttpException) { //Error response from server
-//                                    HttpException e = (HttpException) throwable;
-//                                    try {
-//                                        String errorMessage = e.response().errorBody().string();
-//                                        JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
-//                                        String finalError = json.getString("message");
-//                                        if (json.has("detailed_messages") ) {
-//                                            JSONArray detailedMessages = json.getJSONArray("detailed_messages");
-//                                            finalError = (String) detailedMessages.get(0);
-//                                        }
-//                                        Toast.makeText(ProjectActivity.this, finalError, Toast.LENGTH_LONG).show();
-//                                    } catch (IOException e1) {
-//                                        e1.printStackTrace();
-//                                    } catch (JSONException e1) {
-//                                        e1.printStackTrace();
-//                                    }
-//                                } else if (throwable instanceof IOException) { //Error from network
-//                                    Toast.makeText(ProjectActivity.this, "Tidak dapat terkoneksi dengan server", Toast.LENGTH_LONG).show();
-//                                } else { //Unknown error
-//                                    Toast.makeText(ProjectActivity.this, "Kesalahan", Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//                        });
             }
         });
     }
@@ -344,7 +311,9 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         thumbView.setAlpha(0f);
         rlBigPhoto.setVisibility(View.VISIBLE);
         ivBigPhoto.setVisibility(View.VISIBLE);
+        btnProjectDonate.setVisibility(View.INVISIBLE);
         fabProjectChat.setVisibility(View.INVISIBLE);
+        fabProjectUnverify.setVisibility(View.INVISIBLE);
 
         rlBigPhoto.setPivotX(0f);
         rlBigPhoto.setPivotY(0f);
@@ -392,6 +361,10 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                         rlBigPhoto.setVisibility(View.GONE);
                         ivBigPhoto.setVisibility(View.GONE);
                         fabProjectChat.setVisibility(View.VISIBLE);
+                        btnProjectDonate.setVisibility(View.VISIBLE);
+                        if (param.equalsIgnoreCase("admin")){
+                            fabProjectUnverify.setVisibility(View.VISIBLE);
+                        }
                         mCurrentAnimatorEffect = null;
                     }
 

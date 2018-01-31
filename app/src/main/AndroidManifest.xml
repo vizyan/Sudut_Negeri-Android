@@ -49,7 +49,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.project.ProjectActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/Purple"/>
 
         <service
             android:name=".firebase.MyFirebaseInstanceIdService"

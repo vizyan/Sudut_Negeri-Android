@@ -1,7 +1,8 @@
 package com.qiscus.internship.sudutnegeri.ui.chat;
 
 
-import android.graphics.Color;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,25 +17,21 @@ import android.widget.TextView;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.adapter.ChatAdapter;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
-import com.qiscus.sdk.data.model.QiscusComment;
 import com.qiscus.sdk.ui.fragment.QiscusBaseChatFragment;
-import com.qiscus.sdk.ui.fragment.QiscusChatFragment;
 import com.qiscus.sdk.ui.view.QiscusAudioRecorderView;
 import com.qiscus.sdk.ui.view.QiscusEditText;
 import com.qiscus.sdk.ui.view.QiscusMentionSuggestionView;
 import com.qiscus.sdk.ui.view.QiscusRecyclerView;
 import com.qiscus.sdk.ui.view.QiscusReplyPreviewView;
+import com.qiscus.sdk.util.QiscusDateUtil;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ChatFragment extends QiscusBaseChatFragment<ChatAdapter> {
 
-    protected UserTypingListener userTypingListener;
     private QiscusEditText editText;
 
     public static QiscusBaseChatFragment newInstance(QiscusChatRoom qiscusChatRoom) {
@@ -49,6 +46,7 @@ public class ChatFragment extends QiscusBaseChatFragment<ChatAdapter> {
     protected int getResourceLayout() {
         return R.layout.fragment_chat;
     }
+
 
     @NonNull
     @Override
@@ -287,12 +285,24 @@ public class ChatFragment extends QiscusBaseChatFragment<ChatAdapter> {
 
     @Override
     public void onUserTyping(String user, boolean typing) {
-        if (userTypingListener != null) {
-            userTypingListener.onUserTyping(user, typing);
+        if (typing){
+            ChatActivity.tvChatSubtitle.setText("Sedang mengetik...");
+            ChatActivity.tvChatSubtitle.setVisibility(View.VISIBLE);
         }
     }
 
-    public interface UserTypingListener {
-        void onUserTyping(String user, boolean typing);
+
+    public static void onUserChanged(String user, boolean connected, Date lastActive) {
+        String last = QiscusDateUtil.getRelativeTimeDiff(lastActive);
+        StringBuilder builder = new StringBuilder(last);
+        String date = builder.substring(0,2).toString();
+        if (date.equalsIgnoreCase("in")) date = "1 ";
+        if (connected){
+            ChatActivity.tvChatSubtitle.setText("Online");
+            ChatActivity.tvChatSubtitle.setVisibility(View.VISIBLE);
+        } else {
+            ChatActivity.tvChatSubtitle.setText("Terakhir online " + date + "menit yang lalu");
+            ChatActivity.tvChatSubtitle.setVisibility(View.VISIBLE);
+        }
     }
 }
