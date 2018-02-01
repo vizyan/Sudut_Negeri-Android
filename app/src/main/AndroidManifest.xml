@@ -69,7 +69,8 @@
 
         <activity
             android:name=".ui.recentchat.RecentChatActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/Purple"/>
         <activity
             android:name=".ui.addproject.AddProjectActivity"
             android:windowSoftInputMode="stateHidden" />

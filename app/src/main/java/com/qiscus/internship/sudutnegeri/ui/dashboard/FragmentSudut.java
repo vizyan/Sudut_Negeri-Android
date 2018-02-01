@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
@@ -26,7 +28,9 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.addproject.AddProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
+import com.qiscus.internship.sudutnegeri.ui.recentchat.RecentChatActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.sdk.data.model.QiscusChatRoom;
 
 import java.util.List;
 
@@ -40,6 +44,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     private List<DataProject> dataProjectList;
     private DataUser dataUser;
     Button btnSudutCreate;
+    FloatingActionButton fabSudutChat;
     ImageView ivSudutNoData;
     RecyclerView rvSudut;
     SearchView searchViewSudut;
@@ -77,7 +82,9 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         super.onResume();
         initDataPresenter();
         dashboardPresenter.getProjectByUser(dataUser);
+
         refresh();
+        chat();
     }
 
     private void initPresenter() {
@@ -93,6 +100,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     private void initView() {
         btnSudutCreate = getActivity().findViewById(R.id.btnSudutCreate);
         ivSudutNoData = getActivity().findViewById(R.id.ivSudutNoData);
+        fabSudutChat = getActivity().findViewById(R.id.fabSudutChat);
         rvSudut = getActivity().findViewById(R.id.rvSudut);
         searchViewSudut = getActivity().findViewById(R.id.svDashboardSudut);
         swipeRefreshLayout = getActivity().findViewById(R.id.srlSudut);
@@ -150,6 +158,16 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
                 projectAdapter.getFilter().filter(newText);
                 initAdapter();
                 return false;
+            }
+        });
+    }
+
+    private void chat(){
+        fabSudutChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent recentChat = new Intent(getActivity(), RecentChatActivity.class);
+                startActivity(recentChat);
             }
         });
     }

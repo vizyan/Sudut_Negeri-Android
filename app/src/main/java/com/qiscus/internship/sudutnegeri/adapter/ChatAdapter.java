@@ -17,8 +17,6 @@ import org.json.JSONObject;
 
 public class ChatAdapter extends QiscusChatAdapter {
 
-    private static final int TYPE_LOCKED_MESSAGE = 2333;
-
     public ChatAdapter(Context context, boolean groupChat) {
         super(context, groupChat);
     }

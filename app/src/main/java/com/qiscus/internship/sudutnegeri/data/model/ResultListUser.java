@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class ResultListUser {
+
     @SerializedName("message")
     @Expose
     private String message;

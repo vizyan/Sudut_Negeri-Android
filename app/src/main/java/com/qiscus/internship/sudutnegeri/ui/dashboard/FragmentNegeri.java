@@ -24,6 +24,7 @@ import com.qiscus.internship.sudutnegeri.adapter.project.ProjectListener;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.sdk.data.model.QiscusChatRoom;
 
 import java.util.List;
 
@@ -170,6 +171,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
     public void failedShowProjectByUser() {
 
     }
+
 
     @Override
     public void onProjectClick(DataProject dataProject) {

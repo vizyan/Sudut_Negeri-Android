@@ -34,6 +34,7 @@ import com.qiscus.internship.sudutnegeri.ui.about.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.sdk.data.model.QiscusChatRoom;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -325,4 +326,5 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     public void failedShowProjectByUser() {
 
     }
+
 }
