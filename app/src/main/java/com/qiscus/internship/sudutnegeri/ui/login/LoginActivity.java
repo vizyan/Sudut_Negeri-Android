@@ -238,8 +238,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void successAdmin() {
+    public void successAdmin(DataUser dataUser) {
         Intent login = new Intent(LoginActivity.this, AdminActivity.class);
+        login.putExtra(Constant.Extra.DATA, dataUser);
         startActivity(login);
         finish();
     }

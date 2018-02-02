@@ -4,7 +4,11 @@ package com.qiscus.internship.sudutnegeri.ui.dashboard;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -29,8 +33,11 @@ import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.addproject.AddProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.recentchat.RecentChatActivity;
+import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -45,7 +52,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     private DataUser dataUser;
     Button btnSudutCreate;
     FloatingActionButton fabSudutChat;
-    ImageView ivSudutNoData;
+    ImageView ivSudutNoData, ivItemP;
     RecyclerView rvSudut;
     SearchView searchViewSudut;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -75,6 +82,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         refresh();
         postProject();
         search();
+        chat();
     }
 
     @Override
@@ -102,6 +110,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         ivSudutNoData = getActivity().findViewById(R.id.ivSudutNoData);
         fabSudutChat = getActivity().findViewById(R.id.fabSudutChat);
         rvSudut = getActivity().findViewById(R.id.rvSudut);
+        ivItemP = getActivity().findViewById(R.id.ivItemP);
         searchViewSudut = getActivity().findViewById(R.id.svDashboardSudut);
         swipeRefreshLayout = getActivity().findViewById(R.id.srlSudut);
         tvSudutNoData = getActivity().findViewById(R.id.tvSudutNoData);
@@ -167,6 +176,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
             @Override
             public void onClick(View v) {
                 Intent recentChat = new Intent(getActivity(), RecentChatActivity.class);
+                recentChat.putExtra(Constant.Extra.DATA, dataUser);
                 startActivity(recentChat);
             }
         });
@@ -182,8 +192,11 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     }
 
     @Override
-    public void displayImg(ImageView imgProject, DataProject dataProject) {
-
+    public void displayImgProject(ImageView imgProject, DataProject dataProject) {
+        Picasso.with(getActivity())
+                .load(dataProject.getPhoto())
+                .transform(new CircleTransform())
+                .into(imgProject);
     }
 
     @Override

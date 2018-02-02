@@ -26,7 +26,7 @@ public class AdminPresenter {
         this.adminView = adminView;
     }
 
-    public void showUnverifiedUser(){
+    public void getUserByVerify(){
         RetrofitClient.getInstance()
                 .getApi()
                 .getUnverifiedUser("no")
@@ -48,7 +48,7 @@ public class AdminPresenter {
                 });
     }
 
-    public void showUnverifiedProject(){
+    public void getProjectByVerify(){
         RetrofitClient.getInstance()
                 .getApi()
                 .getUnverifiedProject("no")

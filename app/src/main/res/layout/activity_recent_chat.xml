@@ -23,13 +23,56 @@
             android:layout_height="150dp"
             android:background="@color/gradient5">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivRecentUPhoto"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="25dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvRecentUName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvRecentUEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
             <SearchView
-                android:id="@+id/svRoomSearch"
+                android:id="@+id/svRecentSearch"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="25dp"
-                android:layout_marginEnd="35dp"
-                android:layout_marginStart="35dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
                 android:background="@drawable/bg_rounded_trans_white"
                 android:queryBackground="@android:color/transparent"
                 android:submitBackground="@android:color/transparent"
@@ -44,7 +87,8 @@
             android:id="@+id/srlRecentChat"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginTop="5dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvRecentChat"
@@ -54,15 +98,15 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <Button
-            android:id="@+id/btnRoomAdmin"
+            android:id="@+id/btnRecentAdmin"
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/bg_rounded_solid_purple"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="5dp"
             android:text="Chat Admin"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />

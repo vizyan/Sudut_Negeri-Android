@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface LandingView {
     void successShowProjectByTime(List<DataProject> dataProject);
+
+    void successDonation(String donation);
 }

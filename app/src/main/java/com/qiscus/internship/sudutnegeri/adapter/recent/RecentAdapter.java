@@ -64,7 +64,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder> implem
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getDistinctId().toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }

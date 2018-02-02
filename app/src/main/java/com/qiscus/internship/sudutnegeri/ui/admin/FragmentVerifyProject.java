@@ -2,6 +2,10 @@ package com.qiscus.internship.sudutnegeri.ui.admin;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,7 +24,10 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
+import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -75,7 +82,7 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
     }
 
     private void initDataPresenter(){
-        adminPresenter.showUnverifiedProject();
+        adminPresenter.getProjectByVerify();
     }
 
     private void refresh(){
@@ -110,7 +117,10 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
     }
 
     @Override
-    public void displayImg(ImageView imgProject, DataProject dataProject) {
-
+    public void displayImgProject(ImageView imgProject, DataProject dataProject) {
+        Picasso.with(getActivity())
+                .load(dataProject.getPhoto())
+                .transform(new CircleTransform())
+                .into(imgProject);
     }
 }

@@ -31,7 +31,7 @@ class ProjectViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final DataProject dataProject, final ProjectListener projectListener) {
-        projectListener.displayImg(ivItemP, dataProject);
+        projectListener.displayImgProject(ivItemP, dataProject);
         tvItemPName.setText(dataProject.getNameProject());
         tvItemPAddress.setText(dataProject.getLocation());
 

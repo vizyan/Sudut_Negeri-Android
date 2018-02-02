@@ -12,5 +12,5 @@ public interface ProjectListener {
 
     void onProjectClick(DataProject dataProject);
 
-    void displayImg(ImageView imgProject, DataProject dataProject);
+    void displayImgProject(ImageView imgProject, DataProject dataProject);
 }

@@ -20,7 +20,7 @@ interface LoginView {
 
     void successUser(DataUser data);
 
-    void successAdmin();
+    void successAdmin(DataUser dataUser);
 
     void failedQiscuss(Throwable throwable);
 }

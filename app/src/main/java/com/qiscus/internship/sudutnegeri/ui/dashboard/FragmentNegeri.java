@@ -4,7 +4,11 @@ package com.qiscus.internship.sudutnegeri.ui.dashboard;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,8 +27,11 @@ import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.project.ProjectListener;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
+import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -35,7 +42,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
 
     private DashboardPresenter dashboardPresenter;
     private ProjectAdapter projectAdapter;
-    ImageView ivNegeriNoData;
+    ImageView ivNegeriNoData, ivItemP;
     List<DataProject> dataProjectList;
     RecyclerView rvNegeri;
     SearchView searchViewNegeri;
@@ -71,6 +78,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         super.onResume();
         initDataPresenter();
         dashboardPresenter.getProjectByVerify();
+
         refresh();
     }
 
@@ -83,6 +91,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         swipeRefreshLayout = getActivity().findViewById(R.id.srlNegeri);
         searchViewNegeri = getActivity().findViewById(R.id.svDashboardNegeri);
         ivNegeriNoData = getActivity().findViewById(R.id.ivNegeriNoData);
+        ivItemP = getActivity().findViewById(R.id.ivItemP);
         tvNegeriNoData = getActivity().findViewById(R.id.tvNegeriNoData);
     }
 
@@ -182,7 +191,10 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
     }
 
     @Override
-    public void displayImg(ImageView imgProject, DataProject dataProject) {
-
+    public void displayImgProject(ImageView imgProject, DataProject dataProject) {
+        Picasso.with(getActivity())
+                .load(dataProject.getPhoto())
+                .transform(new CircleTransform())
+                .into(imgProject);
     }
 }

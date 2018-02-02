@@ -43,6 +43,9 @@ public interface Api {
     @GET("api/landings")
     Call<ResultListProject> getPorjectTime();
 
+    @GET("api/donation")
+    Call<JsonObject> getDonation();
+
     //Get unverified user
     @GET("api/users/verify/{verify}")
     Call<ResultListUser> getUnverifiedUser(
@@ -124,6 +127,7 @@ public interface Api {
             @Field("target_funds") int target_funds
     );
 
+    //login user
     //generate token
     @FormUrlEncoded
     @POST("api/login/user")
@@ -140,6 +144,7 @@ public interface Api {
             @Field("password") String password
     );
 
+    //login admin
     @FormUrlEncoded
     @POST("api/login/admin")
     Call<ResultUser> loginAdmin(

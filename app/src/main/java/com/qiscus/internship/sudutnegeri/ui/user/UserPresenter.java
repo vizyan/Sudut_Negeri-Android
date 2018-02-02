@@ -93,7 +93,7 @@ public class UserPresenter {
                 });
     }
 
-    public void unverify(int id){
+    public void unverifyUser(int id){
         RetrofitClient.getInstance()
                 .getApi()
                 .deleteUser(id)

@@ -158,6 +158,8 @@
                             android:layout_marginTop="5dp"
                             android:background="@drawable/bg_rounded_trans_purple"
                             android:ems="10"
+                            android:paddingStart="3dp"
+                            android:paddingEnd="3dp"
                             android:gravity="center"
                             android:inputType="textNoSuggestions"
                             android:text="Email"
@@ -177,32 +179,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
+                            android:paddingStart="3dp"
+                            android:paddingEnd="3dp"
                             android:background="@drawable/bg_rounded_trans_purple"
                             android:ems="10"
                             android:gravity="center"
                             android:inputType="textNoSuggestions|number"
                             android:text="No. KTP"
-                            android:textColor="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:text="Alamat Lengkap"
-                            android:textColor="@color/gradient4"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/etUserAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/bg_rounded_trans_purple"
-                            android:ems="10"
-                            android:gravity="center"
-                            android:inputType="textNoSuggestions"
-                            android:text="Alamat"
                             android:textColor="@android:color/white" />
 
                         <TextView
@@ -218,14 +201,42 @@
                             android:id="@+id/etUserPhone"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
+                            android:paddingStart="3dp"
+                            android:paddingEnd="3dp"
                             android:background="@drawable/bg_rounded_trans_purple"
                             android:ems="10"
                             android:gravity="center"
                             android:inputType="textNoSuggestions|number"
                             android:text="Phone"
                             android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Alamat Lengkap"
+                            android:textColor="@color/gradient4"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etUserAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/bg_rounded_trans_purple"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:inputType="textMultiLine"
+                            android:maxLines="3"
+                            android:padding="5dp"
+                            android:text="Alamat"
+                            android:textColor="@android:color/white" />
+
+
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 

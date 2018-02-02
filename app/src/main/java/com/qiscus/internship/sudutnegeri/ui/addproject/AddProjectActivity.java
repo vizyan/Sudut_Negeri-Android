@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -31,6 +33,8 @@ import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -45,7 +49,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     ConstraintLayout constraintLayout;
     DatePickerDialog datePickerDialog;
     EditText etAddPName, etAddPLocation, etAddPInformation, etAddPTFund;
-    File file;
+    File file, newFile;
     int target_fund;
     ProgressDialog progressDialog = null;
     String project_name, location, target_at, information, photo, random;
@@ -99,7 +103,8 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             uri = data.getData();
             String filePath = getRealPathFromURIPath(uri, AddProjectActivity.this);
             file = new File(filePath);
-            btnAddPPhoto.setText(file.getName());
+            newFile = saveBitmapToFile(file);
+            btnAddPPhoto.setText(newFile.getName());
         }
     }
 
@@ -121,6 +126,42 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             return cursor.getString(idx);
+        }
+    }
+
+    public File saveBitmapToFile(File file){
+        try {
+            final int REQUIRED_SIZE=75;
+            int scale = 1;
+
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            o.inSampleSize = 6;
+
+            FileInputStream inputStream = new FileInputStream(file);
+            BitmapFactory.decodeStream(inputStream, null, o);
+            inputStream.close();
+
+            while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+                scale *= 2;
+            }
+
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            inputStream = new FileInputStream(file);
+
+            Bitmap selectedBitmap = BitmapFactory.decodeStream(inputStream, null, o2);
+            inputStream.close();
+
+            file.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(file);
+
+            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100 , outputStream);
+
+            return file;
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -245,16 +286,6 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             btnAddPPhoto.setHint("Pilih foto dari gallery");
             return false;
         } else {
-            long fileInKb, fileInMb;
-            fileInKb = file.length() / 1024;
-            fileInMb = fileInKb / 1024;
-
-            if (fileInMb > 1){
-                btnAddPPhoto.setBackgroundResource(R.drawable.bg_rounded_trans_red);
-                btnAddPPhoto.setHint("Foto tidak boleh lebih dari 1MB");
-                btnAddPPhoto.setText("");
-                return false;
-            }
             btnAddPPhoto.setBackgroundResource(R.drawable.bg_rounded_trans_green);
             return true;
         }
@@ -284,7 +315,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
                     progressDialog.show();
 
                     random = random(32);
-                    addProjectPresenter.uploadFile(file, dataUser, random);
+                    addProjectPresenter.uploadFile(newFile, dataUser, random);
                 }
             }
         });

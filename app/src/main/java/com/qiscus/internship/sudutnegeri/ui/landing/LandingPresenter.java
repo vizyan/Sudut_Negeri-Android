@@ -2,6 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.landing;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
@@ -45,6 +46,29 @@ public class LandingPresenter {
 
                     @Override
                     public void onFailure(Call<ResultListProject> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    public void getDonation(){
+        RetrofitClient.getInstance()
+                .getApi()
+                .getDonation()
+                .enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if (response.isSuccessful()){
+                            JsonObject jsonObject = response.body();
+                            JsonObject data = jsonObject.get("data").getAsJsonObject();
+                            String donation = data.get("total_donasi").toString();
+                            landingView.successDonation(donation);
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
 
                     }
                 });

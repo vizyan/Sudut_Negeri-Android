@@ -101,27 +101,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:background="#F1F1F1"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ivLandCount"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                app:srcCompat="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/tvLandCount"
                 android:layout_width="248dp"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="Ini Nanti Counter Uang"
+                android:text="Counter"
                 android:textColor="@color/gradient1" />
 
         </LinearLayout>

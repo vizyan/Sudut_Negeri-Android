@@ -1,6 +1,10 @@
 package com.qiscus.internship.sudutnegeri.ui.landing;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +26,9 @@ import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
+import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -86,6 +92,7 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
 
     private void initDataPresenter() {
         landingPresenter.getProjectByTime();
+        landingPresenter.getDonation();
     }
 
     private void rergister() {
@@ -120,13 +127,21 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
     }
 
     @Override
-    public void onProjectClick(final DataProject dataProject) {
-
+    public void successDonation(String donation) {
+        tvLandCount.setText("Total donasi terkumpul Rp " + donation);
     }
 
     @Override
-    public void displayImg(ImageView imgProject, DataProject dataProject) {
-        Picasso.with(this).load(dataProject.getPhoto()).into(imgProject);
+    public void onProjectClick(final DataProject dataProject) {
+        Toast.makeText(LandingActivity.this, "Silahkan login untuk mengetahui detail projek", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void displayImgProject(ImageView imgProject, DataProject dataProject) {
+        Picasso.with(this)
+                .load(dataProject.getPhoto())
+                .transform(new CircleTransform())
+                .into(imgProject);
     }
 
 }

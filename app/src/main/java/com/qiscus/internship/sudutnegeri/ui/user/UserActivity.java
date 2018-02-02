@@ -38,6 +38,7 @@ import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
+import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -161,7 +162,8 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
         Picasso.with(this)
                 .load(dataUser.getPhoto())
-                .transform(new UserActivity.CircleTransform()).into(ivDrawerPhoto);
+                .transform(new CircleTransform())
+                .into(ivDrawerPhoto);
     }
 
     private void initEditable() {
@@ -202,7 +204,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         btnUserUnverify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userPresenter.unverify(dataUser.getId());
+                userPresenter.unverifyUser(dataUser.getId());
             }
         });
     }
@@ -274,41 +276,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
         });
     }
 
-    public class CircleTransform implements Transformation {
-        @Override
-        public Bitmap transform(Bitmap source) {
-            int size = Math.min(source.getWidth(), source.getHeight());
-
-            int x = (source.getWidth() - size) / 2;
-            int y = (source.getHeight() - size) / 2;
-
-            Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
-            if (squaredBitmap != source) {
-                source.recycle();
-            }
-
-            Bitmap bitmap = Bitmap.createBitmap(size, size, source.getConfig());
-
-            Canvas canvas = new Canvas(bitmap);
-            Paint paint = new Paint();
-            BitmapShader shader = new BitmapShader(squaredBitmap,
-                    BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
-            paint.setShader(shader);
-            paint.setAntiAlias(true);
-
-            float r = size / 2f;
-            canvas.drawCircle(r, r, r, paint);
-
-            squaredBitmap.recycle();
-            return bitmap;
-        }
-
-        @Override
-        public String key() {
-            return "circle";
-        }
-    }
-
     @Override
     public String getEmail() {
         return email;
@@ -353,7 +320,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         etUserPhone.setText(dataUser.getPhone());
         Picasso.with(this)
                 .load(dataUser.getPhoto())
-                .transform(new UserActivity.CircleTransform())
+                .transform(new CircleTransform())
                 .into(ivUserPhoto);
     }
 

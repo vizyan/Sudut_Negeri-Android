@@ -7,6 +7,8 @@ import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.data.model.QiscusChatRoom;
 import com.qiscus.sdk.data.remote.QiscusApi;
 
 import retrofit2.Call;
@@ -105,6 +107,21 @@ public class ProjectPresenter {
                     @Override
                     public void onFailure(Call<ResultProject> call, Throwable t) {
 
+                    }
+                });
+    }
+
+    public void chatUser(String email){
+        Qiscus.buildChatRoomWith(email)
+                .build(new Qiscus.ChatBuilderListener() {
+                    @Override
+                    public void onSuccess(QiscusChatRoom qiscusChatRoom) {
+                        projectView.successChatUser(qiscusChatRoom);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        projectView.failedChatUser(throwable);
                     }
                 });
     }

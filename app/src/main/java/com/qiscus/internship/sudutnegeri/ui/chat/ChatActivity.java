@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import java.util.Date;
 
 public class ChatActivity extends QiscusBaseChatActivity {
 
+    public ImageView back;
     public static TextView tvChatTitle, tvChatSubtitle;
     private QiscusCircularImageView qiscusCircularImageView;
 
@@ -39,6 +42,7 @@ public class ChatActivity extends QiscusBaseChatActivity {
     protected void onLoadView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        back = findViewById(R.id.back);
         tvChatTitle = findViewById(R.id.tv_title);
         tvChatSubtitle = findViewById(R.id.tv_subtitle);
         qiscusCircularImageView = findViewById(R.id.profile_picture);
@@ -51,6 +55,17 @@ public class ChatActivity extends QiscusBaseChatActivity {
         Picasso.with(this)
                 .load(qiscusChatRoom.getAvatarUrl())
                 .into(qiscusCircularImageView);
+
+        back();
+    }
+
+    private void back() {
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -32,11 +33,14 @@ import android.widget.Toast;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
+import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
@@ -46,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     AnimationDrawable animationDrawable;
     Button btnRegReg, btnRegLog;
     EditText etRegName,etRegEmail, etRegPasswd, etRegRetypePasswd, etRegIdNo, etRegAddress, etRegPhone;
-    File file;
+    File file, newFile;
     ImageView ivRegPhoto, ivRegAddPhoto;
     ProgressDialog progressDialog;
     RelativeLayout rvReg;
@@ -148,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                     if (file==null){
                         registerPresenter.addUser(null);
                     } else {
-                        registerPresenter.uploadFile(file, random);
+                        registerPresenter.uploadFile(newFile, random);
                     }
                 }
             }
@@ -173,9 +177,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             uri = data.getData();
             String filePath = getRealPathFromURIPath(uri, RegisterActivity.this);
             file = new File(filePath);
+            newFile = saveBitmapToFile(file);
             Picasso.with(this)
-                    .load(file)
-                    .transform(new RegisterActivity.CircleTransform())
+                    .load(newFile)
+                    .transform(new CircleTransform())
                     .into(ivRegPhoto);
         }
     }
@@ -191,38 +196,39 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         }
     }
 
-    public class CircleTransform implements Transformation {
-        @Override
-        public Bitmap transform(Bitmap source) {
-            int size = Math.min(source.getWidth(), source.getHeight());
+    public File saveBitmapToFile(File file){
+        try {
+            final int REQUIRED_SIZE=75;
+            int scale = 1;
 
-            int x = (source.getWidth() - size) / 2;
-            int y = (source.getHeight() - size) / 2;
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            o.inSampleSize = 6;
 
-            Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
-            if (squaredBitmap != source) {
-                source.recycle();
+            FileInputStream inputStream = new FileInputStream(file);
+            BitmapFactory.decodeStream(inputStream, null, o);
+            inputStream.close();
+
+            while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+                scale *= 2;
             }
 
-            Bitmap bitmap = Bitmap.createBitmap(size, size, source.getConfig());
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            inputStream = new FileInputStream(file);
 
-            Canvas canvas = new Canvas(bitmap);
-            Paint paint = new Paint();
-            BitmapShader shader = new BitmapShader(squaredBitmap,
-                    BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
-            paint.setShader(shader);
-            paint.setAntiAlias(true);
+            Bitmap selectedBitmap = BitmapFactory.decodeStream(inputStream, null, o2);
+            inputStream.close();
 
-            float r = size / 2f;
-            canvas.drawCircle(r, r, r, paint);
+            file.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(file);
 
-            squaredBitmap.recycle();
-            return bitmap;
-        }
+            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100 , outputStream);
 
-        @Override
-        public String key() {
-            return "circle";
+            return file;
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -247,7 +253,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         validPhoto();
 
         if (validPhoto()==false){
-            Toast.makeText(this, "Foto tidak lebih dari 1MB", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Masukkan foto anda", Toast.LENGTH_LONG).show();
         }
 
         if (validName()==false || validEmail()==false || validPasswd()==false || validRetypePasswd()==false || validIdNo()==false || validAddress()==false || validPhone()==false || validPhoto()==false ){
@@ -422,17 +428,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     private boolean validPhoto(){
-        if (!(file==null)){
-            long fileInKb, fileInMb;
-            fileInKb = file.length() / 1024;
-            fileInMb = fileInKb / 1024;
-
-            if (fileInMb > 1 ){
-                return false;
-            } else {
-                return true;
-            }
-        } return true;
+        if (newFile==null){
+            return false;
+        }
+        return true;
     }
 
     @Override

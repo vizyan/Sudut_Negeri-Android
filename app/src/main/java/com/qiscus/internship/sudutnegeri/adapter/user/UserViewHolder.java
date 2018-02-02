@@ -27,9 +27,11 @@ class UserViewHolder extends RecyclerView.ViewHolder {
     private void initView(View itemView) {
         tvItemUName = itemView.findViewById(R.id.tvItemUName);
         llItemU = itemView.findViewById(R.id.llItemU);
+        ivItemU = itemView.findViewById(R.id.ivItemU);
     }
 
     public void bind(final DataUser dataUser, final UserListener listener) {
+        listener.displayImageUser(ivItemU, dataUser);
         tvItemUName.setText(dataUser.getName());
 
         llItemU.setOnClickListener(new View.OnClickListener() {

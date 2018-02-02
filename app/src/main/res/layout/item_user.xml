@@ -6,8 +6,8 @@
     android:minHeight="50dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="5dp"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     app:cardCornerRadius="15dp"
     android:clickable="true">
 
@@ -21,7 +21,7 @@
         <LinearLayout
             android:id="@+id/llItemU"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:clickable="true"
             android:orientation="horizontal">
 
@@ -39,11 +39,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="15dp"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:textSize="18sp"
                 android:text="Name"
-                android:textColor="#FEFEFE" />
+                android:textColor="#FEFEFE"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </RelativeLayout>

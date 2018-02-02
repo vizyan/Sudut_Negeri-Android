@@ -166,39 +166,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         fabProjectChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Qiscus.buildChatRoomWith(dataUser.getEmail())
-                        .build(new Qiscus.ChatBuilderListener() {
-                            @Override
-                            public void onSuccess(QiscusChatRoom qiscusChatRoom) {
-                                Intent intent = ChatActivity.generateIntent(ProjectActivity.this, qiscusChatRoom);
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void onError(Throwable throwable) {
-                                if (throwable instanceof HttpException) { //Error response from server
-                                    HttpException e = (HttpException) throwable;
-                                    try {
-                                        String errorMessage = e.response().errorBody().string();
-                                        JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
-                                        String finalError = json.getString("message");
-                                        if (json.has("detailed_messages") ) {
-                                            JSONArray detailedMessages = json.getJSONArray("detailed_messages");
-                                            finalError = (String) detailedMessages.get(0);
-                                        }
-                                        Toast.makeText(ProjectActivity.this, finalError, Toast.LENGTH_LONG).show();
-                                    } catch (IOException e1) {
-                                        e1.printStackTrace();
-                                    } catch (JSONException e1) {
-                                        e1.printStackTrace();
-                                    }
-                                } else if (throwable instanceof IOException) { //Error from network
-                                    Toast.makeText(ProjectActivity.this, "Tidak dapat terkoneksi dengan server", Toast.LENGTH_LONG).show();
-                                } else { //Unknown error
-                                    Toast.makeText(ProjectActivity.this, "Kesalahan", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+                projectPresenter.chatUser(dataUser.getEmail());
             }
         });
     }
@@ -404,7 +372,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         setupDate();
         tvProjectName.setText(dataProject.getNameProject());
         tvProjectLocation.setText(dataProject.getLocation());
-        tvProjectTarget.setText("Projek berlangsung hingga : " +postDate);
+        tvProjectTarget.setText("Hingga : " +postDate);
         jtProjectInformation.setText(dataProject.getInformation() + "\n");
         verify = dataProject.getVerify().toString();
 
@@ -447,6 +415,37 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     public void successUnverify() {
         if (param.equalsIgnoreCase("admin")){
             popupWindow("success", param, "Projek telah ditolak");
+        }
+    }
+
+    @Override
+    public void successChatUser(QiscusChatRoom qiscusChatRoom) {
+        Intent intent = ChatActivity.generateIntent(ProjectActivity.this, qiscusChatRoom);
+        startActivity(intent);
+    }
+
+    @Override
+    public void failedChatUser(Throwable throwable) {
+        if (throwable instanceof HttpException) { //Error response from server
+            HttpException e = (HttpException) throwable;
+            try {
+                String errorMessage = e.response().errorBody().string();
+                JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
+                String finalError = json.getString("message");
+                if (json.has("detailed_messages") ) {
+                    JSONArray detailedMessages = json.getJSONArray("detailed_messages");
+                    finalError = (String) detailedMessages.get(0);
+                }
+                Toast.makeText(ProjectActivity.this, finalError, Toast.LENGTH_LONG).show();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+        } else if (throwable instanceof IOException) { //Error from network
+            Toast.makeText(ProjectActivity.this, "Tidak dapat terkoneksi dengan server", Toast.LENGTH_LONG).show();
+        } else { //Unknown error
+            Toast.makeText(ProjectActivity.this, "Kesalahan", Toast.LENGTH_LONG).show();
         }
     }
 }

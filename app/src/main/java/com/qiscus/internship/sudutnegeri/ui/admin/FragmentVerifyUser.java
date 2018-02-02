@@ -3,6 +3,7 @@ package com.qiscus.internship.sudutnegeri.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,15 +11,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.adapter.user.UserAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.user.UserListener;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.ui.recentchat.RecentChatActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
+import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,6 +35,8 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
 
     private AdminPresenter adminPresenter;
     private UserAdapter userAdapter;
+    private DataUser dataUser;
+    FloatingActionButton fabUserVerifChat;
     RecyclerView rvUserVerif;
     SwipeRefreshLayout swipeRefreshLayout;
     TextView tvItemUName;
@@ -50,14 +58,16 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
         initPresenter();
         initView();
         initDataPresenter();
+        initDataIntent();
 
         refresh();
+        chat();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        adminPresenter.showUnverifiedUser();
+        initDataPresenter();
     }
 
     private void initPresenter() {
@@ -65,13 +75,14 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
     }
 
     private void initView() {
+        fabUserVerifChat = getActivity().findViewById(R.id.fabUserVerifChat);
         rvUserVerif = getActivity().findViewById(R.id.rvUserVerif);
         tvItemUName = getActivity().findViewById(R.id.tvItemUName);
         swipeRefreshLayout = getActivity().findViewById(R.id.srlUser);
     }
 
     private void initDataPresenter() {
-        adminPresenter.showUnverifiedUser();
+        adminPresenter.getUserByVerify();
     }
 
     private void refresh(){
@@ -83,12 +94,36 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
         });
     }
 
+    private void initDataIntent() {
+        dataUser = getActivity().getIntent().getParcelableExtra(Constant.Extra.DATA);
+        if (dataUser == null) getActivity().finish();
+    }
+
+    private void chat(){
+        fabUserVerifChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent recentChat = new Intent(getActivity(), RecentChatActivity.class);
+                recentChat.putExtra(Constant.Extra.DATA, dataUser);
+                startActivity(recentChat);
+            }
+        });
+    }
+
     @Override
     public void onUserClick(DataUser dataUser) {
         Intent intent = new Intent(getActivity(), UserActivity.class);
         intent.putExtra(Constant.Extra.DATA, dataUser);
         intent.putExtra(Constant.Extra.param, "admin");
         startActivity(intent);
+    }
+
+    @Override
+    public void displayImageUser(ImageView imageView, DataUser dataUser) {
+        Picasso.with(getActivity())
+                .load(dataUser.getPhoto())
+                .transform(new CircleTransform())
+                .into(imageView);
     }
 
     @Override

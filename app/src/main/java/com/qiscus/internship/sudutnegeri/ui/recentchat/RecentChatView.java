@@ -10,4 +10,10 @@ import java.util.List;
 
 interface RecentChatView {
     void successRoomList(List<QiscusChatRoom> qiscusChatRooms);
+
+    void successChatAdmin(QiscusChatRoom qiscusChatRoom);
+
+    void successChatUser(QiscusChatRoom qiscusChatRoom);
+
+    void failedChatUser(Throwable throwable);
 }

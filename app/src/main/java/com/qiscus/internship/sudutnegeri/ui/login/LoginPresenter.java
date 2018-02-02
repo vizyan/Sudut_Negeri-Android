@@ -2,24 +2,15 @@ package com.qiscus.internship.sudutnegeri.ui.login;
 
 import android.util.Log;
 
-import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 import com.qiscus.sdk.Qiscus;
 import com.qiscus.sdk.data.model.QiscusAccount;
 
-import java.io.IOException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.HttpException;
 import retrofit2.Response;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-
-import static org.greenrobot.eventbus.EventBus.TAG;
 
 /**
  * Created by Vizyan on 1/10/2018.
@@ -52,7 +43,7 @@ public class LoginPresenter {
                                 Log.e(null, "respon " + message);
                                 String verify = data.getVerify();
                                 if (verify.equals("yes")) {
-                                    loginChat(data);
+                                    loginChat(data, "user");
                                 } else {
                                     loginView.notVerified();
                                 }
@@ -85,7 +76,8 @@ public class LoginPresenter {
                             String message = login.getMessage();
 
                             if (message.equals("success")) {
-                                loginView.successAdmin();
+                                DataUser dataUser = login.getData();
+                                loginChat(dataUser, "admin");
                             } else {
                                 loginView.failed();
                             }
@@ -99,7 +91,7 @@ public class LoginPresenter {
                 });
     }
 
-    public void loginChat(DataUser dataUser){
+    public void loginChat(DataUser dataUser, String user){
 
         Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
                 .withUsername(dataUser.getName())
@@ -108,7 +100,11 @@ public class LoginPresenter {
                     @Override
                     public void onSuccess(QiscusAccount qiscusAccount) {
                         //on success followup
-                        loginView.successUser(dataUser);
+                        if (user.equalsIgnoreCase("user")){
+                            loginView.successUser(dataUser);
+                        } else {
+                            loginView.successAdmin(dataUser);
+                        }
                     }
                     @Override
                     public void onError(Throwable throwable) {

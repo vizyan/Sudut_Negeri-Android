@@ -39,6 +39,8 @@ class RecentViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(QiscusChatRoom qiscusChatRoom, RecentListener recentListener) {
         int count = qiscusChatRoom.getUnreadCount();
+        String latestConversation = qiscusChatRoom.getLastComment().getMessage();
+        String newlatestConversation = latestConversation;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormatToday = new SimpleDateFormat("hh:mm a");
         Date messageDate = qiscusChatRoom.getLastComment().getTime();
@@ -55,8 +57,17 @@ class RecentViewHolder extends RecyclerView.ViewHolder {
             tvRoomUnread.setVisibility(View.VISIBLE);
         }
 
+        if (latestConversation.contains("[file]")) {
+            newlatestConversation = qiscusChatRoom.getName() + " mengirim file";
+        }
+
+        if (latestConversation.length() > 25){
+            StringBuilder builder = new StringBuilder(latestConversation);
+            newlatestConversation = builder.substring(0, 24) + " ...";
+        }
+
         tvRoomName.setText(qiscusChatRoom.getName());
-        tvRoomLastChat.setText(qiscusChatRoom.getLastComment().getMessage());
+        tvRoomLastChat.setText(newlatestConversation);
         tvRoomDate.setText(finalDateFormat);
         tvRoomUnread.setText(String.valueOf(count));
         recentListener.setImage(ivRoomPhoto, qiscusChatRoom.getAvatarUrl());
