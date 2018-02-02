@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.qiscus.internship.sudutnegeri.firebase.MyFirebaseInstanceIdService;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
@@ -32,8 +31,8 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splashscreen);
-        MyFirebaseInstanceIdService myFirebaseInstanceIdService = new MyFirebaseInstanceIdService();
-        myFirebaseInstanceIdService.onTokenRefresh();
+//        MyFirebaseInstanceIdService myFirebaseInstanceIdService = new MyFirebaseInstanceIdService();
+//        myFirebaseInstanceIdService.onTokenRefresh();
 
         new Handler().postDelayed(new Runnable() {
             @Override

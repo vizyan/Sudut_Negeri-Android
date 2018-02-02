@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             @Override
             public void onClick(View v) {
                 if(validation()==true){
-                    if(email.equals("admin@admin.com")){
+                    if(email.equals("snqiscus@gmail.com")){
                         loginPresenter.loginAdmin();
                     } else {
                         loginPresenter.loginUser();

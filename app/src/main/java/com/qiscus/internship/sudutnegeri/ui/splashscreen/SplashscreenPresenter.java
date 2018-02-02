@@ -62,7 +62,7 @@ public class SplashscreenPresenter {
     }
 
     public void loginChat(DataUser dataUser){
-        Qiscus.setUser(dataUser.getEmail(), dataUser.getPasswd())
+        Qiscus.setUser(dataUser.getEmail(), dataUser.getIdentityNumber())
                 .withUsername(dataUser.getName())
                 .withAvatarUrl(dataUser.getPhoto())
                 .save(new Qiscus.SetUserListener() {

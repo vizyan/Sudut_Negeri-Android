@@ -3,13 +3,11 @@ package com.qiscus.internship.sudutnegeri;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
 import com.qiscus.internship.sudutnegeri.ui.chat.ChatActivity;
 import com.qiscus.internship.sudutnegeri.ui.chat.ChatFragment;
-import com.qiscus.internship.sudutnegeri.ui.recentchat.RecentChatActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.internship.sudutnegeri.util.RealTimeChatHandler;
 import com.qiscus.sdk.Qiscus;
@@ -24,8 +22,6 @@ import com.qiscus.sdk.util.QiscusRxExecutor;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 import static android.content.ContentValues.TAG;
 
@@ -75,8 +71,9 @@ public class SudutNegeri extends Application {
                 .setButtonBubbleTextColor(R.color.gradient5)
                 .setReplyBarColor(R.color.gradient5)
                 .setReplySenderColor(R.color.gradient5)
-                .setNotificationSmallIcon(R.drawable.logo_blue)
-                .setNotificationBigIcon(R.drawable.logo_blue)
+                .setNotificationSmallIcon(R.drawable.ic_small_notification)
+                .setNotificationBigIcon(R.drawable.ic_small_notification)
+                .setEnableAvatarAsNotificationIcon(true)
                 .setStopRecordIcon(R.drawable.btn_send_chat)
                 .setSendButtonIcon(R.drawable.btn_send_chat)
                 .setShowAttachmentPanelIcon(R.drawable.btn_add_atachment)
@@ -99,16 +96,12 @@ public class SudutNegeri extends Application {
                                 });
                     }
                 })
-                .setEnablePushNotification(true);
+                .setEnablePushNotification(true)
+                .setOnlyEnablePushNotificationOutsideChatRoom(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Qiscus.getChatConfig()
                     .setEnableReplyNotification(true);
-        }
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O){
-            Qiscus.getChatConfig()
-                    .setEnableFcmPushNotification(true);
         }
     }
 

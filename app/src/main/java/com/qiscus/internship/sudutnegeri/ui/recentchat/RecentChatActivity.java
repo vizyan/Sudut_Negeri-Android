@@ -91,6 +91,12 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
         SudutNegeri.getInstance().getRealTimeChatHandler().removeListener();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recentChatPresenter.getRoomList();
+    }
+
     private void initPresenter() {
         recentChatPresenter = new RecentChatPresenter(this);
     }
@@ -174,7 +180,7 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
         btnRecentAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recentChatPresenter.chatAdmin("admin@admin.com");
+                recentChatPresenter.chatAdmin("snqiscus@gmail.oom");
             }
         });
     }
