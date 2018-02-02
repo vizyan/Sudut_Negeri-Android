@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.SudutNegeri;
 import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.recent.RecentAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.recent.RecentListener;
@@ -29,8 +31,10 @@ import com.qiscus.internship.sudutnegeri.ui.chat.ChatActivity;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
 import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.internship.sudutnegeri.util.RealTimeChatHandler;
 import com.qiscus.sdk.Qiscus;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
+import com.qiscus.sdk.data.model.QiscusComment;
 import com.qiscus.sdk.data.remote.QiscusApi;
 import com.qiscus.sdk.util.QiscusRxExecutor;
 import com.squareup.picasso.Picasso;
@@ -41,11 +45,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.HttpException;
 
-public class RecentChatActivity extends AppCompatActivity implements RecentChatView, RecentListener{
+public class RecentChatActivity extends AppCompatActivity implements RecentChatView, RecentListener, RealTimeChatHandler.Listener{
 
     private RecentChatPresenter recentChatPresenter;
     private RecentAdapter recentAdapter;
@@ -71,6 +77,18 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
         refresh();
         search();
         chatAdmin();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SudutNegeri.getInstance().getRealTimeChatHandler().setListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SudutNegeri.getInstance().getRealTimeChatHandler().removeListener();
     }
 
     private void initPresenter() {
@@ -221,5 +239,10 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
     @Override
     public void onProjectClick(QiscusChatRoom qiscusChatRoom) {
         recentChatPresenter.chatUser(qiscusChatRoom);
+    }
+
+    @Override
+    public void onReceiveComment(QiscusComment comment) {
+        recentChatPresenter.getRoomList();
     }
 }

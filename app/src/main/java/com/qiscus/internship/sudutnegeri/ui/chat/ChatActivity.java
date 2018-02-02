@@ -74,13 +74,9 @@ public class ChatActivity extends QiscusBaseChatActivity {
     }
 
     @Override
-    public void onUserTyping(String user, boolean typing) {
-
-    }
+    public void onUserTyping(String user, boolean typing) {}
 
     @Override
-    public void onUserStatusChanged(String user, boolean online, Date lastActive) {
-//
-    }
+    public void onUserStatusChanged(String user, boolean online, Date lastActive) {}
 
 }

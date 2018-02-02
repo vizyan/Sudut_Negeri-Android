@@ -210,14 +210,10 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     }
 
     @Override
-    public void successLogout() {
-
-    }
+    public void successLogout() {}
 
     @Override
-    public void successShowProjectVerify(List<DataProject> dataProject) {
-
-    }
+    public void successShowProjectVerify(List<DataProject> dataProject) {}
 
     @Override
     public void successShowProjectByUser(List<DataProject> dataProject) {
@@ -232,12 +228,8 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     }
 
     @Override
-    public void failedShowProjectByVerify(String s) {
-
-    }
+    public void failedShowProjectByVerify(String s) {}
 
     @Override
-    public void failedShowProjectByUser() {
-
-    }
+    public void failedShowProjectByUser() {}
 }

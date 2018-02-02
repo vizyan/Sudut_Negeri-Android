@@ -52,7 +52,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     File file, newFile;
     int target_fund;
     ProgressDialog progressDialog = null;
-    String project_name, location, target_at, information, photo, random;
+    String project_name, location, target_at, information, photo, random, fund;
     TextView tvPopupMsg, tvPopupType, tvPopupSType;
 
     @Override
@@ -222,7 +222,12 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         information = etAddPInformation.getText().toString();
         target_at = btnAddPTaget.getText().toString();
         photo = btnAddPPhoto.getText().toString();
-        target_fund = Integer.parseInt(etAddPTFund.getText().toString());
+        fund = etAddPTFund.getText().toString();
+        if (fund.isEmpty()){
+            target_fund = 0;
+        } else {
+            target_fund = Integer.parseInt(fund);
+        }
     }
 
     private boolean validate(){
@@ -270,14 +275,21 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     }
 
     private boolean validTargetFund(){
-        if (target_fund<=10000){
+        if (fund.isEmpty()){
             etAddPTFund.setBackgroundResource(R.drawable.bg_rounded_trans_red);
-            etAddPTFund.setHint("Isikan target dana minimal Rp 10000");
+            etAddPTFund.setHint("Isikan target dana");
             etAddPTFund.setText("");
             return false;
+        } else {
+            if (target_fund<=10000){
+                etAddPTFund.setBackgroundResource(R.drawable.bg_rounded_trans_red);
+                etAddPTFund.setHint("Isikan target dana minimal Rp 10000");
+                etAddPTFund.setText("");
+                return false;
+            }
+            etAddPTFund.setBackgroundResource(R.drawable.bg_rounded_trans_green);
+            return true;
         }
-        etAddPTFund.setBackgroundResource(R.drawable.bg_rounded_trans_green);
-        return true;
     }
 
     private boolean validPhoto(){

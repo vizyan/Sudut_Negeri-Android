@@ -136,7 +136,5 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
     }
 
     @Override
-    public void successShowProject(List<DataProject> projects) {
-
-    }
+    public void successShowProject(List<DataProject> projects) {}
 }

@@ -275,23 +275,15 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     }
 
     @Override
-    public void successShowProjectVerify(List<DataProject> dataProject) {
-
-    }
+    public void successShowProjectVerify(List<DataProject> dataProject) {}
 
     @Override
-    public void successShowProjectByUser(List<DataProject> dataProjectList) {
-
-    }
+    public void successShowProjectByUser(List<DataProject> dataProjectList) {}
 
     @Override
-    public void failedShowProjectByVerify(String s) {
-
-    }
+    public void failedShowProjectByVerify(String s) {}
 
     @Override
-    public void failedShowProjectByUser() {
-
-    }
+    public void failedShowProjectByUser() {}
 
 }

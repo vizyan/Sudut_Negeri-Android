@@ -167,19 +167,13 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
     }
 
     @Override
-    public void successShowProjectByUser(List<DataProject> dataProjectList) {
-
-    }
+    public void successShowProjectByUser(List<DataProject> dataProjectList) {}
 
     @Override
-    public void failedShowProjectByVerify(String s) {
-
-    }
+    public void failedShowProjectByVerify(String s) {}
 
     @Override
-    public void failedShowProjectByUser() {
-
-    }
+    public void failedShowProjectByUser() {}
 
 
     @Override

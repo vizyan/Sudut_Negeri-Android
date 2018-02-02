@@ -95,9 +95,7 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
     }
 
     @Override
-    public void successShowUser(List<DataUser> dataUserList) {
-
-    }
+    public void successShowUser(List<DataUser> dataUserList) {}
 
     @Override
     public void successShowProject(List<DataProject> projects) {
