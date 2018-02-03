@@ -61,10 +61,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder> implem
                 } else {
                     List<QiscusChatRoom> filteredList = new ArrayList<>();
                     for (QiscusChatRoom row : qiscusChatRooms) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getLastComment().getMessage().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }

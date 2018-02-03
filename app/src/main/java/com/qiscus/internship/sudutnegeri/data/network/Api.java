@@ -1,6 +1,7 @@
 package com.qiscus.internship.sudutnegeri.data.network;
 
 import com.google.gson.JsonObject;
+import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
@@ -41,7 +42,7 @@ public interface Api {
     Call<ResultListProject> getAllPorject();
 
     @GET("api/landings")
-    Call<ResultListProject> getPorjectTime();
+    Call<JsonObject> getPorjectTime();
 
     @GET("api/donation")
     Call<JsonObject> getDonation();

@@ -40,7 +40,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectViewHolder> impl
     @Override
     public void onBindViewHolder(ProjectViewHolder holder, int position) {
         DataProject dataProject = dataProjectsFiltered.get(position);
-        //DataProject dataProject = getItem(position);
         holder.bind(dataProject, projectListener);
     }
 
@@ -69,9 +68,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectViewHolder> impl
                 } else {
                     List<DataProject> filteredList = new ArrayList<>();
                     for (DataProject row : dataProjectList) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
                         if (row.getNameProject().toLowerCase().contains(charString.toLowerCase()) || row.getLocation().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }

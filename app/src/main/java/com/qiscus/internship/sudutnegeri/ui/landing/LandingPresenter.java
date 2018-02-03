@@ -2,11 +2,15 @@ package com.qiscus.internship.sudutnegeri.ui.landing;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,23 +34,24 @@ public class LandingPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .getPorjectTime()
-                .enqueue(new Callback<ResultListProject>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            try{
-                                ResultListProject resultListProject = response.body();
-                                List<DataProject> dataProject = resultListProject.getData();
-                                landingView.successShowProjectByTime(dataProject);
-                            } catch (NullPointerException e){
+                            JsonObject body = response.body();
+                            JsonArray array = body.get("data").getAsJsonArray();
+                            Type type = new TypeToken<List<DataProject>>(){}.getType();
 
-                            }
+                            List<DataProject> dataProjects = new Gson().fromJson(array, type );
+                            landingView.successShowProjectByTime(dataProjects);
+                        } else {
+
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultListProject> call, Throwable t) {
-
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        t.printStackTrace();
                     }
                 });
     }
@@ -69,7 +74,7 @@ public class LandingPresenter {
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
     }
