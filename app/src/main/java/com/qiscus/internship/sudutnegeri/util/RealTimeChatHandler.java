@@ -24,9 +24,7 @@ public class RealTimeChatHandler {
         triggerListener(qiscusComment);
     }
 
-
     private void triggerListener(QiscusComment comment) {
-        Log.d("TAG","YEAH");
         if (listener != null) {
             listener.onReceiveComment(comment);
         }

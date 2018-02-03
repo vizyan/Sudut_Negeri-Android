@@ -106,12 +106,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
     }
 
     private void refresh(){
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initDataPresenter();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> initDataPresenter());
     }
 
     private void search(){

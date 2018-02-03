@@ -3,17 +3,12 @@ package com.qiscus.internship.sudutnegeri.ui.recentchat;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,30 +18,22 @@ import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.SudutNegeri;
-import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.recent.RecentAdapter;
 import com.qiscus.internship.sudutnegeri.adapter.recent.RecentListener;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.chat.ChatActivity;
-import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
 import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.internship.sudutnegeri.util.RealTimeChatHandler;
-import com.qiscus.sdk.Qiscus;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
 import com.qiscus.sdk.data.model.QiscusComment;
-import com.qiscus.sdk.data.remote.QiscusApi;
-import com.qiscus.sdk.util.QiscusRxExecutor;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.HttpException;
@@ -143,12 +130,7 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
     }
 
     private void refresh(){
-        srlRecentChat.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                recentChatPresenter.getRoomList();
-            }
-        });
+        srlRecentChat.setOnRefreshListener(() -> recentChatPresenter.getRoomList());
     }
 
     private void search(){
@@ -177,12 +159,7 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
     }
 
     private void chatAdmin(){
-        btnRecentAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recentChatPresenter.chatAdmin("snqiscus@gmail.oom");
-            }
-        });
+        btnRecentAdmin.setOnClickListener(v -> recentChatPresenter.chatAdmin("snqiscus@gmail.com"));
     }
 
     @Override

@@ -125,23 +125,15 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     }
 
     private void refresh() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                dashboardPresenter.getProjectByUser(dataUser);
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(()-> dashboardPresenter.getProjectByUser(dataUser));
     }
 
     private void postProject() {
-        btnSudutCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddProjectActivity.class);
-                intent.putExtra(Constant.Extra.User, dataUser);
-                intent.putExtra(Constant.Extra.param, "negeri");
-                startActivity(intent);
-            }
+        btnSudutCreate.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddProjectActivity.class);
+            intent.putExtra(Constant.Extra.User, dataUser);
+            intent.putExtra(Constant.Extra.param, "negeri");
+            startActivity(intent);
         });
     }
 
@@ -172,19 +164,15 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     }
 
     private void chat(){
-        fabSudutChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent recentChat = new Intent(getActivity(), RecentChatActivity.class);
-                recentChat.putExtra(Constant.Extra.DATA, dataUser);
-                startActivity(recentChat);
-            }
+        fabSudutChat.setOnClickListener(v -> {
+            Intent recentChat = new Intent(getActivity(), RecentChatActivity.class);
+            recentChat.putExtra(Constant.Extra.DATA, dataUser);
+            startActivity(recentChat);
         });
     }
 
     @Override
     public void onProjectClick(DataProject dataProject) {
-        //Toast.makeText(getActivity(), "ini isinya " + dataProject.toString(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getActivity(), ProjectActivity.class);
         intent.putExtra(Constant.Extra.Project, dataProject);
         intent.putExtra(Constant.Extra.param, "negeri");

@@ -31,8 +31,6 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splashscreen);
-//        MyFirebaseInstanceIdService myFirebaseInstanceIdService = new MyFirebaseInstanceIdService();
-//        myFirebaseInstanceIdService.onTokenRefresh();
 
         new Handler().postDelayed(new Runnable() {
             @Override

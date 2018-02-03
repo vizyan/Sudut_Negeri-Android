@@ -59,11 +59,11 @@ public class LandingPresenter {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
+                            String donation;
                             JsonObject jsonObject = response.body();
                             JsonObject data = jsonObject.get("data").getAsJsonObject();
-                            String donation = data.get("total_donasi").toString();
+                            donation = data.get("all_donation").toString();
                             landingView.successDonation(donation);
-
                         }
                     }
 

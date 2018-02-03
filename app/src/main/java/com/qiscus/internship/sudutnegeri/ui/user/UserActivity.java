@@ -116,9 +116,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     private void initNavigation() {
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
                 if(menuItem.isChecked()) menuItem.setChecked(false);
                 else menuItem.setChecked(true);
 
@@ -143,7 +141,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
                         Toast.makeText(getApplicationContext(),"Kesalahan Terjadi ",Toast.LENGTH_SHORT).show();
                         return true;
                 }
-            }
         });
     }
 
@@ -191,22 +188,14 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     private void putUser() {
-        btnUserSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initVariable();
-                userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
-            }
+        btnUserSave.setOnClickListener(v ->  {
+            initVariable();
+            userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
         });
     }
 
     private void unverifyUser(){
-        btnUserUnverify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userPresenter.unverifyUser(dataUser.getId());
-            }
-        });
+        btnUserUnverify.setOnClickListener(v -> userPresenter.unverifyUser(dataUser.getId()));
     }
 
     private void popupWindow(String messsage, String param, String verify) {
@@ -217,7 +206,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
             if (messsage.equals("success")){
                 View layout = inflater.inflate(R.layout.layout_popup_success, null);
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                pw.setOutsideTouchable(false);
+                pw.setOutsideTouchable(true);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
                 tvPopupSMsg = layout.findViewById(R.id.tvPopupSMsg);
                 tvPopupSType = layout.findViewById(R.id.tvPopupSType);
@@ -260,9 +249,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     private void logout(){
-        btnDrawerLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnDrawerLogout.setOnClickListener(v ->  {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
                 builder.setMessage("Apakah anda yakin ingin keluar ?");
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
@@ -272,7 +259,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
                 });
                 builder.setNegativeButton("Tidak", null);
                 builder.show();
-            }
         });
     }
 

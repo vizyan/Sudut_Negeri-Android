@@ -96,22 +96,16 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
     }
 
     private void rergister() {
-        btnLandReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent list = new Intent(LandingActivity.this, RegisterActivity.class);
-                startActivity(list);
-            }
+        btnLandReg.setOnClickListener(v -> {
+            Intent list = new Intent(LandingActivity.this, RegisterActivity.class);
+            startActivity(list);
         });
     }
 
     private void login() {
-        btnLandLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent login = new Intent(LandingActivity.this, LoginActivity.class);
-                startActivity(login);
-            }
+        btnLandLog.setOnClickListener(v -> {
+            Intent login = new Intent(LandingActivity.this, LoginActivity.class);
+            startActivity(login);
         });
     }
 

@@ -60,12 +60,7 @@ public class ChatActivity extends QiscusBaseChatActivity {
     }
 
     private void back() {
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back.setOnClickListener((v) -> finish());
     }
 
     @Override

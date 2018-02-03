@@ -93,7 +93,7 @@ public class LoginPresenter {
 
     public void loginChat(DataUser dataUser, String user){
 
-        Qiscus.setUser(dataUser.getEmail(), dataUser.getIdentityNumber())
+        Qiscus.setUser(dataUser.getEmail(), dataUser.getEmail())
                 .withUsername(dataUser.getName())
                 .withAvatarUrl(dataUser.getPhoto())
                 .save(new Qiscus.SetUserListener() {

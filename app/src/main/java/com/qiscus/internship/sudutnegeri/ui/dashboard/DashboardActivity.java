@@ -124,34 +124,31 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
 
     private void initNavigation() {
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                if(menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            if(menuItem.isChecked()) menuItem.setChecked(false);
+            else menuItem.setChecked(true);
 
-                drawerLayout.closeDrawers();
-                switch (menuItem.getItemId()){
-                    case R.id.navigation1:
-                        Toast.makeText(getApplicationContext(),"Anda Berada di Dashboard",Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.navigation2:
-                        Intent userDetail = new Intent(DashboardActivity.this, UserActivity.class);
-                        userDetail.putExtra(Constant.Extra.DATA, dataUser);
-                        userDetail.putExtra(Constant.Extra.param, "user");
-                        startActivity(userDetail);
-                        finish();
-                        return false;
-                    case R.id.navigation3:
-                        Intent aboutUs = new Intent(DashboardActivity.this, AboutActivity.class);
-                        aboutUs.putExtra(Constant.Extra.DATA, dataUser);
-                        startActivity(aboutUs);
-                        finish();
-                        return true;
-                    default:
-                        Toast.makeText(getApplicationContext(),"Kesalahan Terjadi ",Toast.LENGTH_SHORT).show();
-                        return true;
-                }
+            drawerLayout.closeDrawers();
+            switch (menuItem.getItemId()){
+                case R.id.navigation1:
+                    Toast.makeText(getApplicationContext(),"Anda Berada di Dashboard",Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.navigation2:
+                    Intent userDetail = new Intent(DashboardActivity.this, UserActivity.class);
+                    userDetail.putExtra(Constant.Extra.DATA, dataUser);
+                    userDetail.putExtra(Constant.Extra.param, "user");
+                    startActivity(userDetail);
+                    finish();
+                    return false;
+                case R.id.navigation3:
+                    Intent aboutUs = new Intent(DashboardActivity.this, AboutActivity.class);
+                    aboutUs.putExtra(Constant.Extra.DATA, dataUser);
+                    startActivity(aboutUs);
+                    finish();
+                    return true;
+                default:
+                    Toast.makeText(getApplicationContext(),"Kesalahan Terjadi ",Toast.LENGTH_SHORT).show();
+                    return true;
             }
         });
     }
@@ -171,7 +168,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     private void initDataIntent() {
         dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
         if (dataUser == null) finish();
-        //tvDrawerName.setText(dataUser.getName());
     }
 
     private void initDataDrawer() {
@@ -203,7 +199,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_negeri);
 
         tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#66F4F9FB"), PorterDuff.Mode.SRC_IN);
-        //tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#F4F9FB"), PorterDuff.Mode.SRC_IN);
 
         tvToolbarTitle.setText("Dashboard Sudut");
         svNegeri.setVisibility(View.GONE);
@@ -241,19 +236,12 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     }
 
     private void logout(){
-        btnDrawerLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
-                builder.setMessage("Apakah kalian yakin ingin keluar ?");
-                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which){
-                        dashboardPresenter.logout();
-                    }
-                });
-                builder.setNegativeButton("Tidak", null);
-                builder.show();
-            }
+        btnDrawerLogout.setOnClickListener(v ->  {
+            AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+            builder.setMessage("Apakah kalian yakin ingin keluar ?");
+            builder.setPositiveButton("Ya", (dialog, which) -> dashboardPresenter.logout());
+            builder.setNegativeButton("Tidak", null);
+            builder.show();
         });
     }
 

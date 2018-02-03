@@ -86,12 +86,7 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
     }
 
     private void refresh(){
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initDataPresenter();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> initDataPresenter());
     }
 
     @Override

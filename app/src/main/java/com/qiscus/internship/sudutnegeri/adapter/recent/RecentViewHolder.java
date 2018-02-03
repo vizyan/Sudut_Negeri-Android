@@ -72,11 +72,6 @@ class RecentViewHolder extends RecyclerView.ViewHolder {
         tvRoomUnread.setText(String.valueOf(count));
         recentListener.setImage(ivRoomPhoto, qiscusChatRoom.getAvatarUrl());
 
-        llRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recentListener.onProjectClick(qiscusChatRoom);
-            }
-        });
+        llRoom.setOnClickListener(v -> recentListener.onProjectClick(qiscusChatRoom));
     }
 }

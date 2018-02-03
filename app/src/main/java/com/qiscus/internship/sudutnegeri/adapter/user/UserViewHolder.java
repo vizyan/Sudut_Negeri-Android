@@ -34,11 +34,6 @@ class UserViewHolder extends RecyclerView.ViewHolder {
         listener.displayImageUser(ivItemU, dataUser);
         tvItemUName.setText(dataUser.getName());
 
-        llItemU.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onUserClick(dataUser);
-            }
-        });
+        llItemU.setOnClickListener(v -> listener.onUserClick(dataUser));
     }
 }

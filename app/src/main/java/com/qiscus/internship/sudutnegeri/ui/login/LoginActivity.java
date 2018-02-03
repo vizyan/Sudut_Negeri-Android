@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private LoginPresenter loginPresenter;
     RelativeLayout rvLog;
     AnimationDrawable animationDrawable;
-    Button btnLogLog, btnLogReg, btnPopupFRetry;
+    Button btnLogLog, btnLogReg;
     EditText etLogEmail, etLogPasswd;
     TextView tvPopupMsg, tvPopupType;
     String email, passwd;
@@ -96,28 +96,22 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     private void login(){
-        btnLogLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(validation()==true){
-                    if(email.equals("snqiscus@gmail.com")){
-                        loginPresenter.loginAdmin();
-                    } else {
-                        loginPresenter.loginUser();
-                    }
+        btnLogLog.setOnClickListener(v ->  {
+            if(validation()==true){
+                if(email.equals("snqiscus@gmail.com")){
+                    loginPresenter.loginAdmin();
+                } else {
+                    loginPresenter.loginUser();
                 }
             }
         });
     }
 
     private void register(){
-        btnLogReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(register);
-                finish();
-            }
+        btnLogReg.setOnClickListener(v -> {
+            Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(register);
+            finish();
         });
     }
 
@@ -247,7 +241,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void failedQiscuss(Throwable throwable) {
-        if (throwable instanceof HttpException) { //Error response from server
+        if (throwable instanceof HttpException) {
             HttpException e = (HttpException) throwable;
             try {
                 String errorMessage = e.response().errorBody().string();

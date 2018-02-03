@@ -8,6 +8,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -159,19 +160,16 @@ public class AboutActivity extends AppCompatActivity implements AboutView{
     }
 
     private void logout() {
-        btnDrawerLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(AboutActivity.this);
-                builder.setMessage("Apakah kalian yakin ingin keluar ?");
-                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which){
-                        aboutPresenter.logout();
-                    }
-                });
-                builder.setNegativeButton("Tidak", null);
-                builder.show();
-            }
+        btnDrawerLogout.setOnClickListener(v ->  {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AboutActivity.this);
+            builder.setMessage("Apakah kalian yakin ingin keluar ?");
+            builder.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    aboutPresenter.logout();
+                }
+            });
+            builder.setNegativeButton("Tidak", null);
+            builder.show();
         });
     }
 

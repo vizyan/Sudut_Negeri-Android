@@ -86,12 +86,7 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
     }
 
     private void refresh(){
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initDataPresenter();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener( () -> initDataPresenter());
     }
 
     private void initDataIntent() {
@@ -100,13 +95,10 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
     }
 
     private void chat(){
-        fabUserVerifChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fabUserVerifChat.setOnClickListener(View -> {
                 Intent recentChat = new Intent(getActivity(), RecentChatActivity.class);
                 recentChat.putExtra(Constant.Extra.DATA, dataUser);
                 startActivity(recentChat);
-            }
         });
     }
 

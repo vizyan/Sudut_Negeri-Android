@@ -78,24 +78,21 @@ public class SudutNegeri extends Application {
                 .setSendButtonIcon(R.drawable.btn_send_chat)
                 .setShowAttachmentPanelIcon(R.drawable.btn_add_atachment)
                 .setEnableAddFile(true)
-                .setNotificationClickListener(new NotificationClickListener() {
-                    @Override
-                    public void onClick(Context context, QiscusComment qiscusComment) {
-                        QiscusRxExecutor.execute(QiscusApi.getInstance().getChatRoom(qiscusComment.getRoomId()),
-                                new QiscusRxExecutor.Listener<QiscusChatRoom>() {
-                                    @Override
-                                    public void onSuccess(QiscusChatRoom qiscusChatRoom) {
-                                        Intent intent = ChatActivity.generateIntent(getApplicationContext(), qiscusChatRoom);
-                                        startActivity(intent);
-                                    }
+                .setNotificationClickListener((context, qiscusComment) ->
+                    QiscusRxExecutor.execute(QiscusApi.getInstance().getChatRoom(qiscusComment.getRoomId()),
+                            new QiscusRxExecutor.Listener<QiscusChatRoom>() {
+                                @Override
+                                public void onSuccess(QiscusChatRoom qiscusChatRoom) {
+                                    Intent intent = ChatActivity.generateIntent(getApplicationContext(), qiscusChatRoom);
+                                    startActivity(intent);
+                                }
 
-                                    @Override
-                                    public void onError(Throwable throwable) {
-                                        throwable.printStackTrace();
-                                    }
-                                });
-                    }
-                })
+                                @Override
+                                public void onError(Throwable throwable) {
+                                    throwable.printStackTrace();
+                                }
+                            })
+                )
                 .setEnablePushNotification(true)
                 .setOnlyEnablePushNotificationOutsideChatRoom(false);
 
@@ -111,7 +108,6 @@ public class SudutNegeri extends Application {
 
     @Subscribe
     public void onReceivedComment(QiscusCommentReceivedEvent event) {
-        Log.e(TAG, "Ini ada yang baru");
         realTimeChatHandler.updateChatrooms(event.getQiscusComment());
     }
 

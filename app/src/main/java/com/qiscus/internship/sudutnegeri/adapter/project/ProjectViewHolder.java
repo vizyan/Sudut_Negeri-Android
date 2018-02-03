@@ -35,11 +35,6 @@ class ProjectViewHolder extends RecyclerView.ViewHolder {
         tvItemPName.setText(dataProject.getNameProject());
         tvItemPAddress.setText(dataProject.getLocation());
 
-        llItemP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                projectListener.onProjectClick(dataProject);
-            }
-        });
+        llItemP.setOnClickListener(v -> projectListener.onProjectClick(dataProject));
     }
 }

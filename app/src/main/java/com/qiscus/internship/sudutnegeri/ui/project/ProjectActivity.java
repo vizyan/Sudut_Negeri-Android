@@ -141,34 +141,21 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     }
 
     private void putProject() {
-        btnProjectDonate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (param.equalsIgnoreCase("admin")){
-                    projectPresenter.putProject(dataProject);
-                } else if (param.equalsIgnoreCase("negeri")){
-                    initDonate();
-                }
+        btnProjectDonate.setOnClickListener(v -> {
+            if (param.equalsIgnoreCase("admin")){
+                projectPresenter.putProject(dataProject);
+            } else if (param.equalsIgnoreCase("negeri")){
+                initDonate();
             }
         });
     }
 
     private void unverifyProject(){
-        fabProjectUnverify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                projectPresenter.unverifyProject(dataProject.getId());
-            }
-        });
+        fabProjectUnverify.setOnClickListener(v -> projectPresenter.unverifyProject(dataProject.getId()));
     }
 
     private void chat() {
-        fabProjectChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                projectPresenter.chatUser(dataUser.getEmail());
-            }
-        });
+        fabProjectChat.setOnClickListener(v -> projectPresenter.chatUser(dataUser.getEmail()));
     }
 
     private void popupWindow(String messsage, String param, String verify) {
@@ -238,12 +225,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     }
 
     private void initZoomPhoto(){
-        ivProjectPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setupZoom(ivProjectPhoto);
-            }
-        });
+        ivProjectPhoto.setOnClickListener(v -> setupZoom(ivProjectPhoto));
     }
 
     private void setupZoom(final View thumbView) {
@@ -307,22 +289,20 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         mCurrentAnimatorEffect = set;
 
         final float startScaleFinal = startScale;
-        rlBigPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        rlBigPhoto.setOnClickListener( v -> {
                 if (mCurrentAnimatorEffect != null) {
                     mCurrentAnimatorEffect.cancel();
                 }
 
-                AnimatorSet set = new AnimatorSet();
-                set.play(ObjectAnimator
+                AnimatorSet set1 = new AnimatorSet();
+                set1.play(ObjectAnimator
                         .ofFloat(rlBigPhoto, View.X, startBounds.left))
                         .with(ObjectAnimator.ofFloat(rlBigPhoto, View.Y,startBounds.top))
                         .with(ObjectAnimator.ofFloat(rlBigPhoto, View.SCALE_X, startScaleFinal))
                         .with(ObjectAnimator.ofFloat(rlBigPhoto, View.SCALE_Y, startScaleFinal));
-                set.setDuration(mShortAnimationDurationEffect);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.addListener(new AnimatorListenerAdapter() {
+                set1.setDuration(mShortAnimationDurationEffect);
+                set1.setInterpolator(new DecelerateInterpolator());
+                set1.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         thumbView.setAlpha(1f);
@@ -345,23 +325,19 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                         mCurrentAnimatorEffect = null;
                     }
                 });
-                set.start();
-                mCurrentAnimatorEffect = set;
-            }
+                set1.start();
+                mCurrentAnimatorEffect = set1;
         });
     }
 
     private void setupTooltip(String message){
-        ivProjectVerify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (message.equalsIgnoreCase("yes")){
-                    Snackbar snackbar = Snackbar.make(clProject, "Sudah diverifikasi", Snackbar.LENGTH_SHORT );
-                    snackbar.show();
-                } else {
-                    Snackbar snackbar = Snackbar.make(clProject, "Belum diverifikasi", Snackbar.LENGTH_SHORT );
-                    snackbar.show();
-                }
+        ivProjectVerify.setOnClickListener(v ->  {
+            if (message.equalsIgnoreCase("yes")){
+                Snackbar snackbar = Snackbar.make(clProject, "Sudah diverifikasi", Snackbar.LENGTH_SHORT );
+                snackbar.show();
+            } else {
+                Snackbar snackbar = Snackbar.make(clProject, "Belum diverifikasi", Snackbar.LENGTH_SHORT );
+                snackbar.show();
             }
         });
     }
@@ -426,7 +402,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     @Override
     public void failedChatUser(Throwable throwable) {
-        if (throwable instanceof HttpException) { //Error response from server
+        if (throwable instanceof HttpException) {
             HttpException e = (HttpException) throwable;
             try {
                 String errorMessage = e.response().errorBody().string();

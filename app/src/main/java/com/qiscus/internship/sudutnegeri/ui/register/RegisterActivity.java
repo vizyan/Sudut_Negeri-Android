@@ -126,47 +126,38 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     private void login() {
-        btnRegLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(login);
-                finish();
-            }
+        btnRegLog.setOnClickListener(v -> {
+            Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(login);
+            finish();
         });
     }
 
     private void register() {
-        btnRegReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validation()==true){
-                    progressDialog = new ProgressDialog(RegisterActivity.this);
-                    progressDialog.setTitle(null);
-                    progressDialog.setMessage("Mendaftar, tunggu beberapa saat");
-                    progressDialog.setIndeterminate(false);
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
+        btnRegReg.setOnClickListener(v ->  {
+            if (validation()==true){
+                progressDialog = new ProgressDialog(RegisterActivity.this);
+                progressDialog.setTitle(null);
+                progressDialog.setMessage("Mendaftar, tunggu beberapa saat");
+                progressDialog.setIndeterminate(false);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
 
-                    random = random(32);
-                    if (file==null){
-                        registerPresenter.addUser(null);
-                    } else {
-                        registerPresenter.uploadFile(newFile, random);
-                    }
+                random = random(32);
+                if (file==null){
+                    registerPresenter.addUser(null);
+                } else {
+                    registerPresenter.uploadFile(newFile, random);
                 }
             }
         });
     }
 
     private void pickPhoto(){
-        ivRegAddPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
-                openGalleryIntent.setType("image/*");
-                startActivityForResult(openGalleryIntent, 200);
-            }
+        ivRegAddPhoto.setOnClickListener(v ->  {
+            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
+            openGalleryIntent.setType("image/*");
+            startActivityForResult(openGalleryIntent, 200);
         });
     }
 
