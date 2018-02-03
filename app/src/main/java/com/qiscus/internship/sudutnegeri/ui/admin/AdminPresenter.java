@@ -55,7 +55,7 @@ public class AdminPresenter {
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        adminView.failedShowUser(t.getMessage());
+                        adminView.failedShowUser("Tidak ada koneksi");
                         Log.d(TAG, t.getMessage());
                     }
                 });
@@ -76,14 +76,14 @@ public class AdminPresenter {
                             adminView.successShowProject(dataProjects);
                             Log.d(TAG, response.body().toString());
                         } else {
-                            adminView.failedShowProject(response.errorBody().toString());
+                            adminView.failedShowProject("Maaf terjadi kesalahan");
                             Log.d(TAG, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        adminView.failedShowProject(t.getMessage());
+                        adminView.failedShowProject("Tidak ada koneksi");
                         Log.d(TAG, t.getMessage());
                     }
                 });

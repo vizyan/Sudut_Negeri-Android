@@ -52,14 +52,14 @@ public class AddProjectPresenter {
                             addProjectView.successPostProject();
                             Log.d(TAG, response.body().toString());
                         } else {
-                            addProjectView.failedPostProject(response.errorBody().toString());
+                            addProjectView.failedPostProject("Maaf terjadi kesalahan");
                             Log.d(TAG, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        addProjectView.failedPostProject(t.getMessage());
+                        addProjectView.failedPostProject("Tidak ada koneksi");
                         Log.d(TAG, t.getMessage());
                     }
                 });
