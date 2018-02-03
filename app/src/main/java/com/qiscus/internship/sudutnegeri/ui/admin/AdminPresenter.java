@@ -2,17 +2,24 @@ package com.qiscus.internship.sudutnegeri.ui.admin;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Vizyan on 1/14/2018.
@@ -29,21 +36,27 @@ public class AdminPresenter {
     public void getUserByVerify(){
         RetrofitClient.getInstance()
                 .getApi()
-                .getUnverifiedUser("no")
-                .enqueue(new Callback<ResultListUser>() {
+                .getUserByVerify("no")
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultListUser> call, Response<ResultListUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            ResultListUser resultListUser = response.body();
-                            List<DataUser> user = resultListUser.getData();
-                            adminView.successShowUser(user);
-                            Log.e(null, "Body" + response.body().getData());
+                            JsonObject body = response.body();
+                            JsonArray array = body.get("data").getAsJsonArray();
+                            Type type = new TypeToken<List<DataUser>>(){}.getType();
+                            List<DataUser> dataUsers = new Gson().fromJson(array, type);
+                            adminView.successShowUser(dataUsers);
+                            Log.d(TAG, response.body().toString());
+                        } else {
+                            adminView.failedShowUser(response.errorBody().toString());
+                            Log.d(TAG, response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultListUser> call, Throwable t) {
-
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        adminView.failedShowUser(t.getMessage());
+                        Log.d(TAG, t.getMessage());
                     }
                 });
     }
@@ -51,20 +64,27 @@ public class AdminPresenter {
     public void getProjectByVerify(){
         RetrofitClient.getInstance()
                 .getApi()
-                .getUnverifiedProject("no")
-                .enqueue(new Callback<ResultListProject>() {
+                .getProjectByVerify("no")
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            ResultListProject resultListProject = response.body();
-                            List<DataProject> projects = resultListProject.getData();
-                            adminView.successShowProject(projects);
+                            JsonObject body = response.body();
+                            JsonArray array = body.get("data").getAsJsonArray();
+                            Type type = new TypeToken<List<DataProject>>(){}.getType();
+                            List<DataProject> dataProjects = new Gson().fromJson(array, type);
+                            adminView.successShowProject(dataProjects);
+                            Log.d(TAG, response.body().toString());
+                        } else {
+                            adminView.failedShowProject(response.errorBody().toString());
+                            Log.d(TAG, response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultListProject> call, Throwable t) {
-
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        adminView.failedShowProject(t.getMessage());
+                        Log.d(TAG, t.getMessage());
                     }
                 });
     }

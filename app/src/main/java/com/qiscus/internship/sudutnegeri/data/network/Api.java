@@ -49,13 +49,13 @@ public interface Api {
 
     //Get unverified user
     @GET("api/users/verify/{verify}")
-    Call<ResultListUser> getUnverifiedUser(
+    Call<JsonObject> getUserByVerify(
             @Path("verify") String verify
     );
 
     //Get unverified project
     @GET("api/projects/verify/{verify}")
-    Call<ResultListProject> getUnverifiedProject(
+    Call<JsonObject> getProjectByVerify(
             @Path("verify") String verify
     );
 

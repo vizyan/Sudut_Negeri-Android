@@ -102,6 +102,16 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
     }
 
     @Override
+    public void failedShowUser(String s) {
+
+    }
+
+    @Override
+    public void failedShowProject(String message) {
+
+    }
+
+    @Override
     public void onProjectClick(DataProject dataProject) {
         Intent intent = new Intent(getActivity(), ProjectActivity.class);
         intent.putExtra(Constant.Extra.Project, dataProject);

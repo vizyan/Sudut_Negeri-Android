@@ -14,4 +14,8 @@ public interface AdminView {
     void successShowUser(List<DataUser> dataUserList);
 
     void successShowProject(List<DataProject> projects);
+
+    void failedShowUser(String s);
+
+    void failedShowProject(String message);
 }
