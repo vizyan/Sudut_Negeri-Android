@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.internship.sudutnegeri.ui.addproject.AddProjectActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
@@ -52,6 +53,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         email = preferences.getString("email", "");
         passwd = preferences.getString("password", "");
         if (email.isEmpty()){
+            progressDialog.dismiss();
             Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
             startActivity(landing);
             finish();
@@ -66,7 +68,12 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     private void initDataPresenter(){
         splashscreenPresenter.loginUser();
-        progressDialog.show(SplashscreenActivity.this, null, "Menyiapkan data", false, false);
+        progressDialog = new ProgressDialog(SplashscreenActivity.this);
+        progressDialog.setTitle(null);
+        progressDialog.setMessage("Menyiapkan data");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
@@ -81,6 +88,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     @Override
     public void notLogin() {
+        progressDialog.dismiss();
         Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
         startActivity(landing);
         finish();
@@ -88,6 +96,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     @Override
     public void successUser(DataUser data) {
+        progressDialog.dismiss();
         Intent login = new Intent(SplashscreenActivity.this, DashboardActivity.class);
         login.putExtra(Constant.Extra.DATA, data);
         startActivity(login);
