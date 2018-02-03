@@ -2,6 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.user;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
@@ -77,18 +78,17 @@ public class UserPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .logout(email, password)
-                .enqueue(new Callback<ResultUser>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
                             userView.successLogout();
                         }
-                        Log.e(null, "Respon" + password);
                     }
 
                     @Override
-                    public void onFailure(Call<ResultUser> call, Throwable t) {
-
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        t.printStackTrace();
                     }
                 });
     }

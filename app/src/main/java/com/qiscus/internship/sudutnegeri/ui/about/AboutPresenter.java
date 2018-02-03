@@ -1,5 +1,6 @@
 package com.qiscus.internship.sudutnegeri.ui.about;
 
+import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
@@ -25,16 +26,16 @@ public class AboutPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .logout(email, passwd)
-                .enqueue(new Callback<ResultUser>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if(response.isSuccessful()){
                             aboutView.successLogout();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultUser> call, Throwable t) {
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
                         aboutView.failedLogout();
                     }
                 });

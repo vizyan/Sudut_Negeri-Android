@@ -162,7 +162,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("api/logout")
-    Call<ResultUser> logout(
+    Call<JsonObject> logout(
             @Field("email") String email,
             @Field("password") String password
     );

@@ -2,6 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.dashboard;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
@@ -82,18 +83,17 @@ public class DashboardPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .logout(email, password)
-                .enqueue(new Callback<ResultUser>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
                             dashboardView.successLogout();
                         }
-                        Log.e(null, "Respon" + password);
                     }
 
                     @Override
-                    public void onFailure(Call<ResultUser> call, Throwable t) {
-                        Log.e(null, "" +password);
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        t.printStackTrace();
                     }
                 });
     }
