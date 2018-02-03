@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.model.UploadObject;
@@ -17,6 +18,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Vizyan on 1/22/2018.
@@ -41,20 +44,23 @@ public class AddProjectPresenter {
 
         RetrofitClient.getInstance()
                 .getApi()
-                .postProject(name, "no", location, target_at, information, photo, id_user, funds, 0)
-                .enqueue(new Callback<ResultProject>() {
+                .postProject(name, "no", location, target_at, information, photo, id_user, funds, target_funds)
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultProject> call, Response<ResultProject> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            Log.e(null, response.body().toString());
                             addProjectView.successPostProject();
+                            Log.d(TAG, response.body().toString());
+                        } else {
+                            addProjectView.failedPostProject(response.errorBody().toString());
+                            Log.d(TAG, response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultProject> call, Throwable t) {
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
                         addProjectView.failedPostProject(t.getMessage());
-                        Log.e(null, t.getMessage());
+                        Log.d(TAG, t.getMessage());
                     }
                 });
     }
@@ -69,14 +75,21 @@ public class AddProjectPresenter {
                 .enqueue(new Callback<UploadObject>() {
                     @Override
                     public void onResponse(Call<UploadObject> call, Response<UploadObject> response) {
-                        UploadObject uploadObject = response.body();
-                        String path = uploadObject.getSuccess();
-                        postProject(dataUser, path);
+                        if (response.isSuccessful()){
+                            UploadObject uploadObject = response.body();
+                            String path = uploadObject.getSuccess();
+                            postProject(dataUser, path);
+                            Log.d(TAG, response.body().toString());
+                        } else {
+                            addProjectView.failedUploadFile();
+                            Log.d(TAG, response.errorBody().toString());
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<UploadObject> call, Throwable t) {
                         addProjectView.failedUploadFile();
+                        Log.d(TAG, t.getMessage());
                     }
                 });
     }

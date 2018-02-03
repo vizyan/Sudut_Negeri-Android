@@ -116,7 +116,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("api/projects")
-    Call<ResultProject> postProject(
+    Call<JsonObject> postProject(
             @Field("name_project") String name_project,
             @Field("verify") String verify,
             @Field("location") String location,
