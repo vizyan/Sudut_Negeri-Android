@@ -4,11 +4,7 @@ package com.qiscus.internship.sudutnegeri.ui.dashboard;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,9 +25,7 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.ui.project.ProjectActivity;
 import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
-import com.qiscus.sdk.data.model.QiscusChatRoom;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -165,11 +159,9 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
     public void successShowProjectByUser(List<DataProject> dataProjectList) {}
 
     @Override
-    public void failedShowProjectByVerify(String s) {}
+    public void failed(String s) {
 
-    @Override
-    public void failedShowProjectByUser() {}
-
+    }
 
     @Override
     public void onProjectClick(DataProject dataProject) {

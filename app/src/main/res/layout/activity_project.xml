@@ -93,7 +93,7 @@
         android:layout_marginStart="20dp"
         android:clickable="true"
         android:visibility="invisible"
-        android:backgroundTint="@color/red"
+        app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent" />
 
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="3dp"
                     android:hint="Target Date"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,14 +178,23 @@
                 <ProgressBar
                     android:id="@+id/pbProjectProgress"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="20dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:progressDrawable="@drawable/bg_progress"
+                    android:layout_marginTop="3dp"
+                    android:scaleY="3"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProjectProgress" />
+
+                <TextView
+                    android:id="@+id/tvProjectProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="3dp"
+                    android:hint="Text Progress"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvProjectTarget" />
 
@@ -195,10 +204,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="13dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Project Information \n"
                     android:textAlignment="center"
                     android:textSize="13dp"
-                    android:text="Project Information \n"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

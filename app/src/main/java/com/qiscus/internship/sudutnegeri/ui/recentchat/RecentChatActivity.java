@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.SudutNegeri;
 import com.qiscus.internship.sudutnegeri.adapter.recent.RecentAdapter;
@@ -29,14 +27,7 @@ import com.qiscus.sdk.data.model.QiscusChatRoom;
 import com.qiscus.sdk.data.model.QiscusComment;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.List;
-
-import retrofit2.HttpException;
 
 public class RecentChatActivity extends AppCompatActivity implements RecentChatView, RecentListener, RealTimeChatHandler.Listener{
 
@@ -187,28 +178,8 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
     }
 
     @Override
-    public void failedChatUser(Throwable throwable) {
-        if (throwable instanceof HttpException) {
-            HttpException e = (HttpException) throwable;
-            try {
-                String errorMessage = e.response().errorBody().string();
-                JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
-                String finalError = json.getString("message");
-                if (json.has("detailed_messages") ) {
-                    JSONArray detailedMessages = json.getJSONArray("detailed_messages");
-                    finalError = (String) detailedMessages.get(0);
-                }
-                Toast.makeText(RecentChatActivity.this, finalError, Toast.LENGTH_LONG).show();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-        } else if (throwable instanceof IOException) { //Error from network
-            Toast.makeText(RecentChatActivity.this, "Tidak dapat terkoneksi dengan server", Toast.LENGTH_LONG).show();
-        } else { //Unknown error
-            Toast.makeText(RecentChatActivity.this, "Kesalahan", Toast.LENGTH_LONG).show();
-        }
+    public void failed(String s) {
+
     }
 
     @Override

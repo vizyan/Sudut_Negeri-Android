@@ -6,27 +6,19 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,13 +33,8 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.chat.ChatActivity;
-import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
-import com.qiscus.sdk.Qiscus;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
-import com.qiscus.sdk.data.remote.QiscusApi;
-import com.qiscus.sdk.data.remote.QiscusPusherApi;
-import com.qiscus.sdk.ui.view.QiscusChatScrollListener;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -68,18 +55,19 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private DataProject dataProject;
     private DataUser dataUser;
     private Animator mCurrentAnimatorEffect;
+    private ProgressBar progressBar;
     private int mShortAnimationDurationEffect;
     Button btnProjectDonate;
     ConstraintLayout clProject;
     Date date;
     FloatingActionButton fabProjectChat, fabProjectUnverify;
     ImageView ivProjectPhoto, ivBigPhoto, ivProjectVerify;
-    int funds = 0;
+    int funds;
     JustifyTextView jtProjectInformation;
     ProgressBar pbProjectProgress;
     RelativeLayout rlBigPhoto;
     String param, postDate, verify;
-    TextView tvProjectName, tvProjectLocation, tvProjectTarget, tvProjectCreator, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType;
+    TextView tvProjectName, tvProjectLocation, tvProjectTarget, tvProjectCreator, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType, tvProjectProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +106,8 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         tvProjectLocation = findViewById(R.id.tvProjectLocation);
         tvProjectTarget = findViewById(R.id.tvProjectTarget);
         tvProjectCreator = findViewById(R.id.tvProjectCreator);
+        progressBar = findViewById(R.id.pbProjectProgress);
+        tvProjectProgress = findViewById(R.id.tvProjectProgress);
 
         mShortAnimationDurationEffect = getResources().getInteger(android.R.integer.config_shortAnimTime);
     }
@@ -140,12 +130,17 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         }
     }
 
+    private void initProgressBar(DataProject dataProject){
+        progressBar.setMax(dataProject.getTargetFunds());
+        progressBar.setProgress(dataProject.getFunds());
+    }
+
     private void putProject() {
         btnProjectDonate.setOnClickListener(v -> {
             if (param.equalsIgnoreCase("admin")){
                 projectPresenter.putProject(dataProject);
             } else if (param.equalsIgnoreCase("negeri")){
-                initDonate();
+                initDonate(dataProject);
             }
         });
     }
@@ -166,7 +161,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
             if (messsage.equals("success")){
                 View layout = inflater.inflate(R.layout.layout_popup_success, null);
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                pw.setOutsideTouchable(false);
+                pw.setOutsideTouchable(true);
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
                 tvPopupSMsg = layout.findViewById(R.id.tvPopupSMsg);
                 tvPopupSType = layout.findViewById(R.id.tvPopupSType);
@@ -208,8 +203,8 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         }
     }
 
-    private void initDonate() {
-
+    private void initDonate(DataProject dataProject) {
+        projectPresenter.putProject(dataProject);
     }
 
     private void setupDate(){
@@ -351,6 +346,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         tvProjectTarget.setText("Hingga : " +postDate);
         jtProjectInformation.setText(dataProject.getInformation() + "\n");
         verify = dataProject.getVerify().toString();
+        tvProjectProgress.setText("Target : Rp "+ dataProject.getFunds() +" / Rp "+ dataProject.getTargetFunds());
 
         if (verify.equalsIgnoreCase("yes")){
             ivProjectVerify.setBackgroundResource(R.drawable.ic_success);
@@ -367,6 +363,8 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         Picasso.with(ProjectActivity.this)
                 .load(dataProject.getPhoto())
                 .into(ivBigPhoto);
+
+        initProgressBar(dataProject);
     }
 
     @Override
@@ -379,12 +377,15 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     public void successPutProject(DataProject dataProject) {
         if (param.equalsIgnoreCase("admin")){
             popupWindow("success", param, "Verifikasi berhasil");
+        } else {
+            Toast.makeText(this, "Donasi Rp 500 berhasil", Toast.LENGTH_LONG).show();
+            initDataPresenter();
         }
     }
 
     @Override
     public int getFunds() {
-        return funds = funds + dataProject.getFunds();
+        return funds = 500 + dataProject.getFunds();
     }
 
     @Override
@@ -401,27 +402,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     }
 
     @Override
-    public void failedChatUser(Throwable throwable) {
-        if (throwable instanceof HttpException) {
-            HttpException e = (HttpException) throwable;
-            try {
-                String errorMessage = e.response().errorBody().string();
-                JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
-                String finalError = json.getString("message");
-                if (json.has("detailed_messages") ) {
-                    JSONArray detailedMessages = json.getJSONArray("detailed_messages");
-                    finalError = (String) detailedMessages.get(0);
-                }
-                Toast.makeText(ProjectActivity.this, finalError, Toast.LENGTH_LONG).show();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-        } else if (throwable instanceof IOException) { //Error from network
-            Toast.makeText(ProjectActivity.this, "Tidak dapat terkoneksi dengan server", Toast.LENGTH_LONG).show();
-        } else { //Unknown error
-            Toast.makeText(ProjectActivity.this, "Kesalahan", Toast.LENGTH_LONG).show();
-        }
+    public void failed(String s) {
+
     }
 }

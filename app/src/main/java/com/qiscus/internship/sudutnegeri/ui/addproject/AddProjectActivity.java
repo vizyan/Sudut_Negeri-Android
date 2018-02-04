@@ -4,28 +4,29 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
+import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.internship.sudutnegeri.util.Popup;
 
@@ -62,6 +63,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         initDataIntent();
 
         postProject();
+        reqPermission();
         setupDate();
         pickImage();
     }
@@ -156,6 +158,17 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
             return file;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    private void reqPermission(){
+        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED){
+
+        } else {
+            ActivityCompat.requestPermissions(AddProjectActivity.this,
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
         }
     }
 
@@ -312,9 +325,9 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
         });
     }
 
-    private void initPopupWindow(String messsage, String error) {
+    private void initPopupWindow(String parameter, String message) {
         popup = new Popup(this);
-        popup.PopupWindow(this, messsage, error);
+        popup.PopupWindow(this, parameter, message);
     }
 
     @Override
@@ -349,20 +362,14 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     }
 
     @Override
-    public void failedPostProject(String message) {
-        progressDialog.dismiss();
-        initPopupWindow("failed", message);
-    }
-
-    @Override
-    public void failedUploadFile() {
-        progressDialog.dismiss();
-        initPopupWindow("failed", "Tidak dapat mengunggah gambar");
-    }
-
-    @Override
     public int getTargetFunds() {
-        return 0;
+        return target_fund;
+    }
+
+    @Override
+    public void failed(String s) {
+        progressDialog.dismiss();
+        initPopupWindow("failed", s);
     }
 
     @Override

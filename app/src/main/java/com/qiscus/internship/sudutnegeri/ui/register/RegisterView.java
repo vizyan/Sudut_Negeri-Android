@@ -6,8 +6,6 @@ package com.qiscus.internship.sudutnegeri.ui.register;
 
 interface RegisterView {
 
-    void success(String message);
-
     String getName();
 
     String getEmail();
@@ -22,9 +20,7 @@ interface RegisterView {
 
     String getRetypePasswd();
 
-    void noConnection();
+    void failed(String s);
 
-    void failedRegister(String message, String error);
-
-    void failedUploadFile();
+    void successAddUser();
 }

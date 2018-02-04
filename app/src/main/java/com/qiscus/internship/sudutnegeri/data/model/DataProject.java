@@ -45,6 +45,9 @@ public class DataProject implements Parcelable {
     @SerializedName("funds")
     @Expose
     private Integer funds;
+    @SerializedName("target_funds")
+    @Expose
+    private Integer targetFunds;
     @SerializedName("difftime")
     @Expose
     private Integer difftime;
@@ -65,6 +68,7 @@ public class DataProject implements Parcelable {
         photo = in.readString();
         idUser = in.readInt();
         funds = in.readInt();
+        targetFunds = in.readInt();
     }
 
     public static final Creator<DataProject> CREATOR = new Creator<DataProject>() {
@@ -175,6 +179,15 @@ public class DataProject implements Parcelable {
         this.difftime = difftime;
     }
 
+
+    public Integer getTargetFunds() {
+        return targetFunds;
+    }
+
+    public void setTargetFunds(Integer targetFunds) {
+        this.targetFunds = targetFunds;
+    }
+
     @Override
     public String toString() {
         return "DataProject{" +
@@ -185,8 +198,10 @@ public class DataProject implements Parcelable {
                 ", location='" + location + '\'' +
                 ", information='" + information + '\'' +
                 ", photo='" + photo + '\'' +
+                ", target_at='" + targetAt + '\'' +
                 ", id_user='" + idUser + '\'' +
                 ", funds='" + funds + '\'' +
+                ", target_funds='" + targetFunds + '\'' +
                 '}';
     }
 
@@ -213,5 +228,7 @@ public class DataProject implements Parcelable {
         dest.writeString(photo);
         dest.writeInt(idUser);
         dest.writeInt(funds);
+        dest.writeInt(targetFunds);
     }
+
 }

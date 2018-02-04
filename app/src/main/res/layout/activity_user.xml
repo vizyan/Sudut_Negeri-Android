@@ -79,8 +79,7 @@
                         android:layout_marginTop="65dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/logo_blue" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
 
                 <Button
@@ -156,7 +155,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/bg_rounded_trans_purple"
+                            android:background="@drawable/bg_rounded_solid_purple"
                             android:ems="10"
                             android:paddingStart="3dp"
                             android:paddingEnd="3dp"
@@ -181,7 +180,7 @@
                             android:layout_marginTop="5dp"
                             android:paddingStart="3dp"
                             android:paddingEnd="3dp"
-                            android:background="@drawable/bg_rounded_trans_purple"
+                            android:background="@drawable/bg_rounded_solid_purple"
                             android:ems="10"
                             android:gravity="center"
                             android:inputType="textNoSuggestions|number"

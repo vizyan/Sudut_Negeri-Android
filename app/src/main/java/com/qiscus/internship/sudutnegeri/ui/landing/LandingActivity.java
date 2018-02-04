@@ -39,6 +39,7 @@ import java.util.List;
 
 public class LandingActivity extends AppCompatActivity implements LandingView, ProjectListener {
 
+    private List<DataProject> dataProjects;
     private LandingPresenter landingPresenter;
     private ProjectAdapter projectAdapter;
     private Toolbar toolbar;
@@ -55,6 +56,7 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
         initPresenter();
         initView();
         initDataPresenter();
+        initAdapter();
         setupToolbar();
         setSupportActionBar(toolbar);
 
@@ -95,6 +97,12 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
         landingPresenter.getDonation();
     }
 
+    private void initAdapter(){
+        projectAdapter = new ProjectAdapter(dataProjects);
+        projectAdapter.setAdapterListener(this);
+        rvLand.setLayoutManager(new LinearLayoutManager(this));
+        rvLand.setAdapter(projectAdapter);
+    }
     private void rergister() {
         btnLandReg.setOnClickListener(v -> {
             Intent list = new Intent(LandingActivity.this, RegisterActivity.class);
@@ -114,15 +122,18 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
         if (dataProject.size()>0){
             tvLandingNoData.setVisibility(View.GONE);
         }
-        projectAdapter = new ProjectAdapter(dataProject);
-        projectAdapter.setAdapterListener(this);
-        rvLand.setLayoutManager(new LinearLayoutManager(this));
-        rvLand.setAdapter(projectAdapter);
+        this.dataProjects = dataProject;
+        initAdapter();
     }
 
     @Override
     public void successDonation(String donation) {
         tvLandCount.setText("Total donasi terkumpul Rp " + donation);
+    }
+
+    @Override
+    public void failed(String s) {
+
     }
 
     @Override

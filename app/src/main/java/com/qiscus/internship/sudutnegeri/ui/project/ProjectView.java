@@ -22,5 +22,5 @@ public interface ProjectView {
 
     void successChatUser(QiscusChatRoom qiscusChatRoom);
 
-    void failedChatUser(Throwable throwable);
+    void failed(String s);
 }

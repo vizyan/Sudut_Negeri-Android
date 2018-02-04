@@ -1,61 +1,53 @@
 package com.qiscus.internship.sudutnegeri.ui.user;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.ui.about.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
-import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
+import com.qiscus.internship.sudutnegeri.ui.splashscreen.SplashscreenActivity;
 import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.internship.sudutnegeri.util.Popup;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
-import java.util.Date;
-
-public class UserActivity extends AppCompatActivity implements UserView {
+public class UserActivity extends AppCompatActivity implements UserView, Popup.PopupListener {
 
     private UserPresenter userPresenter;
     private DataUser dataUser;
     Button btnUserSave, btnDrawerLogout, btnUserUnverify;
     DrawerLayout drawerLayout;
     EditText etUserName, etUserEmail, etUserIdNumber, etUserAddress, etUserPhone;
-    ImageView ivDrawerPhoto, ivUserPhoto;
+    ImageView ivDrawerPhoto, ivUserPhoto, ivBack;
     NavigationView navigationView;
+    ProgressDialog progressDialog;
     String email, passwd, param, name, phone, address;
-    TextView title, tvDrawerName, tvPopupFMsg, tvPopupFType, tvPopupSMsg, tvPopupSType;
+    TextView title, tvDrawerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +56,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
         setContentView(R.layout.activity_user);
         setTitle("");
         initPresenter();
-        initPreference();
         initView();
         initNavigation();
         initDataIntent();
@@ -75,6 +66,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         putUser();
         logout();
         unverifyUser();
+        backPressed();
     }
 
     @Override
@@ -92,10 +84,24 @@ public class UserActivity extends AppCompatActivity implements UserView {
         userPresenter = new UserPresenter(this);
     }
 
-    private void initPreference(){
+    private void initDataPreference(){
+        Gson gson = new Gson();
         SharedPreferences preferences = getSharedPreferences("LoginPreference", MODE_PRIVATE);
         email = preferences.getString("email", "");
         passwd = preferences.getString("password", "");
+        String DataUser = preferences.getString("DataUser", "");
+        dataUser = gson.fromJson(DataUser, DataUser.class);
+        setData(dataUser);
+    }
+
+    private void savePreference(DataUser dataUser){
+        Gson gson = new Gson();
+        String DataUser = gson.toJson(dataUser);
+        SharedPreferences preferences = getSharedPreferences("LoginPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("DataUser", DataUser);
+        editor.commit();
+        editor.apply();
     }
 
     private void initView() {
@@ -110,6 +116,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
         tvDrawerName = findViewById(R.id.tvDrawerName);
         ivDrawerPhoto = findViewById(R.id.ivDrawerUser);
         ivUserPhoto = findViewById(R.id.ivUserPhoto);
+        ivBack = findViewById(R.id.ivBack);
         btnDrawerLogout = findViewById(R.id.btnDrawerLogout);
         drawerLayout = findViewById(R.id.dlUser);
         navigationView = findViewById(R.id.nvUser);
@@ -147,10 +154,16 @@ public class UserActivity extends AppCompatActivity implements UserView {
     private void initDataIntent() {
         dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
         param = getIntent().getStringExtra(Constant.Extra.param);
-        if (dataUser == null) finish();
+        if (param.equalsIgnoreCase("admin")){
+
+        } else {
+            initDataPreference();
+        }
+        if (param == null) finish();
     }
 
     private void initDataPresenter(){
+        initProgressDialog();
         userPresenter.getUserById(dataUser);
     }
 
@@ -187,65 +200,40 @@ public class UserActivity extends AppCompatActivity implements UserView {
         phone = etUserPhone.getText().toString();
     }
 
+    private void initProgressDialog(){
+        progressDialog = new ProgressDialog(UserActivity.this);
+        progressDialog.setTitle(null);
+        progressDialog.setMessage("Tunggu beberapa saat");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
     private void putUser() {
         btnUserSave.setOnClickListener(v ->  {
             initVariable();
+            initProgressDialog();
             userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
         });
     }
 
     private void unverifyUser(){
-        btnUserUnverify.setOnClickListener(v -> userPresenter.unverifyUser(dataUser.getId()));
+        btnUserUnverify.setOnClickListener(v -> {
+            initProgressDialog();
+            userPresenter.unverifyUser(dataUser.getId());
+        });
     }
 
-    private void popupWindow(String messsage, String param, String verify) {
-        try {
-            LayoutInflater inflater = (LayoutInflater) UserActivity.this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            if (messsage.equals("success")){
-                View layout = inflater.inflate(R.layout.layout_popup_success, null);
-                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                pw.setOutsideTouchable(true);
-                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                tvPopupSMsg = layout.findViewById(R.id.tvPopupSMsg);
-                tvPopupSType = layout.findViewById(R.id.tvPopupSType);
-                if(param.equalsIgnoreCase("admin")){
-
-                    tvPopupSType.setText(verify);
-                    tvPopupSMsg.setText("Atas nama " + dataUser.getName());
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
-                            Intent admin = new Intent(UserActivity.this, AdminActivity.class);
-                            startActivity(admin);
-                            UserActivity.this.finish();
-                        }
-
-                        private void finish() {
-                            // TODO Auto-generated method stub
-
-                        }
-                    }, 1000);
-                } else {
-                    tvPopupSType.setText("Selamat");
-                    tvPopupSMsg.setText("Profil anda berhasil diperbarui");
-                }
-            } else {
-                View layout = inflater.inflate(R.layout.layout_popup_failed, null);
-                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                tvPopupFMsg = layout.findViewById(R.id.tvPopupFMsg);
-                tvPopupFType = layout.findViewById(R.id.tvPopupFType);
-                tvPopupFMsg.setText(messsage);
-                tvPopupFType.setText("Gagal merubah profil");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void setData(DataUser dataUser){
+        etUserName.setText(dataUser.getName());
+        etUserEmail.setText(dataUser.getEmail());
+        etUserIdNumber.setText(dataUser.getIdentityNumber());
+        etUserAddress.setText(dataUser.getAddress());
+        etUserPhone.setText(dataUser.getPhone());
+        Picasso.with(this)
+                .load(dataUser.getPhoto())
+                .transform(new CircleTransform())
+                .into(ivUserPhoto);
     }
 
     private void logout(){
@@ -260,6 +248,20 @@ public class UserActivity extends AppCompatActivity implements UserView {
                 builder.setNegativeButton("Tidak", null);
                 builder.show();
         });
+    }
+
+    private void backPressed(){
+        ivBack.setOnClickListener(v -> {
+            if (param.equalsIgnoreCase("admin")){
+                finish();
+            } else {
+                Intent dashboard = new Intent(UserActivity.this, DashboardActivity.class);
+                dashboard.putExtra(Constant.Extra.DATA, dataUser);
+                startActivity(dashboard);
+                finish();
+            }
+        });
+
     }
 
     @Override
@@ -283,36 +285,33 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     @Override
-    public String getAddress() {
-        return etUserAddress.getText().toString();
+    public void successUnverify() {
+        progressDialog.dismiss();
+        Popup popup = new Popup(this);
+        popup.PopupWindow(this, "success", "Akun ditolak");
     }
 
     @Override
-    public void successUnverify(ResultUser resultUser) {
-        popupWindow("success", param, "Tidak diverifikasi");
-    }
-
-    @Override
-    public String getVerify() {
-        return dataUser.getVerify();
+    public void failed(String s) {
+        progressDialog.dismiss();
     }
 
     @Override
     public void successUserbyId(DataUser dataUser) {
-        etUserName.setText(dataUser.getName());
-        etUserEmail.setText(dataUser.getEmail());
-        etUserIdNumber.setText(dataUser.getIdentityNumber());
-        etUserAddress.setText(dataUser.getAddress());
-        etUserPhone.setText(dataUser.getPhone());
-        Picasso.with(this)
-                .load(dataUser.getPhoto())
-                .transform(new CircleTransform())
-                .into(ivUserPhoto);
+        progressDialog.dismiss();
+        setData(dataUser);
     }
 
     @Override
     public void successPutUser(DataUser dataUser) {
-        popupWindow("success", param, "Verifikasi berhasil");
+        progressDialog.dismiss();
+        Popup popup = new Popup(this);
+        if (param.equalsIgnoreCase("admin")){
+            popup.PopupWindow(this, "success", "Verifikasi berhasil");
+        } else {
+            savePreference(dataUser);
+            popup.PopupWindow(this, "success", "Akun berhasil diperbarui");
+        }
         this.dataUser = dataUser;
         initDataDrawer();
     }
@@ -324,4 +323,23 @@ public class UserActivity extends AppCompatActivity implements UserView {
         finish();
     }
 
+    @Override
+    public void PopupSuccess() {
+        if (param.equalsIgnoreCase("admin")){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    Intent admin = new Intent(UserActivity.this, AdminActivity.class);
+                    startActivity(admin);
+                    UserActivity.this.finish();
+                }
+
+                private void finish() {
+                    // TODO Auto-generated method stub
+
+                }
+            }, 1000);
+        }
+    }
 }

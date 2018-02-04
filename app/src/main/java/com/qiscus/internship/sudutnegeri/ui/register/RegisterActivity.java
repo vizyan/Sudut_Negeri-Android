@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,11 +13,15 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,20 +35,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.qiscus.internship.sudutnegeri.Manifest;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
 import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.internship.sudutnegeri.util.Popup;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.List;
 import java.util.Random;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterView {
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class RegisterActivity extends AppCompatActivity implements RegisterView, Popup.PopupListener{
 
     private RegisterPresenter registerPresenter;
     private Uri uri;
@@ -55,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     ProgressDialog progressDialog;
     RelativeLayout rvReg;
     String passwd, retypepasswd, email, name, idNo, address, phone, random;
-    TextView tvPopupMsg, tvPopupType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         initAnimation();
 
         login();
+        reqPermission();
         pickPhoto();
         register();
     }
@@ -125,6 +135,19 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         phone = etRegPhone.getText().toString();
     }
 
+    private void reqPermission(){
+        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED){
+
+        } else {
+            ActivityCompat.requestPermissions(RegisterActivity.this,
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
+    }
+
+
+
     private void login() {
         btnRegLog.setOnClickListener(v -> {
             Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -164,9 +187,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String filePath;
         if(requestCode == 200 && resultCode == Activity.RESULT_OK) {
             uri = data.getData();
-            String filePath = getRealPathFromURIPath(uri, RegisterActivity.this);
+            filePath = getRealPathFromURIPath(uri, RegisterActivity.this);
             file = new File(filePath);
             newFile = saveBitmapToFile(file);
             Picasso.with(this)
@@ -174,6 +198,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                     .transform(new CircleTransform())
                     .into(ivRegPhoto);
         }
+
     }
 
     private String getRealPathFromURIPath(Uri uri, RegisterActivity registerActivity) {
@@ -219,6 +244,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
             return file;
         } catch (Exception e) {
+            Log.e("REduce bitmap", "" + e.getMessage());
             return null;
         }
     }
@@ -254,45 +280,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         }
     }
 
-    private void initPopupWindow(String messsage, String error) {
-        try {
-            LayoutInflater inflater = (LayoutInflater) RegisterActivity.this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            if (messsage.equals("success")){
-                View layout = inflater.inflate(R.layout.layout_popup_success,
-                        null);
-                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, false);
-                pw.setOutsideTouchable(false);
-                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                        Intent admin = new Intent(RegisterActivity.this, LandingActivity.class);
-                        startActivity(admin);
-                        finish();
-                    }
-
-                    private void finish() {
-                        // TODO Auto-generated method stub
-
-                    }
-                }, 1000);
-
-            } else {
-                View layout = inflater.inflate(R.layout.layout_popup_failed, null);
-                final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
-                tvPopupType = layout.findViewById(R.id.tvPopupFType);
-                tvPopupMsg.setText(error);
-                tvPopupType.setText("Gagal Bergabung");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void initPopup(String parameter, String message){
+        Popup popup = new Popup(this);
+        popup.PopupWindow(this, parameter, message);
     }
 
     @NonNull
@@ -461,32 +451,39 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     @Override
-    public void success(String message) {
+    public void failed(String s) {
         progressDialog.dismiss();
-        initPopupWindow(message, null);
-    }
-
-    @Override
-    public void noConnection() {
-        initPopupWindow("failed", "Tidak ada sambungan");
-    }
-
-    @Override
-    public void failedRegister(String message, String error) {
-        progressDialog.dismiss();
-        initPopupWindow(message, error);
-        if (error.equalsIgnoreCase("Email sudah digunakan")){
+        initPopup("failed", s);
+        if (s.equalsIgnoreCase("Email sudah digunakan")){
             etRegEmail.setText("");
             etRegEmail.setBackgroundResource(R.drawable.bg_rounded_trans_white);
-        } else if (error.equalsIgnoreCase("No KTP sudah digunakan")){
+        } else if (s.equalsIgnoreCase("No KTP sudah digunakan")){
             etRegIdNo.setText("");
             etRegIdNo.setBackgroundResource(R.drawable.bg_rounded_trans_white);
         }
     }
 
     @Override
-    public void failedUploadFile() {
-        Toast.makeText(this, "Hmm", Toast.LENGTH_LONG).show();
+    public void successAddUser() {
+        progressDialog.dismiss();
+        initPopup("success", "Tunggu konfirmasi admin");
     }
 
+    @Override
+    public void PopupSuccess() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                Intent admin = new Intent(RegisterActivity.this, LandingActivity.class);
+                startActivity(admin);
+                finish();
+            }
+
+            private void finish() {
+                // TODO Auto-generated method stub
+
+            }
+        }, 1000);
+    }
 }

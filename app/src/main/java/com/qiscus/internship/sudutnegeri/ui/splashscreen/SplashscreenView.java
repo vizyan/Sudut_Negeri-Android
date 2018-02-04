@@ -12,9 +12,7 @@ interface SplashscreenView {
 
     String getEmail();
 
-    void notLogin();
-
     void successUser(DataUser data);
 
-    void failedQiscus(Throwable throwable);
+    void failed(String s);
 }

@@ -53,7 +53,6 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         email = preferences.getString("email", "");
         passwd = preferences.getString("password", "");
         if (email.isEmpty()){
-            progressDialog.dismiss();
             Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
             startActivity(landing);
             finish();
@@ -68,6 +67,10 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     private void initDataPresenter(){
         splashscreenPresenter.loginUser();
+        initProgressDialog();
+    }
+
+    private void initProgressDialog(){
         progressDialog = new ProgressDialog(SplashscreenActivity.this);
         progressDialog.setTitle(null);
         progressDialog.setMessage("Menyiapkan data");
@@ -87,16 +90,8 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
     }
 
     @Override
-    public void notLogin() {
-        progressDialog.dismiss();
-        Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
-        startActivity(landing);
-        finish();
-    }
-
-    @Override
     public void successUser(DataUser data) {
-        progressDialog.dismiss();
+        if (progressDialog.isShowing()) progressDialog.dismiss();
         Intent login = new Intent(SplashscreenActivity.this, DashboardActivity.class);
         login.putExtra(Constant.Extra.DATA, data);
         startActivity(login);
@@ -104,8 +99,8 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
     }
 
     @Override
-    public void failedQiscus(Throwable throwable) {
-        Toast.makeText(SplashscreenActivity.this, "Tidak ada koneksi", Toast.LENGTH_LONG).show();
+    public void failed(String s) {
+        if (progressDialog.isShowing()) progressDialog.dismiss();
         Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
         startActivity(landing);
         finish();

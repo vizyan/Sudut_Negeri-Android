@@ -2,8 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.register;
 
 import android.util.Log;
 
-import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
+import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.UploadObject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
@@ -15,6 +14,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Vizyan on 1/10/2018.
@@ -29,6 +30,7 @@ public class RegisterPresenter {
     }
 
     public void addUser(String path){
+        String tag = "Register-addUser";
         String name = registerView.getName();
         String email = registerView.getEmail();
         String password = registerView.getPassword();
@@ -41,32 +43,35 @@ public class RegisterPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .register(name, email, password, retypepasswd, noIdentity, address, phone, "no", photo)
-                .enqueue(new Callback<ResultUser>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            ResultUser resultUser = response.body();
-                            String message = resultUser.getMessage();
-                            String error = resultUser.getError();
-
-                            if(message.equals("success")){
-                                registerView.success(message);
+                            JsonObject body = response.body();
+                            String message = body.get("message").getAsString();
+                            if (message.equalsIgnoreCase("success")){
+                                registerView.successAddUser();
                             } else {
-                                registerView.failedRegister(message, error);
-                                Log.d(null, message);
+                                String data = body.get("data").getAsString();
+                                registerView.failed(data);
                             }
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            registerView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
-
                     }
 
                     @Override
-                    public void onFailure(Call<ResultUser> call, Throwable t) {
-                        registerView.noConnection();
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        registerView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }
 
     public void uploadFile(File file, String random){
+        String tag = "Register-uploadFile";
         RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", random + file.getName(), mFile);
         RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), random + file.getName());
@@ -80,12 +85,17 @@ public class RegisterPresenter {
                             UploadObject uploadObject = response.body();
                             String path = uploadObject.getSuccess();
                             addUser(path);
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            registerView.failed("Tidak dapat mengunggah gambar");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<UploadObject> call, Throwable t) {
-                        registerView.failedUploadFile();
+                        registerView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }

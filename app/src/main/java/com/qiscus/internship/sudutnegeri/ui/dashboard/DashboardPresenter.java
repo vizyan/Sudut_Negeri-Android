@@ -8,12 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
-import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
-import com.qiscus.sdk.data.model.QiscusChatRoom;
-import com.qiscus.sdk.data.remote.QiscusApi;
-import com.qiscus.sdk.util.QiscusRxExecutor;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -37,6 +32,7 @@ public class DashboardPresenter {
     }
 
     public void getProjectByVerify(){
+        String tag = "Dashboard-getPByVerify";
         RetrofitClient.getInstance()
                 .getApi()
                 .getProjectByVerify("yes")
@@ -49,43 +45,52 @@ public class DashboardPresenter {
                             Type type = new TypeToken<List<DataProject>>(){}.getType();
                             List<DataProject> dataProjects = new Gson().fromJson(array, type);
                             dashboardView.successShowProjectVerify(dataProjects);
-                            Log.d(TAG, response.body().toString());
+                            Log.d(tag, response.body().toString());
                         } else {
-                            dashboardView.failedShowProjectByVerify(response.errorBody().toString());
-                            Log.d(TAG, response.errorBody().toString());
+                            dashboardView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        dashboardView.failedShowProjectByVerify("Tidak ada koneksi");
-                        Log.d(TAG, t.getMessage());
+                        dashboardView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }
 
     public void getProjectByUser(DataUser dataUser){
+        String tag = "Dashboard-getPByUser";
         RetrofitClient.getInstance()
                 .getApi()
                 .getProjectByUser(dataUser.getId())
-                .enqueue(new Callback<ResultListProject>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultListProject> call, Response<ResultListProject> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            ResultListProject resultListProject = response.body();
-                            List<DataProject> dataProjectList = resultListProject.getData();
-                            dashboardView.successShowProjectByUser(dataProjectList);
+                            JsonObject body = response.body();
+                            JsonArray array = body.get("data").getAsJsonArray();
+                            Type type = new TypeToken<List<DataProject>>(){}.getType();
+                            List<DataProject> dataProjects = new Gson().fromJson(array, type);
+                            dashboardView.successShowProjectByUser(dataProjects);
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            dashboardView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultListProject> call, Throwable t) {
-                        dashboardView.failedShowProjectByUser();
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        dashboardView.failed("Maaf terjadi kesalahan");
+                        Log.d(TAG, t.getMessage());
                     }
                 });
     }
 
     public void logout(){
+        String tag = "Dashboard-logout";
         String email = dashboardView.getEmail();
         String password = dashboardView.getPassword();
 
@@ -97,12 +102,17 @@ public class DashboardPresenter {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
                             dashboardView.successLogout();
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            dashboardView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        t.printStackTrace();
+                        dashboardView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }

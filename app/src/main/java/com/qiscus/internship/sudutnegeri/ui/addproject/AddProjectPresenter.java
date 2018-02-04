@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
 import com.qiscus.internship.sudutnegeri.data.model.UploadObject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
@@ -33,6 +32,7 @@ public class AddProjectPresenter {
     }
 
     public void postProject(DataUser dataUser, String path){
+        String tag = "AddProject-postProject";
         String name = addProjectView.getProjectName();
         String location = addProjectView.getLocation();
         String target_at = addProjectView.getTarget();
@@ -50,22 +50,23 @@ public class AddProjectPresenter {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
                             addProjectView.successPostProject();
-                            Log.d(TAG, response.body().toString());
+                            Log.d(tag, response.body().toString());
                         } else {
-                            addProjectView.failedPostProject("Maaf terjadi kesalahan");
-                            Log.d(TAG, response.errorBody().toString());
+                            addProjectView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        addProjectView.failedPostProject("Tidak ada koneksi");
-                        Log.d(TAG, t.getMessage());
+                        addProjectView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }
 
     public void uploadFile(File file, DataUser dataUser, String random){
+        String tag = "AddProject-uploadFile";
         RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", random + file.getName(), mFile);
         RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), random + file.getName());
@@ -79,17 +80,17 @@ public class AddProjectPresenter {
                             UploadObject uploadObject = response.body();
                             String path = uploadObject.getSuccess();
                             postProject(dataUser, path);
-                            Log.d(TAG, response.body().toString());
+                            Log.d(tag, response.body().toString());
                         } else {
-                            addProjectView.failedUploadFile();
-                            Log.d(TAG, response.errorBody().toString());
+                            addProjectView.failed("Tidak dapat mengunggah gambar");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<UploadObject> call, Throwable t) {
-                        addProjectView.failedUploadFile();
-                        Log.d(TAG, t.getMessage());
+                        addProjectView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }

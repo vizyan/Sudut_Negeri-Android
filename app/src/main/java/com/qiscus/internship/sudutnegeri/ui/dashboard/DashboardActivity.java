@@ -1,13 +1,8 @@
 package com.qiscus.internship.sudutnegeri.ui.dashboard;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -19,7 +14,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,9 +29,7 @@ import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.user.UserActivity;
 import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
-import com.qiscus.sdk.data.model.QiscusChatRoom;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -269,9 +261,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     public void successShowProjectByUser(List<DataProject> dataProjectList) {}
 
     @Override
-    public void failedShowProjectByVerify(String s) {}
+    public void failed(String s) {
 
-    @Override
-    public void failedShowProjectByUser() {}
+    }
 
 }

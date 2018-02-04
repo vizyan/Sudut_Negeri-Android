@@ -1,5 +1,6 @@
 package com.qiscus.internship.sudutnegeri.ui.login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,12 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
+import com.qiscus.internship.sudutnegeri.ui.splashscreen.SplashscreenActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
+import com.qiscus.internship.sudutnegeri.util.Popup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,15 +39,15 @@ import java.io.IOException;
 
 import retrofit2.HttpException;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class LoginActivity extends AppCompatActivity implements LoginView, Popup.PopupListener {
 
-    private static final String TAG = "" ;
     private LoginPresenter loginPresenter;
+    private Popup popup;
+    private ProgressDialog progressDialog;
     RelativeLayout rvLog;
     AnimationDrawable animationDrawable;
     Button btnLogLog, btnLogReg;
     EditText etLogEmail, etLogPasswd;
-    TextView tvPopupMsg, tvPopupType;
     String email, passwd;
 
     @Override
@@ -82,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         btnLogReg = findViewById(R.id.btnLogReg);
         etLogEmail = findViewById(R.id.etLogEmail);
         etLogPasswd = findViewById(R.id.etLogPasswd);
+        popup = new Popup(this);
     }
 
     private void initPresenter() {
@@ -99,8 +104,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         btnLogLog.setOnClickListener(v ->  {
             if(validation()==true){
                 if(email.equals("snqiscus@gmail.com")){
+                    initProgressDialog();
                     loginPresenter.loginAdmin();
                 } else {
+                    initProgressDialog();
                     loginPresenter.loginUser();
                 }
             }
@@ -118,6 +125,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private void initVariable(){
         email = etLogEmail.getText().toString();
         passwd = etLogPasswd.getText().toString();
+    }
+
+    private void initProgressDialog(){
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setTitle(null);
+        progressDialog.setMessage("Tunggu beberapa saat");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     private boolean validation(){
@@ -170,28 +186,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
     }
 
-    private void initPopupWindow(String messsage) {
-        try {
-            LayoutInflater inflater = (LayoutInflater) LoginActivity.this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.layout_popup_failed, null);
-            final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-            pw.setOutsideTouchable(false);
-            pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
-            tvPopupType = layout.findViewById(R.id.tvPopupFType);
-            tvPopupMsg.setText(messsage);
-            tvPopupType.setText("Gagal Masuk");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void initPreference(){
+    private void savePreference(DataUser dataUser){
+        Gson gson = new Gson();
+        String DataUser = gson.toJson(dataUser);
         SharedPreferences preferences = getSharedPreferences("LoginPreference", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("email", email);
         editor.putString("password", passwd);
+        editor.putString("DataUser", DataUser);
         editor.commit();
         editor.apply();
     }
@@ -207,32 +209,25 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void failed() {
-        initPopupWindow("Email atau kata sandi salah");
+    public void failed(String message) {
+        progressDialog.dismiss();
+        popup.PopupWindow(this, "failed", message);
     }
 
     @Override
-    public void noConnection() {
-        initPopupWindow("Tidak ada sambungan");
-    }
-
-    @Override
-    public void notVerified() {
-        initPopupWindow("Akun belum diverifikasi");
-    }
-
-    @Override
-    public void successUser(DataUser data) {
-        initPreference();
+    public void successUser(DataUser dataUser) {
+        progressDialog.dismiss();
+        savePreference(dataUser);
 
         Intent login = new Intent(LoginActivity.this, DashboardActivity.class);
-        login.putExtra(Constant.Extra.DATA, data);
+        login.putExtra(Constant.Extra.DATA, dataUser);
         startActivity(login);
         finish();
     }
 
     @Override
     public void successAdmin(DataUser dataUser) {
+        progressDialog.dismiss();
         Intent login = new Intent(LoginActivity.this, AdminActivity.class);
         login.putExtra(Constant.Extra.DATA, dataUser);
         startActivity(login);
@@ -240,28 +235,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void failedQiscuss(Throwable throwable) {
-        if (throwable instanceof HttpException) {
-            HttpException e = (HttpException) throwable;
-            try {
-                String errorMessage = e.response().errorBody().string();
-                JSONObject json = new JSONObject(errorMessage).getJSONObject("error");
-                String finalError = json.getString("message");
-                if (json.has("detailed_messages") ) {
-                    JSONArray detailedMessages = json.getJSONArray("detailed_messages");
-                    finalError = (String) detailedMessages.get(0);
-                }
-                Log.e(TAG, errorMessage);
-                Toast.makeText(LoginActivity.this, finalError, Toast.LENGTH_LONG).show();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-        } else if (throwable instanceof IOException) { //Error from network
-            Log.d(null, "dunno1");
-        } else { //Unknown error
-            Log.d(null, "dunno2");
-        }
+    public void PopupSuccess() {
+
     }
 }

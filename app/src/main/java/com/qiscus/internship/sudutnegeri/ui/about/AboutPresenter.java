@@ -3,7 +3,6 @@ package com.qiscus.internship.sudutnegeri.ui.about;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
-import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
 
 import retrofit2.Call;
@@ -24,6 +23,7 @@ public class AboutPresenter {
     }
 
     public void logout(){
+        String tag = "About-logout";
         String email = aboutView.getEmail();
         String passwd = aboutView.getPasswd();
 
@@ -35,17 +35,17 @@ public class AboutPresenter {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if(response.isSuccessful()){
                             aboutView.successLogout();
-                            Log.d(TAG, response.body().toString());
+                            Log.d(tag, response.body().toString());
                         } else {
-                            aboutView.failedLogout();
-                            Log.d(TAG, response.errorBody().toString());
+                            aboutView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        aboutView.failedLogout();
-                        Log.d(TAG, t.getMessage());
+                        aboutView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }

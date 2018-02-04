@@ -12,4 +12,6 @@ public interface LandingView {
     void successShowProjectByTime(List<DataProject> dataProject);
 
     void successDonation(String donation);
+
+    void failed(String s);
 }

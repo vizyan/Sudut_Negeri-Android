@@ -12,15 +12,10 @@ interface LoginView {
 
     String getEmail();
 
-    void failed();
-
-    void noConnection();
-
-    void notVerified();
-
     void successUser(DataUser data);
 
     void successAdmin(DataUser dataUser);
 
-    void failedQiscuss(Throwable throwable);
+    void failed(String message);
+
 }

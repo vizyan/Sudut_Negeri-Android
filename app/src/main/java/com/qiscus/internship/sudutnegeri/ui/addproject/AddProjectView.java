@@ -15,11 +15,9 @@ interface AddProjectView {
 
     String getPhoto();
 
+    int getTargetFunds();
+
     void successPostProject();
 
-    void failedPostProject(String message);
-
-    void failedUploadFile();
-
-    int getTargetFunds();
+    void failed(String s);
 }

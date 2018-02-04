@@ -64,6 +64,10 @@ public class DataUser implements Parcelable {
     @Expose
     private String photo;
 
+    public DataUser(){
+
+    }
+
     protected DataUser(Parcel in) {
         if (in.readByte() == 0) {
             id = null;

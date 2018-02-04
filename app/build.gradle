@@ -35,27 +35,30 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     //network json
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     //loader
-    compile 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
 
     //design
-    compile 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
 
     //load picture
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //Qiscus SDK chat
-    compile 'com.qiscus.sdk:chat:2.20.0'
+    implementation 'com.qiscus.sdk:chat:2.20.0'
 
     //Justify Text
-    compile 'me.biubiubiu.justifytext:library:1.1'
+    implementation 'me.biubiubiu.justifytext:library:1.1'
 
     //Firebase
     implementation 'com.google.firebase:firebase-core:11.0.4'
     implementation 'com.google.firebase:firebase-messaging:11.0.4'
+
+    //permission
+    implementation 'pub.devrel:easypermissions:0.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

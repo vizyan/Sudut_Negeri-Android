@@ -9,9 +9,9 @@
     app:elevation="0dp">
 
     <ImageView
-        android:id="@+id/ivToolbarBack"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/ic_keyboard_backspace_white_24dp" />
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_qiscus_back" />
 
 </android.support.v7.widget.Toolbar>

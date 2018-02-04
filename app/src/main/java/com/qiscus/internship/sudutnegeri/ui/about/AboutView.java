@@ -12,6 +12,5 @@ interface AboutView {
 
     void successLogout();
 
-    void failedLogout();
-
+    void failed(String s);
 }

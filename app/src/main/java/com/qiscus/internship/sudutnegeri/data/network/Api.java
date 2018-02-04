@@ -1,15 +1,7 @@
 package com.qiscus.internship.sudutnegeri.data.network;
 
 import com.google.gson.JsonObject;
-import com.qiscus.internship.sudutnegeri.data.model.DataProject;
-import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultListProject;
-import com.qiscus.internship.sudutnegeri.data.model.ResultProject;
-import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultListUser;
 import com.qiscus.internship.sudutnegeri.data.model.UploadObject;
-
-import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -18,14 +10,12 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by vizyan on 02/01/18.
@@ -36,10 +26,10 @@ public interface Api {
     @Headers("Content-Type: application/json")
 
     @GET("api/users")
-    Call<ResultListUser> getAllUser();
+    Call<JsonObject> getAllUser();
 
     @GET("api/projects")
-    Call<ResultListProject> getAllPorject();
+    Call<JsonObject> getAllPorject();
 
     @GET("api/landings")
     Call<JsonObject> getPorjectTime();
@@ -60,24 +50,24 @@ public interface Api {
     );
 
     @GET("api/users/{id}")
-    Call<ResultUser> getUser(
+    Call<JsonObject> getUser(
             @Path("id") int id
     );
 
     @GET("api/projects/{id}")
-    Call<ResultProject> getProject(
+    Call<JsonObject> getProject(
             @Path("id") int id
     );
 
     @GET("api/details/creator/{id}")
-    Call<ResultListProject> getProjectByUser(
+    Call<JsonObject> getProjectByUser(
             @Path("id") int id
     );
 
     //Update user
     @FormUrlEncoded
     @PUT("api/users/{id}")
-    Call<ResultUser> putUser(
+    Call<JsonObject> putUser(
             @Path("id") int id,
             @Field("name") String name,
             @Field("address") String address,
@@ -88,7 +78,7 @@ public interface Api {
     //Update project
     @FormUrlEncoded
     @PUT("api/projects/{id}")
-    Call<ResultProject> putProject(
+    Call<JsonObject> putProject(
             @Path("id") int id,
             @Field("name_project") String name_project,
             @Field("verify") String verify,
@@ -102,7 +92,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("api/register")
-    Call<ResultUser> register(
+    Call<JsonObject> register(
             @Field("name") String name,
             @Field("email") String email,
             @Field("password") String password,
@@ -132,7 +122,7 @@ public interface Api {
     //generate token
     @FormUrlEncoded
     @POST("api/login/user")
-    Call<ResultUser> loginUser(
+    Call<JsonObject> loginUser(
             @Field("email") String email,
             @Field("password") String password
     );
@@ -140,7 +130,7 @@ public interface Api {
     //not generate token
     @FormUrlEncoded
     @POST("api/login/user/cek")
-    Call<ResultUser> cekLoginUser(
+    Call<JsonObject> cekLoginUser(
             @Field("email") String email,
             @Field("password") String password
     );
@@ -148,7 +138,7 @@ public interface Api {
     //login admin
     @FormUrlEncoded
     @POST("api/login/admin")
-    Call<ResultUser> loginAdmin(
+    Call<JsonObject> loginAdmin(
             @Field("email") String email,
             @Field("password") String password
     );
@@ -169,13 +159,13 @@ public interface Api {
 
     //Unverify user
     @DELETE("api/users/{id}")
-    Call<ResultUser> deleteUser(
+    Call<JsonObject> deleteUser(
             @Path("id") int id
     );
 
     //Unverify project
     @DELETE("api/projects/{id}")
-    Call<ResultProject> deleteProject(
+    Call<JsonObject> deleteProject(
             @Path("id") int id
     );
 }

@@ -2,14 +2,21 @@ package com.qiscus.internship.sudutnegeri.ui.user;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
-import com.qiscus.internship.sudutnegeri.data.model.ResultUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.data.model.QiscusAccount;
+
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Vizyan on 1/14/2018.
@@ -24,28 +31,35 @@ public class UserPresenter {
     }
 
     public void getUserById(DataUser dataUser){
+        String tag = "User-getUserById";
         RetrofitClient.getInstance()
                 .getApi()
                 .getUser(dataUser.getId())
-                .enqueue(new Callback<ResultUser>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            ResultUser resultUser = response.body();
-                            DataUser dataUser = resultUser.getData();
+                            JsonObject body = response.body();
+                            JsonObject data = body.get("data").getAsJsonObject();
+                            DataUser dataUser = new Gson().fromJson(data, DataUser.class);
                             userView.successUserbyId(dataUser);
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            userView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultUser> call, Throwable t) {
-
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        userView.failed("Tidak ada koneksi");
+                        Log.e(tag, t.getMessage());
                     }
                 });
     }
 
     public void putUser(int id, String pname, String paddress, String pphone, String pverify){
-
+        String tag = "User-putUser";
         String name = pname;
         String address = paddress;
         String phone = pphone;
@@ -54,24 +68,51 @@ public class UserPresenter {
         RetrofitClient.getInstance()
                 .getApi()
                 .putUser(id, name, address, phone, verify)
-                .enqueue(new Callback<ResultUser>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            ResultUser resultUser = response.body();
-                            DataUser dataUser = resultUser.getData();
-                            userView.successPutUser(dataUser);
+                            JsonObject body = response.body();
+                            JsonObject data = body.get("data").getAsJsonObject();
+                            DataUser dataUser = new Gson().fromJson(data, DataUser.class);
+                            putUserQiscus(dataUser);
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            userView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultUser> call, Throwable t) {
-
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        userView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }
 
+    public void putUserQiscus(DataUser dataUser){
+        String tag = "User-putUserQiscus";
+
+        Qiscus.updateUser(dataUser.getName(), dataUser.getPhoto(), new Qiscus.SetUserListener() {
+            @Override
+            public void onSuccess(QiscusAccount qiscusAccount) {
+                //do anything after it successfully updated
+                userView.successPutUser(dataUser);
+                Log.d(tag, qiscusAccount.toString());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                //do anything if error occurs
+                userView.failed("Tidak ada koneksi");
+                Log.d(tag, throwable.getMessage());
+            }
+        });
+    }
+
     public void logout() {
+        String tag = "User-logout";
         String email = userView.getEmail();
         String password = userView.getPassword();
 
@@ -83,32 +124,42 @@ public class UserPresenter {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
                             userView.successLogout();
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            userView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        t.printStackTrace();
+                        userView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }
 
     public void unverifyUser(int id){
+        String tag = "User-unverifyUser";
         RetrofitClient.getInstance()
                 .getApi()
                 .deleteUser(id)
-                .enqueue(new Callback<ResultUser>() {
+                .enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onResponse(Call<ResultUser> call, Response<ResultUser> response) {
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
-                            ResultUser resultUser = response.body();
-                            userView.successUnverify(resultUser);
+                            userView.successUnverify();
+                            Log.d(tag, response.body().toString());
+                        } else {
+                            userView.failed("Maaf terjadi kesalahan");
+                            Log.d(tag, response.errorBody().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResultUser> call, Throwable t) {
-
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        userView.failed("Tidak ada koneksi");
+                        Log.d(tag, t.getMessage());
                     }
                 });
     }
