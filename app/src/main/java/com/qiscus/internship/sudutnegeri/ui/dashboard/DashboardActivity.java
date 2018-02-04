@@ -46,7 +46,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     String email, passwd;
     SwipeRefreshLayout swipeRefreshLayoutNegeri, swipeRefreshLayoutSudut;
     TabLayout tabLayout;
-    TextView tvToolbarTitle, tvDrawerName;
+    TextView tvToolbarTitle, tvDrawerName, tvDashboardSearch;
     Toolbar toolbar;
     ViewPager viewPager;
 

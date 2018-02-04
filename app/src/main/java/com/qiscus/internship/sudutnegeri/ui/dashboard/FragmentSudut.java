@@ -137,6 +137,8 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
         TextView textView = searchViewSudut.findViewById(id);
         textView.setTextColor(Color.WHITE);
 
+        searchViewSudut.setOnClickListener(v -> {searchViewSudut.setIconified(false);});
+
         searchViewSudut.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -167,7 +169,7 @@ public class FragmentSudut extends Fragment implements ProjectListener, Dashboar
     public void onProjectClick(DataProject dataProject) {
         Intent intent = new Intent(getActivity(), ProjectActivity.class);
         intent.putExtra(Constant.Extra.Project, dataProject);
-        intent.putExtra(Constant.Extra.param, "negeri");
+        intent.putExtra(Constant.Extra.param, "sudut");
         startActivity(intent);
     }
 

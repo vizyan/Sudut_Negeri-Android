@@ -132,6 +132,7 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
         TextView textView = svRecentSearch.findViewById(id);
         textView.setTextColor(Color.WHITE);
 
+        svRecentSearch.setOnClickListener(v -> svRecentSearch.setIconified(false));
         svRecentSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

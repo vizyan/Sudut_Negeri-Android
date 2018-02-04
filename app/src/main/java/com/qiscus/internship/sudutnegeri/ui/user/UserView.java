@@ -12,10 +12,6 @@ public interface UserView {
 
     String getPassword();
 
-    String getName();
-
-    String getPhone();
-
     void successUserbyId(DataUser dataUser);
 
     void successPutUser(DataUser dataUser);

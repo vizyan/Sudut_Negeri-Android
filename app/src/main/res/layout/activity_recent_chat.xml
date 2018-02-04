@@ -73,6 +73,7 @@
                 android:layout_marginBottom="25dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginStart="25dp"
+                android:queryHint="Cari projek"
                 android:background="@drawable/bg_rounded_trans_white"
                 android:queryBackground="@android:color/transparent"
                 android:submitBackground="@android:color/transparent"

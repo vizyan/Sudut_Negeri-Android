@@ -212,8 +212,11 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
     private void putUser() {
         btnUserSave.setOnClickListener(v ->  {
             initVariable();
-            initProgressDialog();
-            userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
+            validatePhone();
+            if (validatePhone()==true){
+                initProgressDialog();
+                userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
+            }
         });
     }
 
@@ -264,6 +267,24 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
 
     }
 
+    private boolean validatePhone(){
+        phone = etUserPhone.getText().toString();
+        int a = phone.length();
+        if(phone.isEmpty()){
+            etUserPhone.setHint("Isikan nomer HP");
+            etUserPhone.setBackgroundResource(R.drawable.bg_rounded_trans_red);
+            return false;
+        } else if (!(11 <= a && a <= 13)){
+            etUserPhone.setText("");
+            etUserPhone.setHint("Isikan nomer HP dengan benar");
+            etUserPhone.setBackgroundResource(R.drawable.bg_rounded_trans_red);
+            return false;
+        } else {
+            etUserPhone.setBackgroundResource(R.drawable.bg_rounded_solid_purple);
+            return true;
+        }
+    }
+
     @Override
     public String getEmail() {
         return email;
@@ -272,16 +293,6 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
     @Override
     public String getPassword() {
         return email;
-    }
-
-    @Override
-    public String getName() {
-        return etUserName.getText().toString();
-    }
-
-    @Override
-    public String getPhone() {
-        return etUserPhone.getText().toString();
     }
 
     @Override

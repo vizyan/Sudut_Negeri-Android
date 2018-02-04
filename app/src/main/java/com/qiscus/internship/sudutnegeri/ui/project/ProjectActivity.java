@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -33,6 +34,7 @@ import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.chat.ChatActivity;
+import com.qiscus.internship.sudutnegeri.ui.splashscreen.SplashscreenActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
 import com.squareup.picasso.Picasso;
@@ -56,6 +58,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
     private DataUser dataUser;
     private Animator mCurrentAnimatorEffect;
     private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
     private int mShortAnimationDurationEffect;
     Button btnProjectDonate;
     ConstraintLayout clProject;
@@ -127,6 +130,8 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         if (param.equalsIgnoreCase("admin")){
             btnProjectDonate.setText("Verifikasi");
             fabProjectUnverify.setVisibility(View.VISIBLE);
+        } else if (param.equalsIgnoreCase("sudut")){
+            btnProjectDonate.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -135,18 +140,32 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         progressBar.setProgress(dataProject.getFunds());
     }
 
+    private void initProgressDialog(String message){
+        progressDialog = new ProgressDialog(ProjectActivity.this);
+        progressDialog.setTitle(null);
+        progressDialog.setMessage(message);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
     private void putProject() {
         btnProjectDonate.setOnClickListener(v -> {
             if (param.equalsIgnoreCase("admin")){
+                initProgressDialog("Tunggu beberapa saat");
                 projectPresenter.putProject(dataProject);
             } else if (param.equalsIgnoreCase("negeri")){
+                initProgressDialog("Semoga rezekimu dilipatgandakan oleh-Nya");
                 initDonate(dataProject);
             }
         });
     }
 
     private void unverifyProject(){
-        fabProjectUnverify.setOnClickListener(v -> projectPresenter.unverifyProject(dataProject.getId()));
+        fabProjectUnverify.setOnClickListener(v -> {
+            initProgressDialog("Tunggu beberapa saat");
+            projectPresenter.unverifyProject(dataProject.getId());
+        });
     }
 
     private void chat() {
@@ -375,6 +394,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     @Override
     public void successPutProject(DataProject dataProject) {
+        progressDialog.dismiss();
         if (param.equalsIgnoreCase("admin")){
             popupWindow("success", param, "Verifikasi berhasil");
         } else {
@@ -390,6 +410,7 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     @Override
     public void successUnverify() {
+        progressDialog.dismiss();
         if (param.equalsIgnoreCase("admin")){
             popupWindow("success", param, "Projek telah ditolak");
         }
@@ -403,6 +424,8 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
 
     @Override
     public void failed(String s) {
-
+        if (progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
     }
 }

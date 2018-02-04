@@ -58,12 +58,8 @@ public class UserPresenter {
                 });
     }
 
-    public void putUser(int id, String pname, String paddress, String pphone, String pverify){
+    public void putUser(int id, String name, String address, String phone, String verify){
         String tag = "User-putUser";
-        String name = pname;
-        String address = paddress;
-        String phone = pphone;
-        String verify = pverify;
 
         RetrofitClient.getInstance()
                 .getApi()

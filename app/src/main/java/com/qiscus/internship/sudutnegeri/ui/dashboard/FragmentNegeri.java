@@ -111,6 +111,7 @@ public class FragmentNegeri extends Fragment implements DashboardView, ProjectLi
         TextView textView = searchViewNegeri.findViewById(id);
         textView.setTextColor(Color.WHITE);
 
+        searchViewNegeri.setOnClickListener(v -> {searchViewNegeri.setIconified(false);});
         searchViewNegeri.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
