@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
         initView();
         initNavigation();
         initDataIntent();
+        initDataPreference();
         initDataPresenter();
         initDataDrawer();
         initEditable();
@@ -92,6 +94,7 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
         String DataUser = preferences.getString("DataUser", "");
         dataUser = gson.fromJson(DataUser, DataUser.class);
         setData(dataUser);
+        Log.e("Ini prefrence", "Ini isinya "+dataUser);
     }
 
     private void savePreference(DataUser dataUser){
@@ -152,7 +155,7 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
     }
 
     private void initDataIntent() {
-        dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
+//        dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
         param = getIntent().getStringExtra(Constant.Extra.param);
         if (param.equalsIgnoreCase("admin")){
 
