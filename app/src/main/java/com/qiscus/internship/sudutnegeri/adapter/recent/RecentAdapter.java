@@ -9,6 +9,7 @@ import android.widget.Filterable;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
 
 import java.util.ArrayList;
@@ -23,11 +24,14 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder> implem
     private List<QiscusChatRoom> qiscusChatRooms;
     private List<QiscusChatRoom> qiscusChatRoomsFiltered;
     private RecentListener recentListener;
+    private DataUser dataUser;
 
-    public RecentAdapter(List<QiscusChatRoom> qiscusChatRooms){
+    public RecentAdapter(List<QiscusChatRoom> qiscusChatRooms, DataUser dataUser){
         this.qiscusChatRooms = qiscusChatRooms;
+        this.dataUser = dataUser;
         qiscusChatRoomsFiltered = qiscusChatRooms;
     }
+
     @Override
     public RecentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater
@@ -40,7 +44,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentViewHolder> implem
     @Override
     public void onBindViewHolder(RecentViewHolder holder, int position) {
         QiscusChatRoom qiscusChatRoom = qiscusChatRoomsFiltered.get(position);
-        holder.bind(qiscusChatRoom, recentListener);
+        holder.bind(qiscusChatRoom, recentListener, dataUser);
     }
 
     @Override

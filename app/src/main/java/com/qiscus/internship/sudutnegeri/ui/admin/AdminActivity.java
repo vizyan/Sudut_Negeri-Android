@@ -28,12 +28,6 @@ public class AdminActivity extends AppCompatActivity{
         setupToolbar();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
         tlAdmin = findViewById(R.id.tlAdmin);

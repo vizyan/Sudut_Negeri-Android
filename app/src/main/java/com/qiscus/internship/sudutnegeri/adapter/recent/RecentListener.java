@@ -12,5 +12,5 @@ public interface RecentListener {
 
     void setImage(ImageView ivRoomPhoto, String avatarUrl);
 
-    void onProjectClick(QiscusChatRoom qiscusChatRoom);
+    void onRecentClick(QiscusChatRoom qiscusChatRoom);
 }

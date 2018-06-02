@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+import com.qiscus.sdk.Qiscus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +35,7 @@ public class AboutPresenter {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if(response.isSuccessful()){
+                            Qiscus.clearUser();
                             aboutView.successLogout();
                             Log.d(tag, response.body().toString());
                         } else {

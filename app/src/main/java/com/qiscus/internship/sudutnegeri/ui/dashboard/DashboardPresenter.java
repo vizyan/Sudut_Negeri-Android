@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.data.network.RetrofitClient;
+import com.qiscus.sdk.Qiscus;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -101,6 +102,7 @@ public class DashboardPresenter {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
+                            Qiscus.clearUser();
                             dashboardView.successLogout();
                             Log.d(tag, response.body().toString());
                         } else {

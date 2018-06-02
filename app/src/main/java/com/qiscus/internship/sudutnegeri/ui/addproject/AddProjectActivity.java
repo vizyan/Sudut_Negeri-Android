@@ -26,7 +26,6 @@ import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.data.model.DataProject;
 import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
-import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.internship.sudutnegeri.util.Popup;
 
@@ -373,7 +372,7 @@ public class AddProjectActivity extends AppCompatActivity implements AddProjectV
     }
 
     @Override
-    public void PopupSuccess() {
+    public void PopupSuccess(String success) {
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -28,6 +28,8 @@ public class ViewPagerAdmin extends FragmentPagerAdapter {
             case 1:
                 fragment = FragmentVerifyProject.newInstance();
                 break;
+            default:
+                fragment = FragmentVerifyUser.newInstance();
         }
         return fragment;
     }

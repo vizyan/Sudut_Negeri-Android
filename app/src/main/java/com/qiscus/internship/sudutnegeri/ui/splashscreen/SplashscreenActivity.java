@@ -67,17 +67,16 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     private void initDataPresenter(){
         splashscreenPresenter.loginUser();
-        initProgressDialog();
     }
 
-    private void initProgressDialog(){
-        progressDialog = new ProgressDialog(SplashscreenActivity.this);
-        progressDialog.setTitle(null);
-        progressDialog.setMessage("Menyiapkan data");
-        progressDialog.setIndeterminate(false);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
+//    private void initProgressDialog(){
+//        progressDialog = new ProgressDialog(SplashscreenActivity.this);
+//        progressDialog.setTitle(null);
+//        progressDialog.setMessage("Menyiapkan data");
+//        progressDialog.setIndeterminate(false);
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
+//    }
 
     @Override
     public String getPassword() {
@@ -91,7 +90,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     @Override
     public void successUser(DataUser data) {
-        if (progressDialog.isShowing()) progressDialog.dismiss();
+//        if (progressDialog.isShowing()) progressDialog.dismiss();
         Intent login = new Intent(SplashscreenActivity.this, DashboardActivity.class);
         login.putExtra(Constant.Extra.DATA, data);
         startActivity(login);
@@ -100,7 +99,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     @Override
     public void failed(String s) {
-        if (progressDialog.isShowing()) progressDialog.dismiss();
+//        if (progressDialog.isShowing()) progressDialog.dismiss();
         Intent landing = new Intent(SplashscreenActivity.this, LandingActivity.class);
         startActivity(landing);
         finish();

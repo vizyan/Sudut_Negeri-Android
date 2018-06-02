@@ -2,6 +2,7 @@ package com.qiscus.internship.sudutnegeri.ui.chat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ public class ChatActivity extends QiscusBaseChatActivity {
     public ImageView back;
     public static TextView tvChatTitle, tvChatSubtitle;
     private QiscusCircularImageView qiscusCircularImageView;
+    private String email;
 
     public static Intent generateIntent(Context context, QiscusChatRoom qiscusChatRoom){
         Intent intent = new Intent(context, ChatActivity.class);
@@ -51,7 +53,14 @@ public class ChatActivity extends QiscusBaseChatActivity {
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
-        tvChatTitle.setText(qiscusChatRoom.getName());
+        SharedPreferences preferences = getSharedPreferences("LoginPreference", MODE_PRIVATE);
+        email = preferences.getString("email", "");
+        if (qiscusChatRoom.getDistinctId().equals(email +" "+email)){
+            tvChatTitle.setText("Diri sendiri");
+        } else {
+            tvChatTitle.setText(qiscusChatRoom.getName());
+        }
+
         Picasso.with(this)
                 .load(qiscusChatRoom.getAvatarUrl())
                 .into(qiscusCircularImageView);

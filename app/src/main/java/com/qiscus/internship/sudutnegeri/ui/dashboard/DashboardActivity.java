@@ -75,13 +75,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
             this.doubleBackToExit = true;
             Toast.makeText(this,"Tekan 2 kali untuk keluar", Toast.LENGTH_SHORT).show();
 
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExit = false;
-                }
-            }, 2000);
+            new Handler().postDelayed(()->
+                    doubleBackToExit = false, 2000);
         } else {
             super.onBackPressed();
             return;
@@ -262,7 +257,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
 
     @Override
     public void failed(String s) {
-
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
 }

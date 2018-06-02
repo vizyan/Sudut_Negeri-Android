@@ -23,17 +23,23 @@ import retrofit2.http.Path;
 
 public interface Api {
 
+    //Endpoint API Server
+
     @Headers("Content-Type: application/json")
 
+    //Get all user
     @GET("api/users")
     Call<JsonObject> getAllUser();
 
+    //Get all project
     @GET("api/projects")
     Call<JsonObject> getAllPorject();
 
+    //Get project by time
     @GET("api/landings")
     Call<JsonObject> getPorjectTime();
 
+    //Get all donation
     @GET("api/donation")
     Call<JsonObject> getDonation();
 
@@ -49,16 +55,19 @@ public interface Api {
             @Path("verify") String verify
     );
 
+    //Get detail user
     @GET("api/users/{id}")
     Call<JsonObject> getUser(
             @Path("id") int id
     );
 
+    //Get detail project
     @GET("api/projects/{id}")
     Call<JsonObject> getProject(
             @Path("id") int id
     );
 
+    //Get creator project
     @GET("api/details/creator/{id}")
     Call<JsonObject> getProjectByUser(
             @Path("id") int id
@@ -90,6 +99,7 @@ public interface Api {
             @Field("funds") int funds
     );
 
+    //Add user
     @FormUrlEncoded
     @POST("api/register")
     Call<JsonObject> register(
@@ -104,6 +114,7 @@ public interface Api {
             @Field("photo") String photo
     );
 
+    //Add project
     @FormUrlEncoded
     @POST("api/projects")
     Call<JsonObject> postProject(
@@ -118,8 +129,8 @@ public interface Api {
             @Field("target_funds") int target_funds
     );
 
-    //login user
-    //generate token
+    //Login user
+    //Generate token
     @FormUrlEncoded
     @POST("api/login/user")
     Call<JsonObject> loginUser(
@@ -127,7 +138,8 @@ public interface Api {
             @Field("password") String password
     );
 
-    //not generate token
+    //Login user
+    //Not generate token
     @FormUrlEncoded
     @POST("api/login/user/cek")
     Call<JsonObject> cekLoginUser(
@@ -135,7 +147,7 @@ public interface Api {
             @Field("password") String password
     );
 
-    //login admin
+    //Login admin
     @FormUrlEncoded
     @POST("api/login/admin")
     Call<JsonObject> loginAdmin(
@@ -143,6 +155,7 @@ public interface Api {
             @Field("password") String password
     );
 
+    //Upload file (Image)
     @Multipart
     @POST("images/ImageUpload.php")
     Call<UploadObject> uploadFile(
@@ -150,6 +163,7 @@ public interface Api {
             @Part("name") RequestBody name
     );
 
+    //Logout
     @FormUrlEncoded
     @POST("api/logout")
     Call<JsonObject> logout(
@@ -157,13 +171,13 @@ public interface Api {
             @Field("password") String password
     );
 
-    //Unverify user
+    //Delete (unverify) user
     @DELETE("api/users/{id}")
     Call<JsonObject> deleteUser(
             @Path("id") int id
     );
 
-    //Unverify project
+    //Delete (unverify) project
     @DELETE("api/projects/{id}")
     Call<JsonObject> deleteProject(
             @Path("id") int id

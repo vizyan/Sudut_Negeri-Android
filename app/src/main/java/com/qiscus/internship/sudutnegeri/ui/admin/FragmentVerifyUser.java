@@ -1,6 +1,7 @@
 package com.qiscus.internship.sudutnegeri.ui.admin;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -132,11 +133,11 @@ public class FragmentVerifyUser extends Fragment implements UserListener, AdminV
 
     @Override
     public void failedShowUser(String s) {
-
+        Toast.makeText(getActivity(), "Maaf terjadi kesalahan", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void failedShowProject(String message) {
-
+        Toast.makeText(getActivity(), "Maaf terjadi kesalahan", Toast.LENGTH_SHORT).show();
     }
 }

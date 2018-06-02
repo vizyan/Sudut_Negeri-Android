@@ -1,17 +1,23 @@
 package com.qiscus.internship.sudutnegeri.adapter.recent;
 
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.internship.sudutnegeri.data.model.DataUser;
+import com.qiscus.sdk.data.model.QiscusAccount;
 import com.qiscus.sdk.data.model.QiscusChatRoom;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Vizyan on 2/1/2018.
@@ -21,6 +27,7 @@ class RecentViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivRoomPhoto, ivRoomUnread;
     private TextView tvRoomName, tvRoomLastChat, tvRoomDate, tvRoomUnread;
     private LinearLayout llRoom;
+    private QiscusChatRoom qiscusRoom;
 
     public RecentViewHolder(View itemView) {
         super(itemView);
@@ -37,7 +44,7 @@ class RecentViewHolder extends RecyclerView.ViewHolder {
         llRoom = view.findViewById(R.id.llRoom);
     }
 
-    public void bind(QiscusChatRoom qiscusChatRoom, RecentListener recentListener) {
+    public void bind(QiscusChatRoom qiscusChatRoom, RecentListener recentListener, DataUser dataUser) {
         int count = qiscusChatRoom.getUnreadCount();
         String latestConversation = qiscusChatRoom.getLastComment().getMessage();
         String newlatestConversation = latestConversation;
@@ -66,12 +73,17 @@ class RecentViewHolder extends RecyclerView.ViewHolder {
             newlatestConversation = builder.substring(0, 24) + " ...";
         }
 
-        tvRoomName.setText(qiscusChatRoom.getName());
+        if (qiscusChatRoom.getDistinctId().equals(dataUser.getEmail() + " " +dataUser.getEmail())){
+            tvRoomName.setText("Diri sendiri");
+        } else {
+            tvRoomName.setText(qiscusChatRoom.getName());
+        }
+        Log.d("INI ID", qiscusChatRoom.getUniqueId());
         tvRoomLastChat.setText(newlatestConversation);
         tvRoomDate.setText(finalDateFormat);
         tvRoomUnread.setText(String.valueOf(count));
         recentListener.setImage(ivRoomPhoto, qiscusChatRoom.getAvatarUrl());
 
-        llRoom.setOnClickListener(v -> recentListener.onProjectClick(qiscusChatRoom));
+        llRoom.setOnClickListener(v -> recentListener.onRecentClick(qiscusChatRoom));
     }
 }

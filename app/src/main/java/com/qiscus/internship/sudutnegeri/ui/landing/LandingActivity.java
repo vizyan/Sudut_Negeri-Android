@@ -49,13 +49,13 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initPresenter();
+        initDataPresenter();
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_landing);
         setTitle("");
-        initPresenter();
         initView();
-        initDataPresenter();
         initAdapter();
         setupToolbar();
         setSupportActionBar(toolbar);
@@ -133,7 +133,7 @@ public class LandingActivity extends AppCompatActivity implements LandingView, P
 
     @Override
     public void failed(String s) {
-
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     @Override

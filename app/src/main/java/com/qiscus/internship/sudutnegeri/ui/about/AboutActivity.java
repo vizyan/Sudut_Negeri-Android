@@ -9,7 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -107,39 +109,68 @@ public class AboutActivity extends AppCompatActivity implements AboutView{
     }
 
     private void initNavigation() {
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                if(menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
 
-                drawerLayout.closeDrawers();
-                switch (menuItem.getItemId()){
-                    case R.id.navigation1:
-                        Intent dashboard = new Intent(AboutActivity.this, DashboardActivity.class);
-                        dashboard.putExtra(Constant.Extra.DATA, dataUser);
-                        startActivity(dashboard);
-                        finish();
-                        return false;
-                    case R.id.navigation2:
-                        Intent userDetail = new Intent(AboutActivity.this, UserActivity.class);
-                        userDetail.putExtra(Constant.Extra.DATA, dataUser);
-                        userDetail.putExtra(Constant.Extra.param, "user");
-                        startActivity(userDetail);
-                        finish();
-                        return false;
-                    case R.id.navigation3:
-                        Toast.makeText(getApplicationContext(),"Anda Berada di Tentang Kami",Toast.LENGTH_SHORT).show();
-                        return true;
-                    default:
-                        return false;
-                }
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            if(menuItem.isChecked()) menuItem.setChecked(false);
+            else menuItem.setChecked(true);
+
+            drawerLayout.closeDrawers();
+            switch (menuItem.getItemId()){
+                case R.id.navigation1:
+                    Intent dashboard = new Intent(AboutActivity.this, DashboardActivity.class);
+                    dashboard.putExtra(Constant.Extra.DATA, dataUser);
+                    startActivity(dashboard);
+                    finish();
+                    return false;
+                case R.id.navigation2:
+                    Intent userDetail = new Intent(AboutActivity.this, UserActivity.class);
+                    userDetail.putExtra(Constant.Extra.DATA, dataUser);
+                    userDetail.putExtra(Constant.Extra.param, "user");
+                    startActivity(userDetail);
+                    finish();
+                    return false;
+                case R.id.navigation3:
+                    Toast.makeText(getApplicationContext(),"Anda Berada di Tentang Kami",Toast.LENGTH_SHORT).show();
+                    return true;
+                default:
+                    return false;
             }
         });
+
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                if(menuItem.isChecked()) menuItem.setChecked(false);
+//                else menuItem.setChecked(true);
+//
+//                drawerLayout.closeDrawers();
+//                switch (menuItem.getItemId()){
+//                    case R.id.navigation1:
+//                        Intent dashboard = new Intent(AboutActivity.this, DashboardActivity.class);
+//                        dashboard.putExtra(Constant.Extra.DATA, dataUser);
+//                        startActivity(dashboard);
+//                        finish();
+//                        return false;
+//                    case R.id.navigation2:
+//                        Intent userDetail = new Intent(AboutActivity.this, UserActivity.class);
+//                        userDetail.putExtra(Constant.Extra.DATA, dataUser);
+//                        userDetail.putExtra(Constant.Extra.param, "user");
+//                        startActivity(userDetail);
+//                        finish();
+//                        return false;
+//                    case R.id.navigation3:
+//                        Toast.makeText(getApplicationContext(),"Anda Berada di Tentang Kami",Toast.LENGTH_SHORT).show();
+//                        return true;
+//                    default:
+//                        return false;
+//                }
+//            }
+//        });
     }
 
     private void initDataIntent() {
         dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
+        Log.e("Ini data", ""+dataUser.toString());
         if (dataUser == null) finish();
     }
 
@@ -156,11 +187,14 @@ public class AboutActivity extends AppCompatActivity implements AboutView{
         btnDrawerLogout.setOnClickListener(v ->  {
             AlertDialog.Builder builder = new AlertDialog.Builder(AboutActivity.this);
             builder.setMessage("Apakah kalian yakin ingin keluar ?");
-            builder.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface dialog, int which){
-                    aboutPresenter.logout();
-                }
-            });
+            builder.setPositiveButton("Ya", (dialog, which) -> aboutPresenter.logout());
+//
+//            builder.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
+//                public void onClick(DialogInterface dialog, int which){
+//                    aboutPresenter.logout();
+//                }
+//            });
+
             builder.setNegativeButton("Tidak", null);
             builder.show();
         });

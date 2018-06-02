@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.adapter.project.ProjectAdapter;
@@ -103,12 +104,12 @@ public class FragmentVerifyProject extends Fragment implements ProjectListener, 
 
     @Override
     public void failedShowUser(String s) {
-
+        Toast.makeText(getActivity(), "Maaf, terjadi kesalahan", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void failedShowProject(String message) {
-
+        Toast.makeText(getActivity(), "Maaf, terjadi kesalahan", Toast.LENGTH_SHORT).show();
     }
 
     @Override

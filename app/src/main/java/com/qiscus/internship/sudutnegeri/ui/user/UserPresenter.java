@@ -119,6 +119,7 @@ public class UserPresenter {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()){
+                            Qiscus.clearUser();
                             userView.successLogout();
                             Log.d(tag, response.body().toString());
                         } else {

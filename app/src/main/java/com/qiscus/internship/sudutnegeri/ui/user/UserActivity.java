@@ -12,15 +12,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +27,6 @@ import com.qiscus.internship.sudutnegeri.ui.about.AboutActivity;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
-import com.qiscus.internship.sudutnegeri.ui.splashscreen.SplashscreenActivity;
 import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.internship.sudutnegeri.util.Popup;
@@ -60,7 +55,7 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
         initView();
         initNavigation();
         initDataIntent();
-        initDataPreference();
+//        initDataPreference();
         initDataPresenter();
         initDataDrawer();
         initEditable();
@@ -87,14 +82,19 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
     }
 
     private void initDataPreference(){
-        Gson gson = new Gson();
-        SharedPreferences preferences = getSharedPreferences("LoginPreference", MODE_PRIVATE);
-        email = preferences.getString("email", "");
-        passwd = preferences.getString("password", "");
-        String DataUser = preferences.getString("DataUser", "");
-        dataUser = gson.fromJson(DataUser, DataUser.class);
-        setData(dataUser);
-        Log.e("Ini prefrence", "Ini isinya "+dataUser);
+        if (param.equalsIgnoreCase("admin")){
+
+        } else {
+            Gson gson = new Gson();
+            SharedPreferences preferences = getSharedPreferences("LoginPreference", MODE_PRIVATE);
+            email = preferences.getString("email", "");
+            passwd = preferences.getString("password", "");
+            String DataUser = preferences.getString("DataUser", "");
+            dataUser = gson.fromJson(DataUser, DataUser.class);
+            setData();
+            Log.e("Ini preference", "Ini isinya "+dataUser);
+        }
+        Log.e("Admin", "Ini admin " + param);
     }
 
     private void savePreference(DataUser dataUser){
@@ -155,14 +155,14 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
     }
 
     private void initDataIntent() {
-//        dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
+        dataUser = getIntent().getParcelableExtra(Constant.Extra.DATA);
         param = getIntent().getStringExtra(Constant.Extra.param);
-        if (param.equalsIgnoreCase("admin")){
-
-        } else {
-            initDataPreference();
-        }
+//        if (param.equalsIgnoreCase("admin")){
+//        } else {
+//            initDataPreference();
+//        }
         if (param == null) finish();
+        Log.d("Data Intent", ""+param+" sama "+dataUser);
     }
 
     private void initDataPresenter(){
@@ -230,7 +230,7 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
         });
     }
 
-    private void setData(DataUser dataUser){
+    private void setData(){
         etUserName.setText(dataUser.getName());
         etUserEmail.setText(dataUser.getEmail());
         etUserIdNumber.setText(dataUser.getIdentityNumber());
@@ -313,7 +313,7 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
     @Override
     public void successUserbyId(DataUser dataUser) {
         progressDialog.dismiss();
-        setData(dataUser);
+        setData();
     }
 
     @Override
@@ -338,7 +338,7 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
     }
 
     @Override
-    public void PopupSuccess() {
+    public void PopupSuccess(String success) {
         if (param.equalsIgnoreCase("admin")){
             new Handler().postDelayed(new Runnable() {
                 @Override

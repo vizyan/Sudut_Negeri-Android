@@ -1,7 +1,8 @@
 package com.qiscus.internship.sudutnegeri.util;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
-import com.qiscus.internship.sudutnegeri.ui.splashscreen.SplashscreenActivity;
 
 /**
  * Created by Vizyan on 2/3/2018.
@@ -35,23 +35,27 @@ public class Popup {
                 View layout = inflater.inflate(R.layout.layout_popup_success, null);
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
                 pw.setOutsideTouchable(true);
+                pw.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
                 tvPopupType = layout.findViewById(R.id.tvPopupSType);
                 tvPopupMsg = layout.findViewById(R.id.tvPopupSMsg);
                 tvPopupType.setText("Berhasil");
                 tvPopupMsg.setText(message);
 
-                popupListener.PopupSuccess();
+                popupListener.PopupSuccess("success");
+
 
             } else {
                 View layout = inflater.inflate(R.layout.layout_popup_failed, null);
                 final PopupWindow pw = new PopupWindow(layout, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
                 pw.setOutsideTouchable(true);
+                pw.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
                 tvPopupMsg = layout.findViewById(R.id.tvPopupFMsg);
                 tvPopupType = layout.findViewById(R.id.tvPopupFType);
                 tvPopupType.setText("Gagal");
                 tvPopupMsg.setText(message);
+                popupListener.PopupSuccess("failed");
             }
         } catch (Exception e) {
             Log.d(tag, e.getMessage());
@@ -59,7 +63,7 @@ public class Popup {
     }
 
     public interface PopupListener {
-        void PopupSuccess();
+        void PopupSuccess(String success);
 
     }
 }

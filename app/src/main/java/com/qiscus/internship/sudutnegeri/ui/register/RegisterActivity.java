@@ -2,18 +2,13 @@ package com.qiscus.internship.sudutnegeri.ui.register;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -23,19 +18,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qiscus.internship.sudutnegeri.Manifest;
 import com.qiscus.internship.sudutnegeri.R;
 import com.qiscus.internship.sudutnegeri.ui.landing.LandingActivity;
 import com.qiscus.internship.sudutnegeri.ui.login.LoginActivity;
@@ -43,15 +32,11 @@ import com.qiscus.internship.sudutnegeri.util.CircleTransform;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.internship.sudutnegeri.util.Popup;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.List;
 import java.util.Random;
-
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView, Popup.PopupListener{
 
@@ -470,7 +455,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView,
     }
 
     @Override
-    public void PopupSuccess() {
+    public void PopupSuccess(String success) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

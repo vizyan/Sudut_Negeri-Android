@@ -6,7 +6,6 @@ package com.qiscus.internship.sudutnegeri.util;
 
 public class Constant {
 
-    public static final String BASE_URL_QISCUS = "http://sudut-neg-nwpbjfivgtc.qicsus.com/";
     public static final String BASE_URL_USER = "http://vizyan.xyz/";
     public static String QISCUS_APP_ID = "sudut-neg-nzaxnmjvgcy";
     public static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";

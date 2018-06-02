@@ -8,17 +8,11 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -27,17 +21,8 @@ import com.qiscus.internship.sudutnegeri.data.model.DataUser;
 import com.qiscus.internship.sudutnegeri.ui.admin.AdminActivity;
 import com.qiscus.internship.sudutnegeri.ui.register.RegisterActivity;
 import com.qiscus.internship.sudutnegeri.ui.dashboard.DashboardActivity;
-import com.qiscus.internship.sudutnegeri.ui.splashscreen.SplashscreenActivity;
 import com.qiscus.internship.sudutnegeri.util.Constant;
 import com.qiscus.internship.sudutnegeri.util.Popup;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import retrofit2.HttpException;
 
 public class LoginActivity extends AppCompatActivity implements LoginView, Popup.PopupListener {
 
@@ -235,7 +220,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Popup
     }
 
     @Override
-    public void PopupSuccess() {
+    public void PopupSuccess(String success) {
 
     }
 }

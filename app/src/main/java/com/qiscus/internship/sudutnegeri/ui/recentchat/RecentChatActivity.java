@@ -112,6 +112,9 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
 
         tvRecentUName.setText(dataUser.getName());
         tvRecentUEmail.setText(dataUser.getEmail());
+        if (dataUser.getEmail().matches("snqiscus@gmail.com")){
+            btnRecentAdmin.setVisibility(View.GONE);
+        }
     }
 
     private void initAdapter() {
@@ -156,7 +159,7 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
 
     @Override
     public void successRoomList(List<QiscusChatRoom> qiscusChatRooms) {
-        recentAdapter = new RecentAdapter(qiscusChatRooms);
+        recentAdapter = new RecentAdapter(qiscusChatRooms, dataUser);
         srlRecentChat.setRefreshing(false);
         this.qiscusChatRooms = qiscusChatRooms;
         if (qiscusChatRooms.size()>0){
@@ -192,7 +195,7 @@ public class RecentChatActivity extends AppCompatActivity implements RecentChatV
     }
 
     @Override
-    public void onProjectClick(QiscusChatRoom qiscusChatRoom) {
+    public void onRecentClick(QiscusChatRoom qiscusChatRoom) {
         recentChatPresenter.chatUser(qiscusChatRoom);
     }
 
