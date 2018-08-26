@@ -323,7 +323,11 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                         rlBigPhoto.setVisibility(View.GONE);
                         ivBigPhoto.setVisibility(View.GONE);
                         fabProjectChat.setVisibility(View.VISIBLE);
-                        btnProjectDonate.setVisibility(View.VISIBLE);
+                        if (param.equalsIgnoreCase("sudut")){
+                            btnProjectDonate.setVisibility(View.INVISIBLE);
+                        } else {
+                            btnProjectDonate.setVisibility(View.VISIBLE);
+                        }
                         if (param.equalsIgnoreCase("admin")){
                             fabProjectUnverify.setVisibility(View.VISIBLE);
                         }
