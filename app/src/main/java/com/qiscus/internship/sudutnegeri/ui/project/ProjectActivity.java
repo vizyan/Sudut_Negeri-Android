@@ -323,8 +323,10 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
                         rlBigPhoto.setVisibility(View.GONE);
                         ivBigPhoto.setVisibility(View.GONE);
                         fabProjectChat.setVisibility(View.VISIBLE);
+
                         if (param.equalsIgnoreCase("sudut")){
                             btnProjectDonate.setVisibility(View.INVISIBLE);
+
                         } else {
                             btnProjectDonate.setVisibility(View.VISIBLE);
                         }
@@ -431,5 +433,10 @@ public class ProjectActivity extends AppCompatActivity implements ProjectView {
         if (progressDialog.isShowing()){
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void failedChat(String s) {
+        Toast.makeText(this, "Tidak dapat chating dengan diri sendiri", Toast.LENGTH_SHORT).show();
     }
 }
