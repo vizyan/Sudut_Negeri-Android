@@ -23,4 +23,6 @@ public interface ProjectView {
     void successChatUser(QiscusChatRoom qiscusChatRoom);
 
     void failed(String s);
+
+    void failedChat(String s);
 }

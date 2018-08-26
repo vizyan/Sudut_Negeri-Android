@@ -58,7 +58,7 @@ public class UserPresenter {
                 });
     }
 
-    public void putUser(int id, String name, String address, String phone, String verify){
+    public void putUser(int id, String name, String address, String phone, String verify, String param){
         String tag = "User-putUser";
 
         RetrofitClient.getInstance()
@@ -71,7 +71,12 @@ public class UserPresenter {
                             JsonObject body = response.body();
                             JsonObject data = body.get("data").getAsJsonObject();
                             DataUser dataUser = new Gson().fromJson(data, DataUser.class);
-                            putUserQiscus(dataUser);
+                            String user = "user";
+                            if (param.equalsIgnoreCase(user)){
+                                putUserQiscus(dataUser);
+                            } else {
+                                userView.successPutUser(dataUser);
+                            }
                             Log.d(tag, response.body().toString());
                         } else {
                             userView.failed("Maaf terjadi kesalahan");

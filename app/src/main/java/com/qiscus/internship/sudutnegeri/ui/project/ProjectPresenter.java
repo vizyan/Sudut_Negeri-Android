@@ -148,7 +148,7 @@ public class ProjectPresenter {
 
                     @Override
                     public void onError(Throwable throwable) {
-                        projectView.failed("Tidak ada koneksi");
+                        projectView.failedChat(throwable.getMessage().toString());
                         Log.d(tag, throwable.getMessage());
                     }
                 });

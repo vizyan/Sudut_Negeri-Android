@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.qiscus.internship.sudutnegeri.R;
+import com.qiscus.sdk.Qiscus;
 
 public class AdminActivity extends AppCompatActivity{
 
@@ -97,5 +98,11 @@ public class AdminActivity extends AppCompatActivity{
         viewPager.setOffscreenPageLimit(2);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlAdmin));
         tlAdmin.setTabsFromPagerAdapter(viewPagerAdmin);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Qiscus.clearUser();
     }
 }

@@ -218,7 +218,11 @@ public class UserActivity extends AppCompatActivity implements UserView, Popup.P
             validatePhone();
             if (validatePhone()==true){
                 initProgressDialog();
-                userPresenter.putUser(dataUser.getId(),name, address, phone, "yes" );
+                if (param.equalsIgnoreCase("admin")){
+                    userPresenter.putUser(dataUser.getId(),name, address, phone, "yes", "admin" );
+                } else {
+                    userPresenter.putUser(dataUser.getId(),name, address, phone, "yes", "user" );
+                }
             }
         });
     }
